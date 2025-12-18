@@ -7,5 +7,6 @@ public class Main {
       ;
       Login l = new Login();
       l.login();
+        System.out.println("Dinosaur");
     }
 }
