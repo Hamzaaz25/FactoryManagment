@@ -1,11 +1,11 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-import java.util.Queue;
+
+import java.util.ArrayList;
+
 
 public class ProductLine {
     private int Id;
     private String name;
-    private String status ;
-    private Queue<Task> lineTask = new ArrayDeque<>();
+    private Status status ;
+    private ArrayList<Task> lineTask = new ArrayList<>();
 
 }

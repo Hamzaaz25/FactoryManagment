@@ -27,8 +27,13 @@ public class User {
 
     }
 
- public boolean isEqual( User user2){
-        if(this.getUsername().equalsIgnoreCase(user2.getUsername()) && this.getPassword().equalsIgnoreCase(user2.getPassword()))
+public boolean isEmailEquals(User user2){
+        return this.getUsername().equals(user2.getUsername());
+}
+
+
+ public boolean isPassEqual( User user2){
+        if(this.getPassword().equals(user2.getPassword()))
             return true;
         return false;
     }

@@ -1,11 +1,12 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 
 public class DataReader {
 
-    public static ArrayList<?> readCSV(String path ){
+    public  ArrayList<GenericArrayType> readCSV(String path ){
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
             String line;
