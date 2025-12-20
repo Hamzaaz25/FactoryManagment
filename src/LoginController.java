@@ -2,7 +2,7 @@ public class LoginController {
 
 //TIP Amin
 
-//    Login l = new Login();
+//    LoginModel l = new LoginModel();
 //    LoginResult p = l.authenticate("", "hamza13");
 //        if (p == LoginResult.Success)
 //            System.out.println("Success");

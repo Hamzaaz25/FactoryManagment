@@ -1,5 +1,5 @@
-username , password , Role
-hamza@gmail.com, hamza123, Manager
-amin@gmail.com, amin123, Supervisor
-mariam@gmail.com , mm1234 , Supervisor
-Mustafa@gmail.com , m112 ,Supervisor
+Username , Email , password , Role
+Hamza, hamza@gmail.com, hamza123, Manager
+Amin   , amin@gmail.com, amin123, Supervisor
+Mariam , mariam@gmail.com , mm1234 , Supervisor
+Mustafa  , Mustafa@gmail.com , m112 , Supervisor

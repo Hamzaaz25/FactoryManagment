@@ -1,5 +1,6 @@
 public class User {
     private String username;
+    private String email;
     private String password;
     private Role role;
 
@@ -15,20 +16,30 @@ public class User {
         return role;
     }
 
-    public User(String username, String password , Role r) {
-        this.username = username;
+    public String getEmail() {
+        return email;
+    }
+
+    public User(String email, String password , Role r) {
+        this.email = email;
         this.password = password;
         this.role = r;
     }
 
-    public User(String username, String password ) {
+    public User(String username, String email, String password, Role role) {
         this.username = username;
+        this.email = email;
         this.password = password;
+        this.role = role;
+    }
 
+    public User(String email, String password ) {
+        this.email = email;
+        this.password = password;
     }
 
 public boolean isEmailEquals(User user2){
-        return this.getUsername().equals(user2.getUsername());
+        return this.getEmail().equals(user2.getEmail());
 }
 
 

@@ -10,17 +10,18 @@ public class LoginModel {
        this.listOfUsers= DataReader.readUsers("./Files/Users.csv");
     }
 
-    public LoginResult authenticate(String tempUser , String tempPass) {
-        if (tempUser.isEmpty() || tempPass.isEmpty())
+    public LoginResult authenticate(String tempEmail , String tempPass) {
+        if (tempEmail.isEmpty() || tempPass.isEmpty())
             return LoginResult.Empty;
-        if(!tempUser.contains("@"))
+        if(!tempEmail.contains("@"))
             return LoginResult.InvalidEmail;
-        User temp = new User(tempUser, tempPass);
+        User temp = new User(tempEmail, tempPass);
         for (User u : this.listOfUsers) {
 
             if (u.isEmailEquals(temp)) {
                 if (u.isPassEqual(temp)) {
                     this.LoggedUser = u;
+                    System.out.println("Welcome " + u.getUsername());
                     return LoginResult.Success;
                 } else {
                     return LoginResult.IncorrectPassword;

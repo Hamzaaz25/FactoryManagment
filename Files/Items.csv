@@ -1,0 +1,4 @@
+id , name , type, price ,available
+1 , oak , Wood ,5 ,200
+2 , silk ,Fabric , 12 , 500
+3 , cotton ,Fabric, 7 ,400
