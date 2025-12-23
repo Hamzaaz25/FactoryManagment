@@ -1,3 +1,4 @@
+import Enums.LoginResult;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -13,7 +14,7 @@ public class LoginModel {
     public LoginResult authenticate(String tempEmail , String tempPass) {
         if (tempEmail.isEmpty() || tempPass.isEmpty())
             return LoginResult.Empty;
-        if(!tempEmail.contains("@"))
+        if(!this.emailValid(tempEmail))
             return LoginResult.InvalidEmail;
         User temp = new User(tempEmail, tempPass);
         for (User u : this.listOfUsers) {
@@ -37,6 +38,10 @@ public class LoginModel {
         if(this.LoggedUser != null)
            return LoggedUser;
         return null;
+    }
+
+    private boolean emailValid(String email){
+        return email.matches("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{3,6}$");
     }
 
 

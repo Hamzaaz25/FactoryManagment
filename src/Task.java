@@ -1,3 +1,5 @@
+import Enums.TaskStatus;
+
 import java.util.Date;
 
 public class Task {

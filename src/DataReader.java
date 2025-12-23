@@ -1,3 +1,8 @@
+import Enums.MaterialType;
+import Enums.Role;
+import Enums.Status;
+import Enums.TaskStatus;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -93,8 +98,9 @@ public class DataReader {
                 MaterialType type = MaterialType.valueOf(row[2].trim());
                 double price = Double.parseDouble(row[3].trim());
                 int available = Integer.parseInt(row[4].trim());
+                int miniAllowed = Integer.parseInt(row[5].trim());
 
-                Item item = new Item( name,type ,price , available );
+                Item item = new Item(name ,price , available,type ,miniAllowed);
                 listOfItems.add(item);
 
 
@@ -170,29 +176,15 @@ public static ArrayList<Product> loadProducts(String path){
                 }
 
                 String[] row = line.split(",");
-                int productLineNumber = Integer.parseInt(row[0].trim());
+//                int productLineNumber = Integer.parseInt(row[0].trim());
                 String name = row[1].trim();
                 Status s = Status.valueOf(row[2].trim());
-                ArrayList<Task> tasks = new ArrayList<>();
-                for(int i=4 ; i< row.length ;i+=9){
-                    int taskNumber = Integer.parseInt(row[i].trim());
-                    System.out.println("h");
+                ArrayList<Integer> tasksNumbers = new ArrayList<>();
+                for(int i=4 ; i< row.length ;i++){
+                    tasksNumbers.add(Integer.parseInt(row[i].trim()));
 
-                    String requestedProduct = row[i+1].trim();
-                    System.out.println("h");
-
-                    int quantity = Integer.parseInt(row[i+2].trim());
-
-
-                    String client = row[i+3].trim();
-                    Date start = new Date(row[i+4].trim());
-                    Date end = new Date(row[i+5].trim());
-                    TaskStatus tstatus = TaskStatus.valueOf(row[i+6].trim());
-                    int progress = Integer.parseInt(row[i+8].trim());
-                    Task task = new Task(taskNumber ,requestedProduct ,quantity,client,start,end ,tstatus ,productLineNumber ,progress);
-                    tasks.add(task);
                 }
-                ProductLine pl = new ProductLine(productLineNumber,name,s,tasks);
+                ProductLine pl = new ProductLine(name,s,tasksNumbers);
                 listOfProductLines.add(pl);
 
 
@@ -201,7 +193,7 @@ public static ArrayList<Product> loadProducts(String path){
         }
         catch (IOException e) {
 
-            System.out.println("h");
+            System.out.println(e.getCause());
             return listOfProductLines;
         }catch (IllegalArgumentException il){
             System.out.println("Not valid file content");
@@ -209,5 +201,57 @@ public static ArrayList<Product> loadProducts(String path){
         }
     }
 
+    public static ArrayList<Task> readTasks(String path) {
+        ArrayList<Task> listOfTasks = new ArrayList<>();
+        try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+
+            String line;
+            boolean skipFirst = true;
+
+            while ((line = br.readLine()) != null) {
+
+                if (skipFirst) {
+                    skipFirst = false;
+                    continue;
+                }
+
+                String[] row = line.split(",");
+                int taskNumber = Integer.parseInt(row[0].trim());
+                String requestedProduct = row[1].trim();
+                int quantity = Integer.parseInt(row[2].trim());
+                String client = row[3].trim();
+                Date start = new Date(row[4].trim());
+                Date end = new Date(row[5].trim());
+                TaskStatus tstatus = TaskStatus.valueOf(row[6].trim());
+                int productLineNumber = Integer.parseInt(row[7].trim());
+                int progress = Integer.parseInt(row[8].trim());
+                Task task = new Task(taskNumber ,requestedProduct,quantity,client,start,end,tstatus,productLineNumber,progress );
+                listOfTasks.add(task);
+            }
+            return listOfTasks;
+        }
+        catch (IOException e) {
+
+            System.out.println(e.toString());
+            return listOfTasks;
+        }catch (IllegalArgumentException il){
+            System.out.println("Not valid file content");
+            return new ArrayList<>();
+        }
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
 

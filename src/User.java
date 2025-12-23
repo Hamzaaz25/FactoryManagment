@@ -1,3 +1,5 @@
+import Enums.Role;
+
 public class User {
     private String username;
     private String email;

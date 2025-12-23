@@ -1,4 +1,5 @@
-id , name , type, price ,available
-1 , oak , Wood ,5 ,200
-2 , silk ,Fabric , 12 , 500
-3 , cotton ,Fabric, 7 ,400
+id , name ,price ,material , available ,Minimum Allowed
+1 , oak , Wood , 5.0 , 200,20
+2 , silk , Fabric , 12.0 , 500,20
+3 , cotton , Fabric , 7.0 , 400,30
+4 , zan , Wood , 5.0 , 400,10

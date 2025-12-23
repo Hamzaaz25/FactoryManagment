@@ -3,15 +3,15 @@ public class LoginController {
 //TIP Amin
 
 //    LoginModel l = new LoginModel();
-//    LoginResult p = l.authenticate("", "hamza13");
-//        if (p == LoginResult.Success)
+//    Enums.LoginResult p = l.authenticate("", "hamza13");
+//        if (p == Enums.LoginResult.Success)
 //            System.out.println("Success");
-//        else if (p == LoginResult.UserNotFound)
+//        else if (p == Enums.LoginResult.UserNotFound)
 //            System.out.println("User not found");
-//        else if (p == LoginResult.IncorrectPassword)
+//        else if (p == Enums.LoginResult.IncorrectPassword)
 //            System.out.println("Incorrect Password");
-//        else if (p == LoginResult.Empty)
+//        else if (p == Enums.LoginResult.Empty)
 //            System.out.println("Email Or Password cannot be empty");
-//        else if(p==LoginResult.InvalidEmail)
+//        else if(p==Enums.LoginResult.InvalidEmail)
 //           System.out.println("Email is Invalid");
 }

@@ -1,4 +1,4 @@
-Username , Email , password , Role
+Username , Email , password , Enums.Role
 Hamza, hamza@gmail.com, hamza123, Manager
 Amin   , amin@gmail.com, amin123, Supervisor
 Mariam , mariam@gmail.com , mm1234 , Supervisor

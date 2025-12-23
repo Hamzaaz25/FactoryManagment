@@ -1,4 +1,6 @@
 
+import Enums.Status;
+
 import java.util.ArrayList;
 
 
@@ -7,12 +9,21 @@ public class ProductLine {
     private String name;
     private Status status ;
     private ArrayList<Task> taskLine = new ArrayList<>();
+    ArrayList<Integer> listOfTaskNumbers = new ArrayList<>();
+    private static int count =0;
 
-    public ProductLine(int id, String name, Status status, ArrayList<Task> taskLine) {
-        Id = id;
+
+    public ProductLine( String name, Status status, ArrayList<Integer> list) {
+        this.Id = ++count;
         this.name = name;
         this.status = status;
-        this.taskLine = taskLine;
+        this.listOfTaskNumbers = list;
+    }
+
+    public ProductLine( String name) {
+        this.Id = ++count;
+        this.name = name;
+        this.status = Status.Idle;
     }
 
     public int getId() {

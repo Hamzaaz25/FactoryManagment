@@ -13,7 +13,7 @@ public class DataWriter {
             bw.write("id , name ,price , available ");
             bw.newLine();
             for(Item b : list){
-                bw.write(b.getId() + " , " + b.getName() +" , " +b.getType()+" , "+b.getPrice() +" , " + b.getAvailableQuantity());
+                bw.write(b.getId() + " , " + b.getName() +" , " +b.getType()+" , "+b.getPrice() +" , " + b.getAvailableQuantity() + "," +b.getMinimumAllowedQuantity());
                 bw.newLine();
             }
 
@@ -50,10 +50,29 @@ public class DataWriter {
     public static void writeUsers(String path,ArrayList<User> list ){
 
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path ))) {
-            bw.write("User , Password , Role");
+            bw.write("User , Password , Enums.Role");
             bw.newLine();
             for(User b : list){
                 bw.write(b.getUsername() + " , " + b.getPassword() +" , " +b.getRole());
+                bw.newLine();
+            }
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public static void writeProductLines(String path,ArrayList<ProductLine> list ){
+
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(path ))) {
+            bw.write("ProductLineNumber , Name ,Enums.Status , Tasks  ");
+            bw.newLine();
+            for(ProductLine pl : list){
+                bw.write( pl.getId()+ " , " + pl.getName() +" , " +pl.getStatus() +", Assigned Tasks : ," );
+                for(Task t : pl.getTaskLine())
+                    bw.write(t.getTaskNumber() + ",");
                 bw.newLine();
             }
 
