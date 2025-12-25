@@ -2,6 +2,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.lang.reflect.GenericArrayType;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -82,4 +83,24 @@ public class DataWriter {
         }
 
     }
+
+    public static void writeTasks(String path,ArrayList<Task> list ){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(path ))) {
+            bw.write("Task Number , Requested Products , Quantity , Client , Start Date , End Date , Status ,PL number ,Progress  ");
+            bw.newLine();
+            for(Task t : list){
+                bw.write( t.getTaskNumber()+ " , " + t.getRequestedQuantity() +" , " + t.getRequestedQuantity() +"," +t.getClientName() +"," + t.getStartDate().format(formatter) + "," + t.getEndDate().format(formatter) + ", " + t.getStatus()+"," +t.getProductLine() +"," + t.getProgressPercentage());
+
+                bw.newLine();
+            }
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
 }

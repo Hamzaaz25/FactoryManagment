@@ -1,20 +1,23 @@
 import Enums.TaskStatus;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Task {
-    private int taskNumber;
+    private volatile int taskNumber;
     private String requestedProduct;
     private int requestedQuantity;
     private String clientName;
-    private Date startDate = new Date();
-    private Date endDate = new Date();
+    private LocalDate startDate ;
+    private LocalDate endDate ;
     private TaskStatus status;
     private int productLine ;
     private int progressPercentage ;
+    volatile boolean  valid;
 
 
-    public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, Date startDate, Date endDate, TaskStatus status, int productLine, int progressPercentage) {
+    public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, LocalDate startDate, LocalDate endDate, TaskStatus status, int productLine, int progressPercentage) {
         this.taskNumber = taskNumber;
         this.requestedProduct = requestedProduct;
         this.requestedQuantity = requestedQuantity;
@@ -24,6 +27,10 @@ public class Task {
         this.status = status;
         this.productLine = productLine;
         this.progressPercentage = progressPercentage;
+    }
+
+    public Task(int taskNumber) {
+        this.taskNumber = taskNumber;
     }
 
     public int getTaskNumber() {
@@ -58,19 +65,19 @@ public class Task {
         this.status = status;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
@@ -96,5 +103,13 @@ public class Task {
 
     public void setRequestedProduct(String requestedProduct) {
         this.requestedProduct = requestedProduct;
+    }
+
+    public synchronized boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
     }
 }

@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.GenericArrayType;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -111,7 +113,7 @@ public class DataReader {
             System.out.println("h");
             return listOfItems;
         }catch (IllegalArgumentException il){
-            System.out.println("Not valid file content");
+            System.out.println("Not valid file content Items");
             return new ArrayList<>();
         }
     }
@@ -156,7 +158,7 @@ public static ArrayList<Product> loadProducts(String path){
         System.out.println("h");
         return new ArrayList<>();
     }catch (IllegalArgumentException il){
-        System.out.println("Not valid file content");
+        System.out.println("Not valid file content Products");
         return new ArrayList<>();
     }
 }
@@ -176,7 +178,8 @@ public static ArrayList<Product> loadProducts(String path){
                 }
 
                 String[] row = line.split(",");
-//                int productLineNumber = Integer.parseInt(row[0].trim());
+//               int productLineNumber = Integer.parseInt(row[0].trim());
+
                 String name = row[1].trim();
                 Status s = Status.valueOf(row[2].trim());
                 ArrayList<Integer> tasksNumbers = new ArrayList<>();
@@ -196,7 +199,7 @@ public static ArrayList<Product> loadProducts(String path){
             System.out.println(e.getCause());
             return listOfProductLines;
         }catch (IllegalArgumentException il){
-            System.out.println("Not valid file content");
+            System.out.println("Not valid file content Pl");
             return new ArrayList<>();
         }
     }
@@ -220,11 +223,20 @@ public static ArrayList<Product> loadProducts(String path){
                 String requestedProduct = row[1].trim();
                 int quantity = Integer.parseInt(row[2].trim());
                 String client = row[3].trim();
-                Date start = new Date(row[4].trim());
-                Date end = new Date(row[5].trim());
+
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+
+                LocalDate start = LocalDate.parse(row[4].trim(), formatter);
+
+
+                LocalDate end = LocalDate.parse(row[5].trim(), formatter);
+
                 TaskStatus tstatus = TaskStatus.valueOf(row[6].trim());
+
                 int productLineNumber = Integer.parseInt(row[7].trim());
+
                 int progress = Integer.parseInt(row[8].trim());
+
                 Task task = new Task(taskNumber ,requestedProduct,quantity,client,start,end,tstatus,productLineNumber,progress );
                 listOfTasks.add(task);
             }
@@ -235,7 +247,7 @@ public static ArrayList<Product> loadProducts(String path){
             System.out.println(e.toString());
             return listOfTasks;
         }catch (IllegalArgumentException il){
-            System.out.println("Not valid file content");
+            System.out.println("Not valid file content Task");
             return new ArrayList<>();
         }
     }

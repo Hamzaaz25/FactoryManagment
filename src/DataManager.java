@@ -3,8 +3,11 @@ import Enums.Status;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
+
 
 public class DataManager {
+    static private volatile DataManager instance;
     ArrayList<Item> listOfItems = new ArrayList<>();
     ArrayList<Product> listOfProducts = new ArrayList<>();
     ArrayList<ProductLine> listOfProductLines = new ArrayList<>();
@@ -13,8 +16,21 @@ public class DataManager {
     HashMap <String , Item > itemsNames = new HashMap<>();
     HashMap <Integer , Task> tasksNumbered = new HashMap<>();
 
-    public DataManager(){
+    private DataManager(){
         this.init();
+    }
+
+
+    public static DataManager getInstance(){
+        DataManager result = instance;
+        if(result == null){
+            synchronized(DataManager.class) {
+                result = instance;
+                if(result == null)
+                    instance = new DataManager();
+            }
+        }
+        return result;
     }
 
     public void init(){
@@ -75,7 +91,7 @@ public class DataManager {
 
     public void addProductLine(ProductLine pl){
         listOfProductLines.add(pl);
-        DataWriter.writeProductLines("./src/h.csv" , this.listOfProductLines);
+        DataWriter.writeProductLines("./Files/ProductLines.csv" , this.listOfProductLines);
 
     }
 
@@ -103,11 +119,11 @@ public class DataManager {
 
     }
 
-    public boolean isTaskValid(int number) {
+    public boolean isTaskValid(int taskNumber) {
 
 
             for (Task t : this.listOfTasks) {
-                if (t.getTaskNumber() == number) {
+                if (t.getTaskNumber() == taskNumber) {
 
                     // Get the requested product and its required quantity
                     Product p = productsNames.get(t.getRequestedProduct().trim());
@@ -118,9 +134,11 @@ public class DataManager {
                         Item item = itemsNames.get(key);
                         int usage = p.getRecipe().get(key) * req;
                         if (item == null || !item.isStockSufficient() || item.getAvailableQuantity() <= usage) {
+                            t.setValid(false);
                             return false; // immediately return if any item fails
                         }
                     }
+                    t.setValid(true);
                     return true;
 
                 }
@@ -128,6 +146,8 @@ public class DataManager {
 
      return false;
     }
+
+
 
 
 
