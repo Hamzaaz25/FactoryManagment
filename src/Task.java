@@ -14,7 +14,8 @@ public class Task {
     private TaskStatus status;
     private int productLine ;
     private int progressPercentage ;
-    volatile boolean  valid;
+    private volatile boolean  valid;
+    private AtomicBoolean working = new AtomicBoolean(false);
 
 
     public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, LocalDate startDate, LocalDate endDate, TaskStatus status, int productLine, int progressPercentage) {
@@ -27,6 +28,16 @@ public class Task {
         this.status = status;
         this.productLine = productLine;
         this.progressPercentage = progressPercentage;
+    }
+
+    public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, int productLine , TaskStatus s , LocalDate start) {
+        this.taskNumber = taskNumber;
+        this.requestedProduct = requestedProduct;
+        this.requestedQuantity = requestedQuantity;
+        this.clientName = clientName;
+        this.productLine = productLine;
+        this.status = s;
+        this.startDate = start;
     }
 
     public Task(int taskNumber) {
@@ -111,5 +122,14 @@ public class Task {
 
     public void setValid(boolean valid) {
         this.valid = valid;
+    }
+
+    public AtomicBoolean isWorking() {
+        return working;
+    }
+
+    public void setWorking(boolean working) {
+
+        this.working.set(working);
     }
 }

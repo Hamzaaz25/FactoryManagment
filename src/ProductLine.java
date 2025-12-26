@@ -18,14 +18,14 @@ public class ProductLine  {
     ArrayList<Integer> listOfTaskNumbers = new ArrayList<>();
     private static int count =0;
     BlockingDeque <Task> taskQueue = new LinkedBlockingDeque<>();
-//    DataManager dm;
+
 
 
 
     static class Worker implements Runnable{
        Thread t;
        ProductLine pl;
-
+       DataManager dm = DataManager.getInstance();
        public Worker(ProductLine pl){
            this.pl = pl;
             t = new Thread(this);
@@ -34,9 +34,8 @@ public class ProductLine  {
         @Override
         public void run() {
 
-                while (!pl.taskQueue.isEmpty()) {
+               main: while (!pl.taskQueue.isEmpty()) {
                     Task t;
-
                     try {
                         t = pl.taskQueue.take();
                         System.out.println(t.getTaskNumber());
@@ -44,30 +43,31 @@ public class ProductLine  {
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-//                    for(){
-//                        if(pl.dm.isTaskValid(d.getTaskNumber())){
-//                            System.out.println("Valid from list");
-//                        }
-//                        if(d.isValid()){
-//                            System.out.println("Bool");
-//                        }
-//                    }
-
 //
-//                    if(t.isValid()) {
-//                        System.out.println(t.getTaskNumber());
-//                        System.out.println("Valid");
-//                    }
-//                        for (int i = 0; i < 5; i++) {
-//                            try {
-//                                Thread.sleep(1000);
-//                            } catch (InterruptedException e) {
-//                                throw new RuntimeException(e);
-//                            }
-//                            System.out.println(t.getTaskNumber() + " " + t.getClientName() + " for "+pl.getName());
-//
-//                    }
+                   dm.isTaskValid(t.getTaskNumber());
+                    if(t.isValid()) {
 
+
+                        System.out.println(t.getTaskNumber()+" is valid ");
+
+                        for (int i = 0; i < 5; i++) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                throw new RuntimeException(e);
+                            }
+                            System.out.println(t.getTaskNumber() + " " + t.getClientName() + " for " + pl.getName());
+
+                        }
+                    }else{
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+//                        pl.addTask(t);
+                        continue main;
+                    }
                 }
             }
 
@@ -95,9 +95,10 @@ public class ProductLine  {
         this.name = name;
         this.status = Status.Idle;
     }
-
     public void addTask(Task t){
-        this.taskQueue.push(t);
+        this.taskLine.add(t);
+//        this.taskQueue
+        DataManager.getInstance().addTask(this.Id , t);
     }
     public void load(){
         for(Task t:this.taskLine){

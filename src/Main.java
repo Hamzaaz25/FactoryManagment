@@ -1,4 +1,5 @@
 import Enums.Status;
+import Enums.TaskStatus;
 
 import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
@@ -6,27 +7,50 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
 
         DataManager.getInstance();
-        System.out.println(DataManager.getInstance().isTaskValid(101));
+//        System.out.println(DataManager.getInstance().isTaskValid(102));
 
 //   ProductLine pl = new ProductLine("meow");
 //Task t = new Task(107);
-//t.setValid(true);
+
 //pl.addTask(t);
 //   ProductLine.Worker worker =  new ProductLine.Worker(pl);
 //   worker.t.start();
+Task te = new Task(104 ,"sofa" , 2 ,"s3eed" ,1 , TaskStatus.InProgress ,LocalDate.now() );
+DataManager.getInstance().addTask(1,te);
+Thread t = new Thread(new Runnable() {
+    @Override
+    public void run() {
+        DataManager.getInstance().runTask(te);
 
-//  for(ProductLine pl : i.getInstance().listOfProductLines){
+
+    }
+});
+t.start();
+Thread.sleep(100);
+        DataManager.getInstance().cancelTask(te);
+        System.out.println(te.isWorking());
+
+
+//
+
+//  for(ProductLine pl : DataManager.getInstance().listOfProductLines){
 //            pl.load();
 //           pl.RunWorker();
+//           pl.addTask(te);
+//  }
+//  Task t = DataManager.getInstance().getTaskByNumber(102);
+////  Thread.sleep(1000);
+//  t.setRequestedQuantity(10);
+
 //
 //
 //
 //
 //
-////            pl.RunWorker();
+//   pl.RunWorker();
 //        }
 
 //   ProductLine pl = new ProductLine("mango");

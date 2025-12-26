@@ -91,7 +91,7 @@ public class DataWriter {
             bw.write("Task Number , Requested Products , Quantity , Client , Start Date , End Date , Status ,PL number ,Progress  ");
             bw.newLine();
             for(Task t : list){
-                bw.write( t.getTaskNumber()+ " , " + t.getRequestedQuantity() +" , " + t.getRequestedQuantity() +"," +t.getClientName() +"," + t.getStartDate().format(formatter) + "," + t.getEndDate().format(formatter) + ", " + t.getStatus()+"," +t.getProductLine() +"," + t.getProgressPercentage());
+                bw.write( t.getTaskNumber()+ " , " + t.getRequestedProduct() +" , " + t.getRequestedQuantity() +"," +t.getClientName() +"," + t.getStartDate().format(formatter) + "," + t.getEndDate().format(formatter) + ", " + t.getStatus()+"," +t.getProductLine() +"," + t.getProgressPercentage());
 
                 bw.newLine();
             }

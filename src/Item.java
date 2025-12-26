@@ -22,7 +22,7 @@ public Item(){
     }
 
     public Item( String name, double price, int availableQuantity, MaterialType type, int minimumAllowedQuantity) {
-
+        this.id = ++count;
         this.name = name;
         this.price = price;
         this.availableQuantity = availableQuantity;

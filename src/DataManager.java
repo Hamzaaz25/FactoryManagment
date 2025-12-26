@@ -1,9 +1,8 @@
 import Enums.Status;
+import Enums.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 
 public class DataManager {
@@ -119,36 +118,92 @@ public class DataManager {
 
     }
 
-    public boolean isTaskValid(int taskNumber) {
+    public void isTaskValid(int taskNumber) {
 
+               Task t = getTaskByNumber(taskNumber);
+                // Get the requested product and its required quantity
+                Product p = productsNames.get(t.getRequestedProduct().trim());
+                int req = t.getRequestedQuantity();
 
-            for (Task t : this.listOfTasks) {
-                if (t.getTaskNumber() == taskNumber) {
-
-                    // Get the requested product and its required quantity
-                    Product p = productsNames.get(t.getRequestedProduct().trim());
-                    int req = t.getRequestedQuantity();
-
-                    // Check each ingredient in the product's recipe
-                    for (String key : p.getRecipe().keySet()) {
-                        Item item = itemsNames.get(key);
-                        int usage = p.getRecipe().get(key) * req;
-                        if (item == null || !item.isStockSufficient() || item.getAvailableQuantity() <= usage) {
-                            t.setValid(false);
-                            return false; // immediately return if any item fails
-                        }
+                // Check each ingredient in the product's recipe
+                for (String key : p.getRecipe().keySet()) {
+                    Item item = itemsNames.get(key);
+                    int usage = p.getRecipe().get(key) * req;
+                    if (item == null || !item.isStockSufficient() || item.getAvailableQuantity() <= usage) {
+                        t.setValid(false);
+                        return; // immediately return if any item fails
                     }
-                    t.setValid(true);
-                    return true;
-
                 }
-            }
-
-     return false;
+                t.setValid(true);
     }
 
+    public Task getTaskByNumber(int taskNumber){
+        return tasksNumbered.get(taskNumber);
+    }
+
+    public void addTask(int pln , Task t){
+        ProductLine pl = null;
+        for(ProductLine p :this.listOfProductLines ){
+            if(p.getId() ==pln ){
+                pl = p;
+
+            }
+        }
+        this.listOfTasks.add(t);
+        this.tasksNumbered.put(t.getTaskNumber() , t);
+//        DataWriter.writeTasks("./Files/Tasks.csv",this.listOfTasks);
+        this.isTaskValid(t.getTaskNumber());
+        if(t.isValid() )
+            pl.taskQueue.push(t);
+        else
+            System.out.println("Sorry this task cannot be executed because ");
 
 
+    }
+
+    public void runTask(Task t){
+        this.isTaskValid(t.getTaskNumber());
+
+            Product p = productsNames.get(t.getRequestedProduct().trim());
+            int req = t.getRequestedQuantity();
+            for (String key : p.getRecipe().keySet()) {
+                Item item = itemsNames.get(key);
+                int usage = p.getRecipe().get(key) * req;
+                int usagePerProduct = p.getRecipe().get(key);
+                if(t.isValid()) {
+                    t.setWorking(true);
+                    for(int i=1;i<=t.getRequestedQuantity() ;i++){
+                        if(t.getStatus()== TaskStatus.Cancelled){
+                            break;
+                        }
 
 
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            throw new RuntimeException(e);
+                        }
+                        item.setAvailableQuantity(item.getAvailableQuantity() - usagePerProduct);
+                        t.setEndDate(t.getStartDate().plusDays(i));
+                        t.setProgressPercentage(i*100 / t.getRequestedQuantity());
+
+                    }
+
+            }
+
+        }
+        float percent = (float)t.getProgressPercentage()/100;
+        p.setAmount((int) (p.getAmount() + (t.getRequestedQuantity() * percent)));
+        if(t.getProgressPercentage() == 100 ){
+            t.setStatus(TaskStatus.Completed);
+        }else t.setStatus(TaskStatus.Cancelled);
+        DataWriter.writeProducts("src/p.csv" , this.listOfProducts);
+        DataWriter.writeTasks("src/t.csv" , this.listOfTasks);
+        DataWriter.writeItems("src/h.csv" , this.listOfItems);
+    }
+
+    public void cancelTask(Task t){
+        t.setStatus(TaskStatus.Cancelled);
+        t.setWorking(false);
+    }
 }
