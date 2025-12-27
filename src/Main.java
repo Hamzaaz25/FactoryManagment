@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-
+new ProductFrame();
         DataManager.getInstance();
 //        System.out.println(DataManager.getInstance().isTaskValid(102));
 
