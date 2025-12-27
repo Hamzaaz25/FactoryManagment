@@ -18,8 +18,12 @@ public class Main {
 //pl.addTask(t);
 //   ProductLine.Worker worker =  new ProductLine.Worker(pl);
 //   worker.t.start();
-Task te = new Task(104 ,"sofa" , 2 ,"s3eed" ,1 , TaskStatus.InProgress ,LocalDate.now() );
+Task te = new Task(104 ,"sofa" , 10 ,"s3eed" ,1 , TaskStatus.InProgress ,LocalDate.now() );
+Task fe = new Task(104 ,"carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress ,LocalDate.now() );
+
 DataManager.getInstance().addTask(1,te);
+DataManager.getInstance().addTask(2,fe);
+
 Thread t = new Thread(new Runnable() {
     @Override
     public void run() {
@@ -28,10 +32,19 @@ Thread t = new Thread(new Runnable() {
 
     }
 });
+        Thread b = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                DataManager.getInstance().runTask(fe);
+
+
+            }
+        });
 t.start();
-Thread.sleep(100);
-        DataManager.getInstance().cancelTask(te);
-        System.out.println(te.isWorking());
+b.start();
+//Thread.sleep(3000);
+//        DataManager.getInstance().cancelTask(te);
+//        System.out.println(te.isWorking());
 
 
 //

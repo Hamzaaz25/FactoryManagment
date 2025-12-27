@@ -16,10 +16,11 @@ public class Task {
     private int progressPercentage ;
     private volatile boolean  valid;
     private AtomicBoolean working = new AtomicBoolean(false);
+    private static int count = 100;
 
 
     public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, LocalDate startDate, LocalDate endDate, TaskStatus status, int productLine, int progressPercentage) {
-        this.taskNumber = taskNumber;
+        this.taskNumber = ++count;
         this.requestedProduct = requestedProduct;
         this.requestedQuantity = requestedQuantity;
         this.clientName = clientName;
@@ -31,7 +32,7 @@ public class Task {
     }
 
     public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, int productLine , TaskStatus s , LocalDate start) {
-        this.taskNumber = taskNumber;
+        this.taskNumber = ++count;
         this.requestedProduct = requestedProduct;
         this.requestedQuantity = requestedQuantity;
         this.clientName = clientName;

@@ -2,4 +2,5 @@ Task Number , Requested Products , Quantity , Client , Start Date , End Date , S
 101 , sofa , 10,Ahmad,1/2/2022,3/4/2022, Completed,1,100
 102 , chair , 100,Samer,24/1/2022,3/4/2022, Completed,1,100
 103 , carpet , 10,Amin,2/1/2022,4/8/2022, Completed,1,100
-104 , sofa , 2,s3eed,26/12/2025,27/12/2025, Cancelled,1,50
+104 , sofa , 10,s3eed,27/12/2025,30/12/2025, Cancelled,1,30
+105 , carpet , 4,Bilal,27/12/2025,31/12/2025, Completed,2,100

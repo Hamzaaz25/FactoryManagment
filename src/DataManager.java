@@ -162,41 +162,56 @@ public class DataManager {
     }
 
     public void runTask(Task t){
-        this.isTaskValid(t.getTaskNumber());
-
+           this.isTaskValid(t.getTaskNumber());
             Product p = productsNames.get(t.getRequestedProduct().trim());
             int req = t.getRequestedQuantity();
-            for (String key : p.getRecipe().keySet()) {
-                Item item = itemsNames.get(key);
-                int usage = p.getRecipe().get(key) * req;
-                int usagePerProduct = p.getRecipe().get(key);
-                if(t.isValid()) {
+
+
+            ArrayList<Item> temp = new ArrayList<>();
+            if(t.isValid()) {
+                outer:
+                for (String key : p.getRecipe().keySet()) {
+                    temp.add(itemsNames.get(key));
+                    int usage = p.getRecipe().get(key) * req;
+                    itemsNames.get(key).setAvailableQuantity( itemsNames.get(key).getAvailableQuantity() - usage);
+                }
+                if (t.getStatus() != TaskStatus.Cancelled) {
                     t.setWorking(true);
-                    for(int i=1;i<=t.getRequestedQuantity() ;i++){
-                        if(t.getStatus()== TaskStatus.Cancelled){
+                    for (int i = 1; i <= t.getRequestedQuantity(); i++) {
+                        if (t.getStatus() == TaskStatus.Cancelled) {
                             break;
                         }
-
 
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException e) {
                             throw new RuntimeException(e);
                         }
-                        item.setAvailableQuantity(item.getAvailableQuantity() - usagePerProduct);
                         t.setEndDate(t.getStartDate().plusDays(i));
-                        t.setProgressPercentage(i*100 / t.getRequestedQuantity());
+                        t.setProgressPercentage(i * 100 / t.getRequestedQuantity());
 
                     }
 
+                }
+
             }
 
-        }
+
         float percent = (float)t.getProgressPercentage()/100;
-        p.setAmount((int) (p.getAmount() + (t.getRequestedQuantity() * percent)));
+        p.setAmount((int) (p.getAmount() + (req * percent)));
         if(t.getProgressPercentage() == 100 ){
             t.setStatus(TaskStatus.Completed);
         }else t.setStatus(TaskStatus.Cancelled);
+        for(Item item : temp){
+            int produced = (int) (percent * req);
+            int notpProduced = req -produced;
+            int usagePerProduct = p.getRecipe().get(item.getName().trim());
+//            System.out.println(item.getName() + " "+item.getAvailableQuantity() +" " +usagePerProduct+" "+produced +"not" + notpProduced);
+            item.setAvailableQuantity(item.getAvailableQuantity() + (usagePerProduct * notpProduced));
+//            System.out.println(item.getName() + " "+item.getAvailableQuantity() +" " +usagePerProduct+" "+produced +"not" + notpProduced);
+
+        }
+
         DataWriter.writeProducts("src/p.csv" , this.listOfProducts);
         DataWriter.writeTasks("src/t.csv" , this.listOfTasks);
         DataWriter.writeItems("src/h.csv" , this.listOfItems);
