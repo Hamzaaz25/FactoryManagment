@@ -299,16 +299,25 @@ public class ProductFrame extends JFrame {
                 matchCountProduct++;
             }
         }
-        if (addCard != null) {
-            container.add(addCard);
-        }
-        if (matchCountProduct == 0) {
+
+        if (matchCountProduct == 0 && !searchText.isEmpty()) {
             container.setLayout(new BorderLayout());
+
+            NoResults.setHorizontalAlignment(SwingConstants.CENTER);
+            NoResults.setVerticalAlignment(SwingConstants.CENTER);
+
             container.add(NoResults, BorderLayout.CENTER);
             NoResults.setVisible(true);
+
+            if(addCard != null) addCard.setVisible(false);
         } else {
             container.setLayout(new GridLayout(0, 3, 100, 100));
+
             NoResults.setVisible(false);
+            if (addCard != null) {
+                addCard.setVisible(true);
+                container.add(addCard);
+            }
         }
 
         container.revalidate();
@@ -336,7 +345,7 @@ public class ProductFrame extends JFrame {
 
         addCard = new AddBtn(() -> {
 
-            addNewProduct("New Item", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
+            addNewProduct("New Product", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
         });
 
         container.add(addCard);
