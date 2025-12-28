@@ -98,7 +98,7 @@ public class ProductBtn extends JButton {
         actionsPanel.setOpaque(false);
 
         JButton Editbtn = new JButton();
-        ImageIcon editIcon = new ImageIcon("pen.png");
+        ImageIcon editIcon = new ImageIcon("./assets/pen.png");
         Image scaledImg = editIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         Editbtn.setIcon(new ImageIcon(scaledImg));
         Editbtn.setPreferredSize(new Dimension(38, 38));
@@ -106,7 +106,7 @@ public class ProductBtn extends JButton {
 
 
         JButton Deletebtn = new JButton();
-        ImageIcon DeleteIcon = new ImageIcon("delete.png");
+        ImageIcon DeleteIcon = new ImageIcon("./assets/delete.png");
         Image scaleImg = DeleteIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         Deletebtn.setIcon(new ImageIcon(scaleImg));
         Deletebtn.setPreferredSize(new Dimension(38, 38));

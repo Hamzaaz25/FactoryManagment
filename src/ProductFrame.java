@@ -22,7 +22,7 @@ public class ProductFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.getContentPane().setBackground(Color.black);
-        BackGround bg = new BackGround("sof.jpg");
+        BackGround bg = new BackGround("./assets/sof.jpg");
         bg.setLayout(new BorderLayout());
         this.setContentPane(bg);
 
@@ -34,7 +34,7 @@ public class ProductFrame extends JFrame {
         sideBar.setLayout(new BorderLayout());
 
 
-        ImageIcon icon = new ImageIcon("return.png");
+        ImageIcon icon = new ImageIcon("./assets/return.png");
         Image scaled = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         JButton aaa = new JButton("Back", icon);
         aaa.setIcon(new ImageIcon(scaled));
@@ -46,7 +46,7 @@ public class ProductFrame extends JFrame {
         socialPanel.setOpaque(false);
 
         JButton btnInsta = new JButton();
-        ImageIcon icone = new ImageIcon("insta.png");
+        ImageIcon icone = new ImageIcon("./assets/insta.png");
         Image scaledImg = icone.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         btnInsta.setIcon(new ImageIcon(scaledImg));
         btnInsta.setPreferredSize(new Dimension(40, 40));
@@ -56,7 +56,7 @@ public class ProductFrame extends JFrame {
         btnInsta.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         JButton btnFB = new JButton();
-        ImageIcon iconee = new ImageIcon("face.png");
+        ImageIcon iconee = new ImageIcon("./assets/face.png");
         Image scaledImge = iconee.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         btnFB.setIcon(new ImageIcon(scaledImge));
         btnFB.setPreferredSize(new Dimension(40, 40));
@@ -88,7 +88,7 @@ public class ProductFrame extends JFrame {
         JLabel Userlbl = new JLabel("Welcome, Nayef");
         Userlbl.setFont(new Font("Segoe UI", Font.PLAIN, 25));
         Userlbl.setForeground(Color.WHITE);
-        ImageIcon profileImg = new ImageIcon("profile.png");
+        ImageIcon profileImg = new ImageIcon("./assets/profile.png");
         Image img = profileImg.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
         JButton Profilebtn = new JButton();
         Profilebtn.setIcon(new ImageIcon(img));
@@ -147,13 +147,13 @@ public class ProductFrame extends JFrame {
         NoResults.setFont(new Font("Segoe UI", Font.BOLD, 18));
         NoResults.setForeground(Color.black);
         NoResults.setVisible(false);
-        NoResults.setIcon(new ImageIcon(("notFound.png")));
+        NoResults.setIcon(new ImageIcon(("./assets/notFound.png")));
         NoResults.setVerticalTextPosition(JLabel.BOTTOM);
         NoResults.setHorizontalTextPosition(JLabel.CENTER);
 
 
         JButton btnSearch = new JButton();
-        ImageIcon iconn = new ImageIcon("searchh.png");
+        ImageIcon iconn = new ImageIcon("./assets/searchh.png");
         Image scaledImgg = iconn.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         btnSearch.setIcon(new ImageIcon(scaledImgg));
         btnSearch.setBackground(Color.white);
@@ -233,7 +233,7 @@ public class ProductFrame extends JFrame {
         footerImagePanel.setOpaque(false);
 
         JLabel FooterImagelbl = new JLabel();
-        ImageIcon footerIcon = new ImageIcon("AMH.png");
+        ImageIcon footerIcon = new ImageIcon("./assets/AMH.png");
         Image scaledFooterImg = footerIcon.getImage().getScaledInstance(150, 100, Image.SCALE_SMOOTH);
         FooterImagelbl.setIcon(new ImageIcon(scaledFooterImg));
         footerImagePanel.add(FooterImagelbl);
@@ -299,6 +299,9 @@ public class ProductFrame extends JFrame {
                 matchCountProduct++;
             }
         }
+        if (addCard != null) {
+            container.add(addCard);
+        }
         if (matchCountProduct == 0) {
             container.setLayout(new BorderLayout());
             container.add(NoResults, BorderLayout.CENTER);
@@ -316,27 +319,28 @@ public class ProductFrame extends JFrame {
 
     public void setCards() {
 
-        addNewProduct("sofa", "$55.00", new ImageIcon("hhh.png"), "description");
-        addNewProduct("bed", "$40.00", new ImageIcon("bbed.png"), "description");
-        addNewProduct("table", "$12.50", new ImageIcon("dinner.png"), "description");
-        addNewProduct("carpet", "$31.50", new ImageIcon("carpet.png"), "description");
-        addNewProduct("wardrobe", "$59.50", new ImageIcon("wardrobee.png"), "description");
-        addNewProduct("dressing table", "$340.50", new ImageIcon("dressing.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("curtain.png"), "description");
+        addNewProduct("sofa", "$55.00", new ImageIcon("./assets/hhh.png"), "description");
+        addNewProduct("bed", "$40.00", new ImageIcon("./assets/bbed.png"), "description");
+        addNewProduct("table", "$12.50", new ImageIcon("./assets/dinner.png"), "description");
+        addNewProduct("carpet", "$31.50", new ImageIcon("./assets/carpet.png"), "description");
+        addNewProduct("wardrobe", "$59.50", new ImageIcon("./assets/wardrobee.png"), "description");
+        addNewProduct("dressing table", "$340.50", new ImageIcon("./assets/dressing.png"), "description");
+        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
 
 
         addCard = new AddBtn(() -> {
 
-            addNewProduct("New Item", "$0.00",new ImageIcon("dinner.png"),"description");
+            addNewProduct("New Item", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
         });
 
         container.add(addCard);
+
     }
 
     public void addNewProduct(String name, String price,ImageIcon icon, String description) {
