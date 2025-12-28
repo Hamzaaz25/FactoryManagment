@@ -116,7 +116,7 @@ public class ItemFrame extends JFrame {
 
 
         Searchtext.setPreferredSize(new Dimension(250, 35));
-        Searchtext.setForeground(Color.GRAY); // لون الخط الفاهي في البداية
+        Searchtext.setForeground(Color.GRAY);
         Searchtext.setFont(new Font("Segoe UI", Font.ITALIC, 13));
 
         Searchtext.putClientProperty("JComponent.arc", 15);

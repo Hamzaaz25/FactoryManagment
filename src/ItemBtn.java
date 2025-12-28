@@ -41,7 +41,7 @@ public class ItemBtn extends JButton {
 
 
         Color defaultColor = new Color(94, 142, 180);
-        Color hoverColor = new Color(245, 245, 245);
+        Color hoverColor = new Color(74, 120, 160);
         Color borderColor = new Color(200, 200, 200);
 
         this.setBorder(BorderFactory.createLineBorder(borderColor, 1));
