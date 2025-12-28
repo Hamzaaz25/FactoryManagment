@@ -330,27 +330,27 @@ public class ItemFrame extends JFrame {
 
     public void setCards() {
 
-        addNewItem("coton", "$55.00", new ImageIcon("./assets/hhh.png"), "description");
-        addNewItem("bed", "$40.00", new ImageIcon("./assets/bbed.png"), "description");
-        addNewItem("table", "$12.50", new ImageIcon("./assets/dinner.png"), "description");
-        addNewItem("carpet", "$31.50", new ImageIcon("./assets/carpet.png"), "description");
-        addNewItem("wardrobe", "$59.50", new ImageIcon("./assets/wardrobee.png"), "description");
-        addNewItem("dressing table", "$340.50", new ImageIcon("./assets/dressing.png"), "description");
-        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewItem("coton", "$5.00", new ImageIcon("./assets/wool.png"), "description");
+        addNewItem("wood", "$4.00", new ImageIcon("./assets/wood.png"), "description");
+        addNewItem("silk", "$2.50", new ImageIcon("./assets/silk.png"), "description");
+        addNewItem("spring", "$3.50", new ImageIcon("./assets/spring.png"), "description");
+        addNewItem("hinge", "$5.50", new ImageIcon("./assets/hinge.png"), "description");
+        addNewItem("handle", "$34.50", new ImageIcon("./assets/handle.png"), "description");
+        addNewItem("screw", "$3.50", new ImageIcon("./assets/screw.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+
 
 
         addCard = new AddBtn(() -> {
 
-            addNewItem("New Item", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
+            addNewItem("New Item", "$0.00",new ImageIcon("./assets/paint.png"),"description");
         });
 
-        addCard.setBackground(new Color(41, 100, 185));
         container.add(addCard);
 
     }

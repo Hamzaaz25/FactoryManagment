@@ -7,6 +7,7 @@ public class AddBtn extends JButton {
     public AddBtn(Runnable onAddAction) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(200, 250));
+        setBackground(new Color(94, 142, 180));
         setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         JLabel lblPlus = new JLabel("+", SwingConstants.CENTER);
@@ -14,7 +15,7 @@ public class AddBtn extends JButton {
         lblPlus.setForeground(Color.black);
         add(lblPlus, BorderLayout.CENTER);
 
-        JLabel lblText = new JLabel("Add New Product", SwingConstants.CENTER);
+        JLabel lblText = new JLabel("Add New ", SwingConstants.CENTER);
         add(lblText, BorderLayout.SOUTH);
 
         addMouseListener(new MouseAdapter() {

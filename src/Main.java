@@ -10,8 +10,8 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-        //new ItemFrame();
-        //new ProductFrame();
+       // new ItemFrame();
+       // new ProductFrame();
 
         SwingUtilities.invokeLater(() -> {
             new Loading().setVisible(true);

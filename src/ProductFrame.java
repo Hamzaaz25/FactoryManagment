@@ -348,7 +348,6 @@ public class ProductFrame extends JFrame {
             addNewProduct("New Product", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
         });
 
-       addCard.setBackground(new Color(94, 142, 180));
         container.add(addCard);
 
     }

@@ -6,7 +6,7 @@ public class Loading extends JFrame {
     public Loading() {
 
     setUndecorated(true);
-    setSize(800, 600);
+    setSize(800, 500);
     setLocationRelativeTo(null);
     setBackground(Color.black);
     setLayout(new BorderLayout());
