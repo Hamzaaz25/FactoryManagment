@@ -227,7 +227,7 @@ public class ProductFrame extends JFrame {
         footerBar.setPreferredSize(new Dimension(0, 100));
         footerBar.setBackground(new Color(255, 255, 255, 200));
         footerBar.setOpaque(false);
-        JLabel Footerlbl = new JLabel("©  AHM Furniture ", SwingConstants.CENTER);
+        JLabel Footerlbl = new JLabel("©  AMH Furniture ", SwingConstants.CENTER);
         Footerlbl.setForeground(Color.BLACK);
         JPanel footerImagePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 10));
         footerImagePanel.setOpaque(false);

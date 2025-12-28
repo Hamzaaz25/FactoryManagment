@@ -1,6 +1,7 @@
 import Enums.Status;
 import Enums.TaskStatus;
 
+import javax.swing.*;
 import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -8,7 +9,9 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
-new ProductFrame();
+        SwingUtilities.invokeLater(() -> {
+            new Loading().setVisible(true);
+        });
         DataManager.getInstance();
 //        System.out.println(DataManager.getInstance().isTaskValid(102));
 
