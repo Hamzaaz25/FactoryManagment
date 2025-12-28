@@ -9,27 +9,29 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class ProductFrame extends JFrame {
-    private ArrayList<ProductBtn> allCards = new ArrayList<>();
+
+public class ItemFrame extends JFrame {
+
+    private ArrayList<ItemBtn> allCards = new ArrayList<>();
     private JPanel container=new JPanel(new GridLayout(0, 3, 100, 100));
     private JTextField Searchtext = new JTextField(" Search ...");;
-    JLabel NoResults = new JLabel("No products match your search", SwingConstants.CENTER);
+    JLabel NoResults = new JLabel("No items match your search", SwingConstants.CENTER);
 
 
-    ProductFrame() {
+    ItemFrame() {
         this.setUndecorated(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
         this.getContentPane().setBackground(Color.black);
-        BackGround bg = new BackGround("./assets/sof.jpg");
+        BackGround bg = new BackGround("./assets/ttt.jpg");
         bg.setLayout(new BorderLayout());
         this.setContentPane(bg);
 
         JPanel sideBar = new JPanel();
 
         sideBar.setPreferredSize(new Dimension(150, 200));
-        sideBar.setBackground(new Color(120, 165, 200));
+        sideBar.setBackground (new Color(120, 165, 200) );
         sideBar.setBorder(new EmptyBorder(60, 0, 0, 0));
         sideBar.setLayout(new BorderLayout());
 
@@ -103,7 +105,7 @@ public class ProductFrame extends JFrame {
         gbc.gridx = 2;
         gbc.weightx = 1.0;
         menuBar.add(profilePanel, gbc);
-        JLabel TitlelblPage = new JLabel("Products", SwingConstants.CENTER);
+        JLabel TitlelblPage = new JLabel("Items", SwingConstants.CENTER);
         TitlelblPage.setFont(new Font("Segoe UI", Font.BOLD, 40));
         TitlelblPage.setForeground(Color.white);
         gbc.gridx = 1;
@@ -293,7 +295,7 @@ public class ProductFrame extends JFrame {
         int matchCountProduct = 0;
         String searchText = query.toLowerCase().trim();
         container.removeAll();
-        for (ProductBtn card : allCards) {
+        for (ItemBtn card : allCards) {
             if (card.getName().toLowerCase().contains(searchText)) {
                 container.add(card);
                 matchCountProduct++;
@@ -328,34 +330,34 @@ public class ProductFrame extends JFrame {
 
     public void setCards() {
 
-        addNewProduct("sofa", "$55.00", new ImageIcon("./assets/hhh.png"), "description");
-        addNewProduct("bed", "$40.00", new ImageIcon("./assets/bbed.png"), "description");
-        addNewProduct("table", "$12.50", new ImageIcon("./assets/dinner.png"), "description");
-        addNewProduct("carpet", "$31.50", new ImageIcon("./assets/carpet.png"), "description");
-        addNewProduct("wardrobe", "$59.50", new ImageIcon("./assets/wardrobee.png"), "description");
-        addNewProduct("dressing table", "$340.50", new ImageIcon("./assets/dressing.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewItem("coton", "$55.00", new ImageIcon("./assets/hhh.png"), "description");
+        addNewItem("bed", "$40.00", new ImageIcon("./assets/bbed.png"), "description");
+        addNewItem("table", "$12.50", new ImageIcon("./assets/dinner.png"), "description");
+        addNewItem("carpet", "$31.50", new ImageIcon("./assets/carpet.png"), "description");
+        addNewItem("wardrobe", "$59.50", new ImageIcon("./assets/wardrobee.png"), "description");
+        addNewItem("dressing table", "$340.50", new ImageIcon("./assets/dressing.png"), "description");
+        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
+        addNewItem("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
 
 
         addCard = new AddBtn(() -> {
 
-            addNewProduct("New Product", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
+            addNewItem("New Item", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
         });
 
-       addCard.setBackground(new Color(94, 142, 180));
+        addCard.setBackground(new Color(41, 100, 185));
         container.add(addCard);
 
     }
 
-    public void addNewProduct(String name, String price,ImageIcon icon, String description) {
+    public void addNewItem(String name, String price, ImageIcon icon, String description) {
 
-        ProductBtn newCard = new ProductBtn(name, price, icon, description);
+        ItemBtn newCard = new ItemBtn(name, price, icon, description);
 
         allCards.add(newCard);
 
@@ -374,3 +376,5 @@ public class ProductFrame extends JFrame {
 
 
 }
+
+

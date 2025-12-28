@@ -9,10 +9,17 @@ import java.util.Date;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+
+        //new ItemFrame();
+        //new ProductFrame();
+
         SwingUtilities.invokeLater(() -> {
             new Loading().setVisible(true);
         });
         DataManager.getInstance();
+
+
+
 //        System.out.println(DataManager.getInstance().isTaskValid(102));
 
 //   ProductLine pl = new ProductLine("meow");

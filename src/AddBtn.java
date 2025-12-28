@@ -7,7 +7,6 @@ public class AddBtn extends JButton {
     public AddBtn(Runnable onAddAction) {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(200, 250));
-        setBackground(new Color(94, 142, 180));
         setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         JLabel lblPlus = new JLabel("+", SwingConstants.CENTER);
