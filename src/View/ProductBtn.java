@@ -1,9 +1,11 @@
+package View;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ItemBtn extends JButton {
+public class ProductBtn extends JButton {
     String name;
     JLabel Namelbl;
     String price;
@@ -15,7 +17,7 @@ public class ItemBtn extends JButton {
         return Namelbl.getText();
     }
 
-    public ItemBtn(String name, String price, ImageIcon icon, String description) {
+    public ProductBtn(String name, String price, ImageIcon icon, String description) {
 
         this.name=name;
         this.price=price;
@@ -93,7 +95,7 @@ public class ItemBtn extends JButton {
 
         Pricelbl = new JLabel(price);
         Pricelbl.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        Pricelbl.setForeground(Color.WHITE);
+        Pricelbl.setForeground(Color.black);
 
         JPanel actionsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
         actionsPanel.setOpaque(false);
@@ -160,5 +162,3 @@ public class ItemBtn extends JButton {
     }
 
 }
-
-

@@ -1,24 +1,22 @@
-import Enums.Status;
 import Enums.TaskStatus;
+import View.*;
+import View.ProductFrame;
 
 import javax.swing.*;
-import javax.swing.text.DateFormatter;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
 
-       // new ItemFrame();
-       // new ProductFrame();
-
-        SwingUtilities.invokeLater(() -> {
-            new Loading().setVisible(true);
-        });
+//        new View.ItemFrame();
+////        new View.ProductFrame();
+//
+//        SwingUtilities.invokeLater(() -> {
+//            new Loading().setVisible(true);
+//        });
         DataManager.getInstance();
 
-
+// new ProductFrame();
 
 //        System.out.println(DataManager.getInstance().isTaskValid(102));
 
@@ -29,11 +27,11 @@ public class Main {
 //   ProductLine.Worker worker =  new ProductLine.Worker(pl);
 //   worker.t.start();
 Task te = new Task(104 ,"sofa" , 10 ,"s3eed" ,1 , TaskStatus.InProgress ,LocalDate.now() );
-Task fe = new Task(104 ,"carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress ,LocalDate.now() );
-
+//Task fe = new Task(104 ,"carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress ,LocalDate.now() );
+//
 DataManager.getInstance().addTask(1,te);
-DataManager.getInstance().addTask(2,fe);
-
+//DataManager.getInstance().addTask(2,fe);
+//
 Thread t = new Thread(new Runnable() {
     @Override
     public void run() {
@@ -42,16 +40,16 @@ Thread t = new Thread(new Runnable() {
 
     }
 });
-        Thread b = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                DataManager.getInstance().runTask(fe);
-
-
-            }
-        });
+//        Thread b = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                DataManager.getInstance().runTask(fe);
+//
+//
+//            }
+//        });
 t.start();
-b.start();
+//b.start();
 //Thread.sleep(3000);
 //        DataManager.getInstance().cancelTask(te);
 //        System.out.println(te.isWorking());

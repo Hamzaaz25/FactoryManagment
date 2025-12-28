@@ -1,8 +1,10 @@
 import Enums.Status;
 import Enums.TaskStatus;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 
 public class DataManager {
@@ -166,9 +168,15 @@ public class DataManager {
             Product p = productsNames.get(t.getRequestedProduct().trim());
             int req = t.getRequestedQuantity();
 
-
+            ProductLine productLine = null ;
             ArrayList<Item> temp = new ArrayList<>();
-            if(t.isValid()) {
+            for(ProductLine pl : this.listOfProductLines) {
+                if (pl.getId() == t.getProductLine()) {
+                    productLine = pl;
+
+                }
+            }
+            if(t.isValid() && Objects.requireNonNull(productLine).getStatus() != Status.Maintenance) {
                 outer:
                 for (String key : p.getRecipe().keySet()) {
                     temp.add(itemsNames.get(key));
@@ -194,7 +202,7 @@ public class DataManager {
 
                 }
 
-            }
+
 
 
         float percent = (float)t.getProgressPercentage()/100;
@@ -206,12 +214,18 @@ public class DataManager {
             int produced = (int) (percent * req);
             int notpProduced = req -produced;
             int usagePerProduct = p.getRecipe().get(item.getName().trim());
-//            System.out.println(item.getName() + " "+item.getAvailableQuantity() +" " +usagePerProduct+" "+produced +"not" + notpProduced);
+//          System.out.println(item.getName() + " "+item.getAvailableQuantity() +" " +usagePerProduct+" "+produced +"not" + notpProduced);
             item.setAvailableQuantity(item.getAvailableQuantity() + (usagePerProduct * notpProduced));
-//            System.out.println(item.getName() + " "+item.getAvailableQuantity() +" " +usagePerProduct+" "+produced +"not" + notpProduced);
+//          System.out.println(item.getName() + " "+item.getAvailableQuantity() +" " +usagePerProduct+" "+produced +"not" + notpProduced);
 
-        }
+                }
 
+            }
+     else{
+                t.setStatus(TaskStatus.Cancelled);
+                t.setEndDate(LocalDate.now());
+                System.out.println("MEow");
+            }
         DataWriter.writeProducts("src/p.csv" , this.listOfProducts);
         DataWriter.writeTasks("src/t.csv" , this.listOfTasks);
         DataWriter.writeItems("src/h.csv" , this.listOfItems);

@@ -1,3 +1,5 @@
+package View;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -16,7 +18,7 @@ public class ProductFrame extends JFrame {
     JLabel NoResults = new JLabel("No products match your search", SwingConstants.CENTER);
 
 
-    ProductFrame() {
+    public ProductFrame() {
         this.setUndecorated(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
