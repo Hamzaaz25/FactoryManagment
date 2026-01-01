@@ -33,7 +33,6 @@ public class ItemFrame extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.getContentPane().setBackground(Color.black);
         BackGround bg = new BackGround("./assets/ttt.jpg");
         bg.setLayout(new BorderLayout());
         this.setContentPane(bg);
@@ -42,7 +41,6 @@ public class ItemFrame extends JFrame {
 
         sideBar.setPreferredSize(new Dimension(150, 200));
         sideBar.setBackground (new Color(120, 165, 200) );
-        sideBar.setBorder(new EmptyBorder(60, 0, 0, 0));
         sideBar.setLayout(new BorderLayout());
 
 
@@ -52,7 +50,7 @@ public class ItemFrame extends JFrame {
         backButton.setIcon(new ImageIcon(scaled));
         backButton.setBackground(new Color(55, 100, 145));
 
-       styleSidebarButton(backButton);
+        styleSidebarButton(backButton);
         sideBar.add(backButton, BorderLayout.NORTH);
 
         JPanel socialPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 20));
@@ -289,7 +287,7 @@ public class ItemFrame extends JFrame {
         this.setVisible(true);
     }
     public void styleSidebarButton(JButton button) {
-        button.setContentAreaFilled(false);
+        button.setContentAreaFilled(true);
         button.setBorderPainted(true);
         button.setFocusPainted(false);
         button.setOpaque(true);
@@ -299,6 +297,7 @@ public class ItemFrame extends JFrame {
 
         button.setIconTextGap(15);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(new Dimension(200, 60));
 
     }
 

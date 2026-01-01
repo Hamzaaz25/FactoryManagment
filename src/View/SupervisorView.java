@@ -85,22 +85,26 @@ public class SupervisorView extends JFrame implements ActionListener {
             itembutton = new JButton("Item");
             itembutton.setBounds(20, 270, 140, 40);
             itembutton.setFocusPainted(false);
+            itembutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             sideMenu.add(itembutton);
 
             productbutton = new JButton("Product");
             productbutton.setBounds(20, 330, 140, 40);
             productbutton.setFocusPainted(false);
+            productbutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             sideMenu.add(productbutton);
 
             logoutbutton = new JButton("Logout");
             logoutbutton.setBounds(20,560,140,40);
             logoutbutton.setFocusable(false);
+            logoutbutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
             sideMenu.add(logoutbutton);
 
             //the big welcome
             welcome = new JLabel("WELCOME", SwingConstants.CENTER);
             welcome.setFont(new Font("MVBOLI", Font.BOLD, 42));
             welcome.setBounds(380, 20, 400, 50);
+            welcome.setCursor(new Cursor(Cursor.HAND_CURSOR));
             background.add(welcome);
 
             label = new JLabel(
@@ -127,6 +131,7 @@ public class SupervisorView extends JFrame implements ActionListener {
             button1.setIcon(new ImageIcon(""));
             button1.setFocusPainted(false);
             button1.addActionListener(this);
+            button1.setCursor(new Cursor(Cursor.HAND_CURSOR));
             background.add(button1);
 
             label1 = new JLabel("First Line", SwingConstants.CENTER);
@@ -140,6 +145,7 @@ public class SupervisorView extends JFrame implements ActionListener {
             button2.setBounds(500, 240, 180, 180);
             button2.setIcon(new ImageIcon(""));
             button2.setFocusPainted(false);
+            button2.setCursor(new Cursor(Cursor.HAND_CURSOR));
             background.add(button2);
 
             label2 = new JLabel("Second Line", SwingConstants.CENTER);
@@ -153,6 +159,7 @@ public class SupervisorView extends JFrame implements ActionListener {
             button3.setBounds(770, 240, 180, 180);
             button3.setIcon(new ImageIcon(""));
             button3.setFocusPainted(false);
+            button3.setCursor(new Cursor(Cursor.HAND_CURSOR));
             background.add(button3);
 
             label3 = new JLabel("Third Line", SwingConstants.CENTER);

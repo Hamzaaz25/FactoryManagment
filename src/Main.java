@@ -1,7 +1,6 @@
 import Controller.LoginController;
 import Model.DataManager;
-import View.ItemFrame;
-import View.LoginView;
+import View.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
 //import com.formdev.flatlaf.FlatLightLaf;
@@ -10,23 +9,27 @@ import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-//        new LoginView();
-//        FlatLightLaf.setup();
-//        FlatDarkLaf.setup();
 
-new LoginController();
-//        new LoginView().setVisible(true);
-//new LoginController();
-
-//        new View.ItemFrame("Hamza");
-//        new View.ProductFrame();
-
-//        SwingUtilities.invokeLater(() -> {
-//            new Loading().setVisible(true);
-//        });
+  //      FlatLightLaf.setup();
+  //        FlatDarkLaf.setup();
+       try {
+            FlatLightLaf.setup();
+        } catch (Exception ex) {
+              System.err.println("Failed to initialize LaF");
+       }
+        // new LoginController();
+        // new LoginView();
+        // new ProductFrame("aaa");
+        // new ItemFrame("Hamza");
+        // new LoginController();
+        // new LoginView();
+        // new SupervisorView("amin");
+        // SwingUtilities.invokeLater(() -> {
+        // new Loading().setVisible(true);
+        //});
         DataManager.getInstance();
 
-// new ProductFrame();
+
 
 //        System.out.println(Model.DataManager.getInstance().isTaskValid(102));
 

@@ -4,17 +4,16 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class LoginView extends JFrame {
-    JLabel background;
     JPanel card;
-    JLabel cardImage;
     JLabel title;
-    JLabel username;
     JTextField user;
     JPasswordField password;
     JButton loginbutton;
-    JLabel userPassword;
+
 
     public LoginView() {
 
@@ -22,69 +21,73 @@ public class LoginView extends JFrame {
         this.setSize(1000, 600);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setLayout(null);
+
 
         //background image
         LogInBackground bg = new LogInBackground("./assets/log in background.jpeg");
+        bg.setLayout(new GridBagLayout());
         this.setContentPane(bg);
-        background = new JLabel();
-        background.setBounds(0, 0, 1000, 600);
-        background.setLayout(null);
-        this.add(background);
 
         //login card
-        card = new JPanel();
-        card.setBounds(300, 100, 400, 400);
+        card = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                Image img = new ImageIcon("./assets/login card.jpeg").getImage();
+                g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
+            }
+        };
+        card.setPreferredSize(new Dimension(350, 350));
+        card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+        card.setBorder(BorderFactory.createEmptyBorder(30, 50, 30, 50));
         card.setBackground(Color.WHITE);
-        card.setLayout(null);
-        background.add(card);
-
-
-        ImageIcon cardImg = new ImageIcon("./assets/login card.jpeg");
-        cardImage = new JLabel(cardImg);
-        cardImage.setBounds(0, 0, 400, 400);
-        cardImage.setLayout(null);
-        card.add(cardImage);
 
         title = new JLabel("User Login", SwingConstants.CENTER);
         title.setFont(new Font("Arial", Font.BOLD, 24));
-        title.setBounds(0, 30, 400, 30);
+        title.setAlignmentX(Component.CENTER_ALIGNMENT);
         card.add(title);
+        card.add(Box.createVerticalStrut(40));
 
-        username = new JLabel("Username");
-        username.setBounds(60, 90, 100, 25);
-        card.add(username);
-
-
-
-
-
-
-
+        Dimension fieldSize = new Dimension(280, 35);
 
         user = new JTextField();
-//        user.setText("Username");
-        user.setBounds(60, 120, 280, 35);
+        user.putClientProperty("JComponent.arc", 15);
+        user.putClientProperty("JTextField.placeholderText", "Username");
+        user.setAlignmentX(Component.CENTER_ALIGNMENT);
+        user.setMaximumSize(fieldSize);
+        user.setPreferredSize(fieldSize);
         card.add(user);
+        card.add(Box.createVerticalStrut(40));
 
-        userPassword = new JLabel("Password");
-        userPassword.setBounds(60, 170, 100, 25);
-        card.add(userPassword);
 
-        password = new JPasswordField();
-//        password.setText("Password");
-        password.setBounds(60, 200, 280, 35);
+        password = new JPasswordField(20);
+        password.putClientProperty("JComponent.arc", 15);
+        password.putClientProperty("JTextField.placeholderText", "Password");
+        password.setAlignmentX(Component.CENTER_ALIGNMENT);
+        password.setMaximumSize(fieldSize);
+        password.setPreferredSize(fieldSize);
         card.add(password);
+        card.add(Box.createVerticalStrut(40));
 
         loginbutton = new JButton("LOGIN");
-        loginbutton.setBounds(60, 260, 280, 40);
         loginbutton.setBackground(new Color(2, 37, 52));
+        loginbutton.setPreferredSize(new Dimension(600, 40));
         loginbutton.setForeground(Color.WHITE);
         loginbutton.setFocusPainted(false);
-
+        loginbutton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        loginbutton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        loginbutton.setMaximumSize(fieldSize);
+        loginbutton.setPreferredSize(fieldSize);
         card.add(loginbutton);
 
 
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 5.0;
+        gbc.weighty = 5.0;
+        gbc.anchor = GridBagConstraints.CENTER;
+
+        this.add(card,gbc);
         this.setVisible(true);
     }
 
@@ -114,6 +117,8 @@ public class LoginView extends JFrame {
         user.setText("");
         password.setText("");
         user.requestFocusInWindow();
+
+
     }
 
     public String getUser() { return user.getText(); }

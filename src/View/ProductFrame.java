@@ -21,7 +21,6 @@ public class ProductFrame extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        this.getContentPane().setBackground(Color.black);
         BackGround bg = new BackGround("./assets/sof.jpg");
         bg.setLayout(new BorderLayout());
         this.setContentPane(bg);
@@ -30,7 +29,6 @@ public class ProductFrame extends JFrame {
 
         sideBar.setPreferredSize(new Dimension(150, 200));
         sideBar.setBackground(new Color(120, 165, 200));
-        sideBar.setBorder(new EmptyBorder(60, 0, 0, 0));
         sideBar.setLayout(new BorderLayout());
 
 
@@ -52,28 +50,28 @@ public class ProductFrame extends JFrame {
         JPanel socialPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 20));
         socialPanel.setOpaque(false);
 
-        JButton btnInsta = new JButton();
+        JButton Instabtn = new JButton();
         ImageIcon icone = new ImageIcon("./assets/insta.png");
         Image scaledImg = icone.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        btnInsta.setIcon(new ImageIcon(scaledImg));
-        btnInsta.setPreferredSize(new Dimension(40, 40));
-        btnInsta.setFocusPainted(false);
-        btnInsta.setBorderPainted(false);
-        btnInsta.setContentAreaFilled(false);
-        btnInsta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        Instabtn.setIcon(new ImageIcon(scaledImg));
+        Instabtn.setPreferredSize(new Dimension(40, 40));
+        Instabtn.setFocusPainted(false);
+        Instabtn.setBorderPainted(false);
+        Instabtn.setContentAreaFilled(false);
+        Instabtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        JButton btnFB = new JButton();
+        JButton FBbtn = new JButton();
         ImageIcon iconee = new ImageIcon("./assets/face.png");
         Image scaledImge = iconee.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        btnFB.setIcon(new ImageIcon(scaledImge));
-        btnFB.setPreferredSize(new Dimension(40, 40));
-        btnFB.setFocusPainted(false);
-        btnFB.setBorderPainted(false);
-        btnFB.setContentAreaFilled(false);
-        btnFB.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        FBbtn.setIcon(new ImageIcon(scaledImge));
+        FBbtn.setPreferredSize(new Dimension(40, 40));
+        FBbtn.setFocusPainted(false);
+        FBbtn.setBorderPainted(false);
+        FBbtn.setContentAreaFilled(false);
+        FBbtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        socialPanel.add(btnInsta);
-        socialPanel.add(btnFB);
+        socialPanel.add(Instabtn);
+        socialPanel.add(FBbtn);
 
 
         sideBar.add(socialPanel, BorderLayout.SOUTH);
@@ -283,17 +281,16 @@ public class ProductFrame extends JFrame {
         this.setVisible(true);
     }
     public void styleSidebarButton(JButton button) {
-        button.setContentAreaFilled(false);
+        button.setContentAreaFilled(true);
         button.setBorderPainted(true);
         button.setFocusPainted(false);
         button.setOpaque(true);
         button.setFont(new Font("Segoe UI", Font.PLAIN, 30));
         button.setForeground(Color.WHITE);
         button.setHorizontalAlignment(SwingConstants.LEFT);
-
         button.setIconTextGap(15);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
+        button.setPreferredSize(new Dimension(200, 60));
     }
 
     private void performSearch(String query) {

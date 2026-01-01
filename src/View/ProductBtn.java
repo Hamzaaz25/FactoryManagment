@@ -1,9 +1,10 @@
 package View;
 
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
+
 
 public class ProductBtn extends JButton {
     String name;
@@ -23,43 +24,26 @@ public class ProductBtn extends JButton {
         this.price=price;
         this.description=description;
         this.setLayout(new BorderLayout(5, 5));
-        this.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         this.setPreferredSize(new Dimension(180, 220));
-        this.putClientProperty("JComponent.arc", 25);
-        this.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(0, 0, 0), 2, true),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)
-        ));
-        this.setContentAreaFilled(false);
+        this.setContentAreaFilled(true);
+        this.setOpaque(false);
+        this.setBorder(new javax.swing.border.EmptyBorder(10, 10, 10, 10));
         this.setBorderPainted(true);
         this.setFocusPainted(false);
-        this.setOpaque(true);
-        this.setForeground(Color.WHITE);
         this.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+        this.setForeground(Color.WHITE);
         this.setHorizontalAlignment(SwingConstants.LEFT);
         this.setIconTextGap(15);
         this.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        this.setBackground(new Color(94, 142, 180));
 
-
-
-        Color defaultColor = new Color(94, 142, 180);
-        Color hoverColor = new Color(74, 120, 160);
-        Color borderColor = new Color(200, 200, 200);
-
-        this.setBorder(BorderFactory.createLineBorder(borderColor, 1));
-        this.setBackground(defaultColor);
-        this.addMouseListener(new MouseAdapter() {
-
-            @Override
-            public void mouseEntered(MouseEvent e) {
-                setBackground(hoverColor);
-                setBorder(BorderFactory.createRaisedBevelBorder());
+        this.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                setBackground(new Color(74, 120, 160));
             }
 
-            @Override
-            public void mouseExited(MouseEvent e) {
-                setBackground(defaultColor);
-                setBorder(BorderFactory.createLineBorder(borderColor, 1));
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                setBackground(new Color(94, 142, 180));
             }
         });
 
@@ -145,10 +129,7 @@ public class ProductBtn extends JButton {
         bottomPanel.add(Pricelbl, BorderLayout.WEST);
         bottomPanel.add(actionsPanel, BorderLayout.EAST);
 
-
         this.add(bottomPanel, BorderLayout.SOUTH);
-
-
     }
 
     private void styleActionIcon(JButton btn, Color bg) {
@@ -160,5 +141,4 @@ public class ProductBtn extends JButton {
         btn.setBorder(BorderFactory.createLineBorder(bg, 2));
 
     }
-
 }

@@ -1,5 +1,7 @@
 package View;
 
+import Controller.LoginController;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -28,7 +30,7 @@ public class Loading extends JFrame {
 
     Timer timer = new Timer(6000, e -> {
         this.dispose();
-        new ProductFrame("meow").setVisible(true);
+        new LoginController();
     });
         timer.setRepeats(false);
         timer.start();
