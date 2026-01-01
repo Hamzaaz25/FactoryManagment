@@ -4,17 +4,20 @@ import Exceptions.LowInventoryException;
 import Model.DataManager;
 import Model.ProductLine;
 import Model.Task;
+import View.Loading;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-new LoginController();
+//new LoginController();
 
 //        new View.ItemFrame();
 //        new View.ProductFrame();
 
-//        SwingUtilities.invokeLater(() -> {
-//            new Loading().setVisible(true);
-//        });
+        SwingUtilities.invokeLater(() -> {
+            new Loading().setVisible(true);
+       });
         DataManager.getInstance();
 
 // new ProductFrame();
