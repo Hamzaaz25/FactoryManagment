@@ -297,7 +297,7 @@ public class ProductFrame extends JFrame {
         String searchText = query.toLowerCase().trim();
         container.removeAll();
         for (ProductBtn card : allCards) {
-            if (card.getName().toLowerCase().contains(searchText)) {
+            if (card.getTextName().toLowerCase().contains(searchText)) {
                 container.add(card);
                 matchCountProduct++;
             }
@@ -348,7 +348,7 @@ public class ProductFrame extends JFrame {
 
         addCard = new AddBtn(() -> {
 
-            addNewProduct("New Model.Product", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
+            addNewProduct("New Product", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
         });
 
         container.add(addCard);

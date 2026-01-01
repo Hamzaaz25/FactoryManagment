@@ -12,12 +12,14 @@ public class ItemBtn extends JButton {
     JLabel Pricelbl;
     String description;
     JLabel Desclbl;
-    @Override
-    public String getName() {
+
+    public String getTextName() {
         return Namelbl.getText();
     }
 
     public ItemBtn(String name, String price, ImageIcon icon, String description) {
+        super.putClientProperty("JButton.buttonType", "roundRect"); // rounded buttons
+        super.putClientProperty("JComponent.hoverBackground", Color.CYAN);
 
         this.name=name;
         this.price=price;

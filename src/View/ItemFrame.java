@@ -10,6 +10,8 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
 
 
 public class ItemFrame extends JFrame {
@@ -21,6 +23,11 @@ public class ItemFrame extends JFrame {
     String message ;
 
    public ItemFrame(String message) {
+       try {
+           UIManager.setLookAndFeel(new FlatLightLaf());
+       } catch (UnsupportedLookAndFeelException e) {
+           throw new RuntimeException(e);
+       }
        this.message = message;
         this.setUndecorated(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -299,7 +306,7 @@ public class ItemFrame extends JFrame {
         String searchText = query.toLowerCase().trim();
         container.removeAll();
         for (ItemBtn card : allCards) {
-            if (card.getName().toLowerCase().contains(searchText)) {
+            if (card.getTextName().toLowerCase().contains(searchText)) {
                 container.add(card);
                 matchCountProduct++;
             }
@@ -333,7 +340,7 @@ public class ItemFrame extends JFrame {
 
     public void setCards() {
 
-        addNewItem("coton", "$5.00", new ImageIcon("./assets/wool.png"), "description");
+        addNewItem("cotton", "$5.00", new ImageIcon("./assets/wool.png"), "description");
         addNewItem("wood", "$4.00", new ImageIcon("./assets/wood.png"), "description");
         addNewItem("silk", "$2.50", new ImageIcon("./assets/silk.png"), "description");
         addNewItem("spring", "$3.50", new ImageIcon("./assets/spring.png"), "description");
@@ -351,7 +358,7 @@ public class ItemFrame extends JFrame {
 
         addCard = new AddBtn(() -> {
 
-            addNewItem("New Model.Item", "$0.00",new ImageIcon("./assets/paint.png"),"description");
+            addNewItem("New Item", "$0.00",new ImageIcon("./assets/paint.png"),"description");
         });
 
         container.add(addCard);

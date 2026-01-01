@@ -27,13 +27,13 @@ public class LoginController {
 
                 }
                 else if (p == Enums.LoginResult.UserNotFound)
-                    System.out.println("Model.User not found");
+                    view.showError("User not found");
                 else if (p == Enums.LoginResult.IncorrectPassword)
-                    System.out.println("Incorrect Password");
+                    view.showError("Incorrect Password");
                 else if (p == Enums.LoginResult.Empty)
-                    System.out.println("Email Or Password cannot be empty");
+                    view.showError("Email Or Password cannot be empty");
                 else if(p==Enums.LoginResult.InvalidEmail)
-                    System.out.println("Email is Invalid");
+                    view.showError("Email is Invalid");
 
             }
         }

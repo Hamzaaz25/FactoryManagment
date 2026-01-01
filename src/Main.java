@@ -1,15 +1,23 @@
 import Controller.LoginController;
-import Enums.TaskStatus;
-import Exceptions.LowInventoryException;
 import Model.DataManager;
-import Model.ProductLine;
-import Model.Task;
+import View.ItemFrame;
+import View.LoginView;
+import com.formdev.flatlaf.FlatDarkLaf;
+import com.formdev.flatlaf.FlatLightLaf;
+//import com.formdev.flatlaf.FlatLightLaf;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-new LoginController();
+        FlatLightLaf.setup();
+//        FlatDarkLaf.setup();
 
-//        new View.ItemFrame();
+new LoginController();
+//        new LoginView().setVisible(true);
+//new LoginController();
+
+//        new View.ItemFrame("Hamza");
 //        new View.ProductFrame();
 
 //        SwingUtilities.invokeLater(() -> {
@@ -27,17 +35,17 @@ new LoginController();
 //pl.addTask(t);
 //   Model.ProductLine.Worker worker =  new Model.ProductLine.Worker(pl);
 //   worker.t.start();
-Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
+//Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
 //Model.Task se = new Model.Task("carpet" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
 ////Model.Task he = new Model.Task("chair" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
 ////
 ////
 ////Model.Task fe = new Model.Task("carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress );
 //////Model.DataManager.getInstance().editProductLineStatus(2 , Status.Maintenance);
-        ProductLine p = DataManager.getInstance().getProductLineByNumber(1);
+//        ProductLine p = DataManager.getInstance().getProductLineByNumber(1);
 ////
-       p.addTask(te);
-       p.RunWorker();
+//       p.addTask(te);
+//       p.RunWorker();
 
 //       new Controller.LoginController();
 ////        p.addTask(se);

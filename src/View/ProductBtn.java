@@ -12,8 +12,8 @@ public class ProductBtn extends JButton {
     JLabel Pricelbl;
     String description;
     JLabel Desclbl;
-    @Override
-    public String getName() {
+
+    public String getTextName() {
         return Namelbl.getText();
     }
 
