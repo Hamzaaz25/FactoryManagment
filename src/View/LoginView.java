@@ -1,97 +1,95 @@
 package View;
 
-import com.formdev.flatlaf.FlatDarkLaf;
-import com.formdev.flatlaf.FlatLightLaf;
-
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class LoginView extends JFrame {
-
-    private JTextField userField;
-    private JPasswordField passField;
-    private JButton loginBtn;
-    private JButton themeBtn;
+    JLabel background;
+    JPanel card;
+    JLabel cardImage;
+    JLabel title;
+    JLabel username;
+    JTextField user;
+    JPasswordField password;
+    JButton loginbutton;
+    JLabel userPassword;
 
     public LoginView() {
-        // Apply FlatLightLaf
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        setTitle("Login");
-        setSize(350, 200);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+        this.setTitle("Furniture Factory Login");
+        this.setSize(1000, 600);
+        this.setLocationRelativeTo(null);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(null);
 
-        // Use BoxLayout for vertical stacking
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        panel.setBackground(Color.WHITE);
+        //background image
+        LogInBackground bg = new LogInBackground("./assets/log in background.jpeg");
+        this.setContentPane(bg);
+        background = new JLabel();
+        background.setBounds(0, 0, 1000, 600);
+        background.setLayout(null);
+        this.add(background);
 
-        // Username
-        JPanel userPanel = new JPanel(new BorderLayout(5, 5));
-        userPanel.setOpaque(false);
-        userPanel.add(new JLabel("Username:"), BorderLayout.WEST);
-        userField = new JTextField();
-        userPanel.add(userField, BorderLayout.CENTER);
-        panel.add(userPanel);
-        panel.add(Box.createVerticalStrut(10));
+        //login card
+        card = new JPanel();
+        card.setBounds(300, 100, 400, 400);
+        card.setBackground(Color.WHITE);
+        card.setLayout(null);
+        background.add(card);
 
-        // Password
-        JPanel passPanel = new JPanel(new BorderLayout(5, 5));
-        passPanel.setOpaque(false);
-        passPanel.add(new JLabel("Password:"), BorderLayout.WEST);
-        passField = new JPasswordField();
-        passPanel.add(passField, BorderLayout.CENTER);
-        panel.add(passPanel);
-        panel.add(Box.createVerticalStrut(20));
 
-        // Buttons
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 10, 0));
-        buttonPanel.setOpaque(false);
+        ImageIcon cardImg = new ImageIcon("./assets/login card.jpeg");
+        cardImage = new JLabel(cardImg);
+        cardImage.setBounds(0, 0, 400, 400);
+        cardImage.setLayout(null);
+        card.add(cardImage);
 
-        loginBtn = new JButton("Login");
-        loginBtn.putClientProperty("JComponent.roundRect", true); // FlatLaf rounded
-        loginBtn.setBackground(new Color(0, 120, 215));
-        loginBtn.setForeground(Color.WHITE);
-        loginBtn.setFont(new Font("Segoe UI", Font.BOLD, 16));
-        loginBtn.setFocusPainted(false);
+        title = new JLabel("User Login", SwingConstants.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 24));
+        title.setBounds(0, 30, 400, 30);
+        card.add(title);
 
-        themeBtn = new JButton("Toggle Theme");
-        themeBtn.putClientProperty("JComponent.roundRect", true);
-        themeBtn.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        themeBtn.addActionListener(e -> switchTheme());
+        username = new JLabel("Username");
+        username.setBounds(60, 90, 100, 25);
+        card.add(username);
 
-        buttonPanel.add(loginBtn);
-        buttonPanel.add(themeBtn);
 
-        panel.add(buttonPanel);
 
-        setContentPane(panel);
-        setVisible(true);
+
+
+
+
+
+        user = new JTextField();
+//        user.setText("Username");
+        user.setBounds(60, 120, 280, 35);
+        card.add(user);
+
+        userPassword = new JLabel("Password");
+        userPassword.setBounds(60, 170, 100, 25);
+        card.add(userPassword);
+
+        password = new JPasswordField();
+//        password.setText("Password");
+        password.setBounds(60, 200, 280, 35);
+        card.add(password);
+
+        loginbutton = new JButton("LOGIN");
+        loginbutton.setBounds(60, 260, 280, 40);
+        loginbutton.setBackground(new Color(2, 37, 52));
+        loginbutton.setForeground(Color.WHITE);
+        loginbutton.setFocusPainted(false);
+
+        card.add(loginbutton);
+
+
+        this.setVisible(true);
     }
 
-    public String getUser() { return userField.getText(); }
-    public String getPass() { return new String(passField.getPassword()); }
-    public void addLoginListener(ActionListener listener) { loginBtn.addActionListener(listener); }
 
-    private void switchTheme() {
-        try {
-            if (UIManager.getLookAndFeel() instanceof FlatLightLaf) {
-                UIManager.setLookAndFeel(new FlatDarkLaf());
-            } else {
-                UIManager.setLookAndFeel(new FlatLightLaf());
-            }
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+
     public void showError(String message) {
         // Create a custom panel for the popup
         JPanel panel = new JPanel();
@@ -108,17 +106,19 @@ public class LoginView extends JFrame {
         JOptionPane.showMessageDialog(
                 this,
                 panel,
-                "Error",
+                message,
                 JOptionPane.ERROR_MESSAGE
         );
 
         // Reset GUI
-        userField.setText("");
-        passField.setText("");
-        userField.requestFocusInWindow();
+        user.setText("");
+        password.setText("");
+        user.requestFocusInWindow();
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(LoginView::new);
-    }
+    public String getUser() { return user.getText(); }
+    public String getPass() { return new String(password.getPassword()); }
+    public void addLoginListener(ActionListener listener) { loginbutton.addActionListener(listener);}
+
+
 }
