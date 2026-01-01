@@ -12,13 +12,13 @@ public class AddBtn extends JButton {
         setBackground(new Color(94, 142, 180));
         setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        JLabel lblPlus = new JLabel("+", SwingConstants.CENTER);
-        lblPlus.setFont(new Font("Segoe UI", Font.BOLD, 50));
-        lblPlus.setForeground(Color.black);
-        add(lblPlus, BorderLayout.CENTER);
+        JLabel Pluslbl = new JLabel("+", SwingConstants.CENTER);
+        Pluslbl.setFont(new Font("Segoe UI", Font.BOLD, 50));
+        Pluslbl.setForeground(Color.black);
+        add(Pluslbl, BorderLayout.CENTER);
 
-        JLabel lblText = new JLabel("Add New ", SwingConstants.CENTER);
-        add(lblText, BorderLayout.SOUTH);
+        JLabel Textlbl = new JLabel("Add New ", SwingConstants.CENTER);
+        add(Textlbl, BorderLayout.SOUTH);
 
         addMouseListener(new MouseAdapter() {
             @Override

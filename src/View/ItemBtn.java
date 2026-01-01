@@ -65,11 +65,11 @@ public class ItemBtn extends JButton {
             }
         });
 
-        JLabel labelImage = new JLabel();
+        JLabel Imagelbl = new JLabel();
         Image img = icon.getImage().getScaledInstance(180, 80, Image.SCALE_SMOOTH);
-        labelImage.setIcon(new ImageIcon(img));
-        labelImage.setHorizontalAlignment(SwingConstants.CENTER);
-        this.add(labelImage, BorderLayout.NORTH);
+        Imagelbl.setIcon(new ImageIcon(img));
+        Imagelbl.setHorizontalAlignment(SwingConstants.CENTER);
+        this.add(Imagelbl, BorderLayout.NORTH);
 
         JPanel textPanel = new JPanel();
         textPanel.setLayout(new BoxLayout(textPanel, BoxLayout.Y_AXIS));

@@ -48,39 +48,40 @@ public class ItemFrame extends JFrame {
 
         ImageIcon icon = new ImageIcon("./assets/return.png");
         Image scaled = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        JButton aaa = new JButton("Back", icon);
-        aaa.setIcon(new ImageIcon(scaled));
-        aaa.setBackground(new Color(55, 100, 145));
+        JButton backButton = new JButton("Back", icon);
+        backButton.setIcon(new ImageIcon(scaled));
+        backButton.setBackground(new Color(55, 100, 145));
 
-        sideBar.add(aaa, BorderLayout.NORTH);
+       styleSidebarButton(backButton);
+        sideBar.add(backButton, BorderLayout.NORTH);
 
         JPanel socialPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 20));
         socialPanel.setOpaque(false);
 
-        JButton btnInsta = new JButton();
+        JButton Instabtn = new JButton();
         ImageIcon icone = new ImageIcon("./assets/insta.png");
         Image scaledImg = icone.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        btnInsta.setIcon(new ImageIcon(scaledImg));
-        btnInsta.setPreferredSize(new Dimension(40, 40));
-        btnInsta.setFocusPainted(false);
-        btnInsta.setBorderPainted(false);
-        btnInsta.setContentAreaFilled(false);
-        btnInsta.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        Instabtn.setIcon(new ImageIcon(scaledImg));
+        Instabtn.setPreferredSize(new Dimension(40, 40));
+        Instabtn.setFocusPainted(false);
+        Instabtn.setBorderPainted(false);
+        Instabtn.setContentAreaFilled(false);
+        Instabtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        JButton btnFB = new JButton();
+        JButton FBbtn = new JButton();
         ImageIcon iconee = new ImageIcon("./assets/face.png");
         Image scaledImge = iconee.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        btnFB.setIcon(new ImageIcon(scaledImge));
-        btnFB.setPreferredSize(new Dimension(40, 40));
-        btnFB.setFocusPainted(false);
-        btnFB.setBorderPainted(false);
-        btnFB.setContentAreaFilled(false);
-        btnFB.setCursor(new Cursor(Cursor.HAND_CURSOR));
+       FBbtn.setIcon(new ImageIcon(scaledImge));
+       FBbtn.setPreferredSize(new Dimension(40, 40));
+       FBbtn.setFocusPainted(false);
+       FBbtn.setBorderPainted(false);
+       FBbtn.setContentAreaFilled(false);
+       FBbtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        socialPanel.add(btnInsta);
-        socialPanel.add(btnFB);
+        socialPanel.add(Instabtn);
+        socialPanel.add(FBbtn);
 
-        styleSidebarButton(aaa);
+
         sideBar.add(socialPanel, BorderLayout.SOUTH);
 
 
@@ -164,14 +165,14 @@ public class ItemFrame extends JFrame {
         NoResults.setHorizontalTextPosition(JLabel.CENTER);
 
 
-        JButton btnSearch = new JButton();
+        JButton Searchbtn = new JButton();
         ImageIcon iconn = new ImageIcon("./assets/searchh.png");
         Image scaledImgg = iconn.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        btnSearch.setIcon(new ImageIcon(scaledImgg));
-        btnSearch.setBackground(Color.white);
-        btnSearch.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        Searchbtn.setIcon(new ImageIcon(scaledImgg));
+        Searchbtn.setBackground(Color.white);
+        Searchbtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        btnSearch.addActionListener(e -> {
+        Searchbtn.addActionListener(e -> {
             performSearch(Searchtext.getText());
         });
 
@@ -194,7 +195,7 @@ public class ItemFrame extends JFrame {
         JPanel searchBar = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         searchBar.setOpaque(false);
         searchBar.add(Searchtext);
-        searchBar.add(btnSearch);
+        searchBar.add(Searchbtn);
 
         JPanel topSection = new JPanel();
         topSection.setLayout(new BoxLayout(topSection, BoxLayout.Y_AXIS));
