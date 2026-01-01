@@ -1,4 +1,6 @@
 package View;
+import Controller.LoginController;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -35,9 +37,11 @@ public class SupervisorView extends JFrame implements ActionListener {
     JLabel searchlabel;
     JComboBox searchBox;
 
+    String message;
+    ActionListener e ;
 
-        public SupervisorView() {
-
+        public SupervisorView(String m) {
+            this.message = m;
             this.setTitle("Supervisor");
             this.setSize(1000, 650);
             this.setLocationRelativeTo(null);
@@ -45,7 +49,7 @@ public class SupervisorView extends JFrame implements ActionListener {
             this.setLayout(null);
 
             //background image
-            SupervisorBackground bg = new SupervisorBackground("C:\\Users\\maria\\IdeaProjects\\my project\\src\\Furniture Background (4).jpeg");
+            SupervisorBackground bg = new SupervisorBackground("./assets/Furniture Background (4).jpeg");
             this.setContentPane(bg);
             JLabel background = new JLabel();
             background.setBounds(0, 0, 1000, 650);
@@ -62,10 +66,10 @@ public class SupervisorView extends JFrame implements ActionListener {
             //The supervisor information
             supervisorPIC = new JLabel();
             supervisorPIC.setBounds(25, 20, 130, 130);
-            supervisorPIC.setIcon(new ImageIcon("C:\\Users\\maria\\IdeaProjects\\my project\\src\\DinoDino.jpg"));
+            supervisorPIC.setIcon(new ImageIcon("./assets/DinoDino.jpg"));
             sideMenu.add(supervisorPIC);
 
-            name = new JLabel("Name : DinoDino");
+            name = new JLabel("Name :"+ message);
             name.setBounds(20, 160, 150, 25);
             sideMenu.add(name);
 
@@ -100,7 +104,7 @@ public class SupervisorView extends JFrame implements ActionListener {
             background.add(welcome);
 
             label = new JLabel(
-                    "Welcome user, you're the supervisor of these product lines",
+                    "Welcome "+message+" you're the supervisor of these product lines",
                     SwingConstants.CENTER
             );
 
@@ -172,16 +176,35 @@ public class SupervisorView extends JFrame implements ActionListener {
             //searchBox.setBounds(800, 50, 180, 30);
             searchBox.setBounds(780, 40, 200, 30);
             background.add(searchBox);
-
+            logoutbutton.addActionListener(this);
+            itembutton.addActionListener(this);
+            productbutton.addActionListener(this);
             this.setVisible(true);
+
         }
 
 
     @Override
     public void actionPerformed(ActionEvent e) {
             if (e.getSource()==button1)
-                new ProductLineDisplayView();
 
+                new ProductLineDisplayView();
+            if(e.getSource() == productbutton){
+                this.setVisible(false);
+                this.dispose();
+                new ProductFrame(this.message);
+            }
+            if(e.getSource() == itembutton){
+                this.setVisible(false);
+                this.dispose();
+                new ItemFrame(this.message);
+            }
+            if(e.getSource()==logoutbutton) {
+                this.setVisible(false);
+                this.dispose();
+                new LoginController();
+
+            }
 
     }
 }

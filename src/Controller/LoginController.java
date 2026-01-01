@@ -20,9 +20,11 @@ public class LoginController {
                 Enums.LoginResult p =  model.authenticate(view.getUser(), view.getPass());
                 if (p == Enums.LoginResult.Success){
                     System.out.println("Success");
+                    view.setVisible(false);
+                    view.dispose(); // important
                     if(model.getLoggedUser().getRole() == Role.Manager){new ProductLineDisplayView();
                     }
-                    else{new SupervisorView();
+                    else{new SupervisorView(model.getLoggedUser().getUsername());
                     }
 
                 }

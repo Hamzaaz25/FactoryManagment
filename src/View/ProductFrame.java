@@ -3,10 +3,7 @@ package View;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -45,6 +42,12 @@ public class ProductFrame extends JFrame {
         styleSidebarButton(backButton);
 
         sideBar.add(backButton, BorderLayout.NORTH);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new SupervisorView("amin");
+            }
+        });
 
         JPanel socialPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 20));
         socialPanel.setOpaque(false);
