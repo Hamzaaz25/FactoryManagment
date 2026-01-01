@@ -1,4 +1,4 @@
-name , amount , item , itemquantity
-chair , 2  , oak , 5 , cotton , 10
-carpet , 3 ,silk , 30
-sofa , 5 , oak, 7 , cotton , 20
+Id ,name , amount , item , itemquantity
+1,chair , 2  , oak , 5 , cotton , 10
+2,carpet , 3 ,silk , 30
+3,sofa , 5 , oak, 7 , cotton , 20

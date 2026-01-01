@@ -1,3 +1,6 @@
+package Model;
+
+import Enums.ItemStatus;
 import Enums.MaterialType;
 
 public class Item {
@@ -7,6 +10,7 @@ public class Item {
     private int availableQuantity;
     MaterialType type;
     private int minimumAllowedQuantity;
+    ItemStatus status ;
     static int count = 0 ;
 public Item(){
 
@@ -19,6 +23,11 @@ public Item(){
         this.name = name;
         this.price = price;
         this.availableQuantity = availableQuantity;
+        if(this.availableQuantity > this.minimumAllowedQuantity)
+            this.status = ItemStatus.Available;
+        else
+            this.status = ItemStatus.BelowMinimum;
+
     }
 
     public Item( String name, double price, int availableQuantity, MaterialType type, int minimumAllowedQuantity) {
@@ -28,6 +37,10 @@ public Item(){
         this.availableQuantity = availableQuantity;
         this.type = type;
         this.minimumAllowedQuantity = minimumAllowedQuantity;
+        if(this.availableQuantity > this.minimumAllowedQuantity)
+            this.status = ItemStatus.Available;
+        else
+            this.status = ItemStatus.BelowMinimum;
     }
 
     public int getId() {
@@ -84,6 +97,18 @@ public Item(){
 
     public boolean isStockSufficient(){
      return this.getAvailableQuantity() >this.getMinimumAllowedQuantity();
+    }
+
+    public boolean isStockAvailable(){
+    return this.getAvailableQuantity() > 0;
+    }
+
+    public ItemStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ItemStatus status) {
+        this.status = status;
     }
 }
 

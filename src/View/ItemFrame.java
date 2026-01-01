@@ -18,9 +18,10 @@ public class ItemFrame extends JFrame {
     private JPanel container=new JPanel(new GridLayout(0, 3, 100, 100));
     private JTextField Searchtext = new JTextField(" Search ...");;
     JLabel NoResults = new JLabel("No items match your search", SwingConstants.CENTER);
+    String message ;
 
-
-   public ItemFrame() {
+   public ItemFrame(String message) {
+       this.message = message;
         this.setUndecorated(true);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -89,7 +90,7 @@ public class ItemFrame extends JFrame {
         menuBar.add(leftPanel, gbc);
         JPanel profilePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 15));
         profilePanel.setOpaque(false);
-        JLabel Userlbl = new JLabel("Welcome, Nayef");
+        JLabel Userlbl = new JLabel("Welcome , "+this.message);
         Userlbl.setFont(new Font("Segoe UI", Font.PLAIN, 25));
         Userlbl.setForeground(Color.WHITE);
         ImageIcon profileImg = new ImageIcon("./assets/profile.png");
@@ -350,7 +351,7 @@ public class ItemFrame extends JFrame {
 
         addCard = new AddBtn(() -> {
 
-            addNewItem("New Item", "$0.00",new ImageIcon("./assets/paint.png"),"description");
+            addNewItem("New Model.Item", "$0.00",new ImageIcon("./assets/paint.png"),"description");
         });
 
         container.add(addCard);

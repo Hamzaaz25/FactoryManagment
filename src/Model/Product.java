@@ -1,4 +1,5 @@
-import java.util.ArrayList;
+package Model;
+
 import java.util.HashMap;
 
 public class Product {
@@ -13,6 +14,13 @@ public class Product {
         this.name = name;
         this.amount = amount;
         this.recipe = recipe;
+    }
+
+    public Product(String name, int amount) {
+        this.id = ++count;
+        this.name = name;
+        this.amount = amount;
+//        this.recipe = recipe;
     }
 
     public int getId() {
@@ -45,5 +53,9 @@ public class Product {
 
     public void setRecipe(HashMap<String, Integer> recipe) {
         this.recipe = recipe;
+    }
+
+    public void incrementAmount(int amount){
+        this.amount += amount;
     }
 }

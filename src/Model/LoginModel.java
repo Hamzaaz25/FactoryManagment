@@ -1,7 +1,9 @@
+package Model;
+
 import Enums.LoginResult;
 import java.util.ArrayList;
 import java.util.Scanner;
-
+import IO.*;
 public class LoginModel {
     Scanner in = new Scanner(System.in);
     ArrayList<User> listOfUsers = new ArrayList<>();

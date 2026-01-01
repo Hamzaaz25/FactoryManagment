@@ -1,7 +1,7 @@
-import Enums.MaterialType;
-import Enums.Role;
-import Enums.Status;
-import Enums.TaskStatus;
+package IO;
+
+import Enums.*;
+import Model.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,7 +10,6 @@ import java.lang.reflect.GenericArrayType;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 public class DataReader {
@@ -102,6 +101,7 @@ public class DataReader {
                 int available = Integer.parseInt(row[4].trim());
                 int miniAllowed = Integer.parseInt(row[5].trim());
 
+
                 Item item = new Item(name ,price , available,type ,miniAllowed);
                 listOfItems.add(item);
 
@@ -134,11 +134,11 @@ public static ArrayList<Product> loadProducts(String path){
             String[] row = line.split(",");
 
 
-            String name = row[0].trim();
+            String name = row[1].trim();
 
-            int amount = Integer.parseInt(row[1].trim());
+            int amount = Integer.parseInt(row[2].trim());
 
-            for(int i =2; i<row.length;i+=2){
+            for(int i =3; i<row.length;i+=2){
                 String key = row[i].trim();
                 int value =Integer.parseInt(row[i+1].trim());
 
@@ -247,7 +247,7 @@ public static ArrayList<Product> loadProducts(String path){
             System.out.println(e.toString());
             return listOfTasks;
         }catch (IllegalArgumentException il){
-            System.out.println("Not valid file content Task");
+            System.out.println("Not valid file content Model.Task");
             return new ArrayList<>();
         }
     }

@@ -133,7 +133,7 @@ public class ProductBtn extends JButton {
 
                 JOptionPane.showMessageDialog(
                         null,
-                        "Product has been deleted successfully!",
+                        "Model.Product has been deleted successfully!",
                         "Success",
                         JOptionPane.INFORMATION_MESSAGE
                 );

@@ -1,7 +1,8 @@
+package Model;
+
 import Enums.TaskStatus;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class Task {
@@ -31,14 +32,15 @@ public class Task {
         this.progressPercentage = progressPercentage;
     }
 
-    public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, int productLine , TaskStatus s , LocalDate start) {
+    public Task( String requestedProduct, int requestedQuantity, String clientName, int productLine , TaskStatus s ) {
         this.taskNumber = ++count;
         this.requestedProduct = requestedProduct;
         this.requestedQuantity = requestedQuantity;
         this.clientName = clientName;
         this.productLine = productLine;
         this.status = s;
-        this.startDate = start;
+        this.startDate = LocalDate.now();
+        this.endDate = LocalDate.now();
     }
 
     public Task(int taskNumber) {

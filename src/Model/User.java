@@ -1,3 +1,5 @@
+package Model;
+
 import Enums.Role;
 
 public class User {

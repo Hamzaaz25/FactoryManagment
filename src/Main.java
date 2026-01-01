@@ -1,16 +1,17 @@
+import Controller.LoginController;
 import Enums.TaskStatus;
-import View.*;
-import View.ProductFrame;
-
-import javax.swing.*;
-import java.time.LocalDate;
+import Exceptions.LowInventoryException;
+import Model.DataManager;
+import Model.ProductLine;
+import Model.Task;
 
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
+new LoginController();
 
 //        new View.ItemFrame();
-////        new View.ProductFrame();
-//
+//        new View.ProductFrame();
+
 //        SwingUtilities.invokeLater(() -> {
 //            new Loading().setVisible(true);
 //        });
@@ -18,51 +19,64 @@ public class Main {
 
 // new ProductFrame();
 
-//        System.out.println(DataManager.getInstance().isTaskValid(102));
+//        System.out.println(Model.DataManager.getInstance().isTaskValid(102));
 
-//   ProductLine pl = new ProductLine("meow");
-//Task t = new Task(107);
+//   Model.ProductLine pl = new Model.ProductLine("meow");
+//Model.Task t = new Model.Task(107);
 
 //pl.addTask(t);
-//   ProductLine.Worker worker =  new ProductLine.Worker(pl);
+//   Model.ProductLine.Worker worker =  new Model.ProductLine.Worker(pl);
 //   worker.t.start();
-Task te = new Task(104 ,"sofa" , 10 ,"s3eed" ,1 , TaskStatus.InProgress ,LocalDate.now() );
-//Task fe = new Task(104 ,"carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress ,LocalDate.now() );
-//
-DataManager.getInstance().addTask(1,te);
-//DataManager.getInstance().addTask(2,fe);
-//
-Thread t = new Thread(new Runnable() {
-    @Override
-    public void run() {
-        DataManager.getInstance().runTask(te);
+Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
+//Model.Task se = new Model.Task("carpet" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
+////Model.Task he = new Model.Task("chair" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
+////
+////
+////Model.Task fe = new Model.Task("carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress );
+//////Model.DataManager.getInstance().editProductLineStatus(2 , Status.Maintenance);
+        ProductLine p = DataManager.getInstance().getProductLineByNumber(1);
+////
+       p.addTask(te);
+       p.RunWorker();
 
+//       new Controller.LoginController();
+////        p.addTask(se);
+//        p.addTask(fe);
+//
+//for(Model.Task t : p.taskLine)
+//    System.out.print(t.getTaskNumber()+" ");
+//p.RunWorker();
+//Thread.sleep(2000);
+//        Model.DataManager.getInstance().cancelTask(te);
+//
+//Thread.sleep(10000);
+//        p.addTask(he);
+////
+//
 
-    }
-});
 //        Thread b = new Thread(new Runnable() {
 //            @Override
 //            public void run() {
-//                DataManager.getInstance().runTask(fe);
+//                Model.DataManager.getInstance().runTask(fe);
 //
 //
 //            }
 //        });
-t.start();
+//t.start();
 //b.start();
 //Thread.sleep(3000);
-//        DataManager.getInstance().cancelTask(te);
+//        Model.DataManager.getInstance().cancelTask(te);
 //        System.out.println(te.isWorking());
 
 
 //
 
-//  for(ProductLine pl : DataManager.getInstance().listOfProductLines){
+//  for(Model.ProductLine pl : Model.DataManager.getInstance().listOfProductLines){
 //            pl.load();
 //           pl.RunWorker();
 //           pl.addTask(te);
 //  }
-//  Task t = DataManager.getInstance().getTaskByNumber(102);
+//  Model.Task t = Model.DataManager.getInstance().getTaskByNumber(102);
 ////  Thread.sleep(1000);
 //  t.setRequestedQuantity(10);
 
@@ -74,14 +88,14 @@ t.start();
 //   pl.RunWorker();
 //        }
 
-//   ProductLine pl = new ProductLine("mango");
+//   Model.ProductLine pl = new Model.ProductLine("mango");
 //   i.addProductLine(pl);z
 
 
 
 
 
-//  for(ProductLine pl :i.listOfProductLines){
+//  for(Model.ProductLine pl :i.listOfProductLines){
 //      pl
 //  }
 //   for(String p :i.productsAmount.keySet()){
@@ -89,8 +103,8 @@ t.start();
 //   }
 //if(i.isTaskValid(101)) System.out.println("Thread run");
 
-//        ProductLine pl = new ProductLine("vanity" );
-//        ProductLine pl1 = new ProductLine("carpet" );
+//        Model.ProductLine pl = new Model.ProductLine("vanity" );
+//        Model.ProductLine pl1 = new Model.ProductLine("carpet" );
 //        i.editProductLineStatus(1, Status.Maintenance);
 //        i.displayProductLinePerformance(1);
 //
@@ -103,6 +117,11 @@ t.start();
 //
 //        i.removeItem("pizza");
 //        i.removeItem("wood");
+
+//        ArrayList<Model.Task > t = Model.DataManager.getInstance().showTasksForProductLine(3);
+//        t.forEach( task -> {
+//            System.out.println(task.getTaskNumber());
+//        });
 
     }
 }

@@ -28,7 +28,7 @@ public class Loading extends JFrame {
 
     Timer timer = new Timer(6000, e -> {
         this.dispose();
-        new ProductFrame().setVisible(true);
+        new ProductFrame("meow").setVisible(true);
     });
         timer.setRepeats(false);
         timer.start();
