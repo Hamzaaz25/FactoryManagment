@@ -17,7 +17,7 @@ public class Main {
         } catch (Exception ex) {
               System.err.println("Failed to initialize LaF");
        }
-        // new LoginController();
+         new LoginController();
         // new LoginView();
         // new ProductFrame("aaa");
         // new ItemFrame("Hamza");
