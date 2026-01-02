@@ -6,7 +6,6 @@ public class Product {
     private int id;
     private int amount;
     private String name;
-    private HashMap <String , Integer> products = new HashMap<>();
     private HashMap <String , Integer > recipe = new HashMap<>();
     static int count =0;
     public Product(String name, int amount, HashMap<String, Integer> recipe) {

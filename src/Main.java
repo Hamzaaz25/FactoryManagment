@@ -1,5 +1,6 @@
 import Controller.LoginController;
-import Model.DataManager;
+import Enums.TaskStatus;
+import Model.*;
 import View.*;
 import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -12,12 +13,26 @@ public class Main {
 
   //      FlatLightLaf.setup();
   //        FlatDarkLaf.setup();
-       try {
-            FlatLightLaf.setup();
-        } catch (Exception ex) {
-              System.err.println("Failed to initialize LaF");
-       }
-         new LoginController();
+        ItemRepository itemRepository = new ItemRepository();
+        itemRepository.load();
+        ProductRepository productRepository = new ProductRepository();
+        productRepository.load();
+        ProductLineRepository productLineRepository = new ProductLineRepository();
+        productLineRepository.load("./Files/ProductLines.csv");
+        TaskRepository taskRepository = new TaskRepository();
+        taskRepository.load();
+        TaskService taskService = new TaskService(itemRepository ,productRepository ,taskRepository ,productLineRepository);
+        ProductLine pl = productLineRepository.getProductLineByNumber(1);
+        ProductLineService productLineService= new ProductLineService(pl , taskService);
+        Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
+        productLineService.addTask(te);
+
+//       try {
+//            FlatLightLaf.setup();
+//        } catch (Exception ex) {
+//              System.err.println("Failed to initialize LaF");
+//       }
+//         new LoginController();
         // new LoginView();
         // new ProductFrame("aaa");
         // new ItemFrame("Hamza");
@@ -27,7 +42,7 @@ public class Main {
         // SwingUtilities.invokeLater(() -> {
         // new Loading().setVisible(true);
         //});
-        DataManager.getInstance();
+//        DataManager.getInstance();
 
 
 
@@ -39,7 +54,7 @@ public class Main {
 //pl.addTask(t);
 //   Model.ProductLine.Worker worker =  new Model.ProductLine.Worker(pl);
 //   worker.t.start();
-//Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
+
 //Model.Task se = new Model.Task("carpet" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
 ////Model.Task he = new Model.Task("chair" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
 ////

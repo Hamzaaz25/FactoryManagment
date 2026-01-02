@@ -117,7 +117,7 @@ public class DataReader {
             return new ArrayList<>();
         }
     }
-public static ArrayList<Product> loadProducts(String path){
+public static ArrayList<Product> readProducts(String path){
 
     try (BufferedReader br = new BufferedReader(new FileReader(path))) {
         ArrayList<Product> listOfProducts = new ArrayList<>();

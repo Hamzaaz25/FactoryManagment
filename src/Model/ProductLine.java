@@ -18,25 +18,8 @@ public class ProductLine  {
     List<Task> taskLine = Collections.synchronizedList(new ArrayList<>());
     ArrayList<Integer> listOfTaskNumbers = new ArrayList<>();
     private static int count =0;
-    BlockingDeque <Task> taskQueue = new LinkedBlockingDeque<>();
-    public Thread consumer = new Thread(new Runnable() {
-    @Override
-    public void run() {
 
-            while(true){
-                Task task = null;
-                try {
-                    task = taskQueue.take();
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                DataManager.getInstance().runTask(task);
 
-        }
-}
-
-    }
-);
 
     public ProductLine( String name, Status status, ArrayList<Integer> list) {
         this.Id = ++count;
@@ -52,31 +35,9 @@ public class ProductLine  {
         this.name = name;
         this.status = Status.Idle;
     }
-    public void addTask(Task t){
-        TaskValidation validation = DataManager.getInstance().registerTask(t);
-        if(validation == TaskValidation.Valid){
-            try {
-                this.taskQueue.put(t);
-                this.taskLine.add(t);
-            } catch (InterruptedException e) {
-                DataWriter.writeErrors(e.getMessage());
-                throw new RuntimeException(e);
 
-            }
-        }
-       else{
-            System.out.println("Sorry");
-        }
 
-    }
-    public void load(){
-        for(Task t:this.taskLine){
-            this.taskQueue.push(t);
-        }
-    }
-    public void RunWorker(){
-      consumer.start();
-    }
+
     public int getId() {
         return Id;
     }
