@@ -10,11 +10,11 @@ import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import com.formdev.flatlaf.FlatDarkLaf;
+
 import com.formdev.flatlaf.FlatLightLaf;
 
 
-public class ItemFrame extends JFrame {
+public class ItemsView extends JFrame {
 
     private ArrayList<ItemBtn> allCards = new ArrayList<>();
     private JPanel container=new JPanel(new GridLayout(0, 3, 100, 100));
@@ -22,7 +22,7 @@ public class ItemFrame extends JFrame {
     JLabel NoResults = new JLabel("No items match your search", SwingConstants.CENTER);
     String message ;
 
-   public ItemFrame(String message) {
+   public ItemsView(String message) {
        try {
            UIManager.setLookAndFeel(new FlatLightLaf());
        } catch (UnsupportedLookAndFeelException e) {
