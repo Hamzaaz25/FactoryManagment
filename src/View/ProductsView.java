@@ -4,19 +4,20 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class ProductFrame extends JFrame{
+public class ProductsView extends JPanel{
     private ArrayList<ProductBtn> allCards = new ArrayList<>();
-    private JPanel container=new JPanel(new GridLayout(0, 3, 100, 100));
+    private JPanel container;
     private JTextField Searchtext = new JTextField(" Search ...");;
     JLabel NoResults = new JLabel("No products match your search", SwingConstants.CENTER);
     String name ;
 
-    public ProductFrame(String name) {
+    public ProductsView(String name) {
 
+        this.name=name;
+        this.setOpaque(false);
+        this.setLayout(new BorderLayout());
 
 
         Searchtext.setPreferredSize(new Dimension(250, 35));
@@ -92,18 +93,12 @@ public class ProductFrame extends JFrame{
 
         this.add(searchBar,BorderLayout.NORTH);
 
-
+        container=new JPanel(new GridLayout(0, 3, 100, 100));
         container.setBorder(new EmptyBorder(40, 150, 40, 150));
         container.setOpaque(false);
 
         setCards();
 
-        JScrollPane scrollPane = new JScrollPane(container);
-        scrollPane.setOpaque(false);
-        scrollPane.getViewport().setOpaque(false);
-        scrollPane.setBorder(null);
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 
         JPanel mainContentPanel = new JPanel();
         mainContentPanel.setLayout(new BoxLayout(mainContentPanel, BoxLayout.Y_AXIS));
@@ -123,17 +118,17 @@ public class ProductFrame extends JFrame{
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setOpaque(false);
 
-        wrapperPanel.add(container);
+        wrapperPanel.add(container, BorderLayout.NORTH);
 
 
-        scrollPane.setViewportView(wrapperPanel);
+
 
 
         JPanel rightContainer = new JPanel(new BorderLayout());
         rightContainer.setOpaque(false);
-        rightContainer.add(scrollPane, BorderLayout.CENTER);
-        this.add(rightContainer, BorderLayout.CENTER);
+        rightContainer.add(container, BorderLayout.NORTH);
 
+        this.add(rightContainer, BorderLayout.CENTER);
         this.setVisible(true);
     }
 

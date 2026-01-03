@@ -13,7 +13,7 @@ public class Main {
 
   //      FlatLightLaf.setup();
   //        FlatDarkLaf.setup();
-        ItemRepository itemRepository = new ItemRepository();
+  /*      ItemRepository itemRepository = new ItemRepository();
         itemRepository.load();
         ProductRepository productRepository = new ProductRepository();
         productRepository.load();
@@ -26,16 +26,20 @@ public class Main {
         ProductLineService productLineService= new ProductLineService(pl , taskService);
         Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
         productLineService.addTask(te);
-        System.out.println();
-//       try {
-//            FlatLightLaf.setup();
-//        } catch (Exception ex) {
-//              System.err.println("Failed to initialize LaF");
-//       }
+
+
+   */
+
+       try {
+            FlatLightLaf.setup();
+        } catch (Exception ex) {
+              System.err.println("Failed to initialize LaF");
+     }
+        new BaseFrame("gg","gg");
 //         new LoginController();
         // new LoginView();
-        // new ProductFrame("aaa");
-        // new ItemFrame("Hamza");
+        //new ProductsView("aaa");
+        // new ItemsView("Hamza");
         // new LoginController();
         // new LoginView();
         // new SupervisorView("amin");

@@ -199,12 +199,12 @@ public class SupervisorView extends JFrame implements ActionListener {
             if(e.getSource() == productbutton){
                 this.setVisible(false);
                 this.dispose();
-                new ProductFrame(this.message);
+                new ProductsView(this.message);
             }
             if(e.getSource() == itembutton){
                 this.setVisible(false);
                 this.dispose();
-                new ItemFrame(this.message);
+                new ItemsView(this.message);
             }
             if(e.getSource()==logoutbutton) {
                 this.setVisible(false);
