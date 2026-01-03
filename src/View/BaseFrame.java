@@ -121,7 +121,7 @@ public class BaseFrame extends JFrame {
         mainContent = new JPanel();
         mainContent.setLayout(new CardLayout());
         mainContent.setOpaque(false);
-        mainContent.add(new ProductsView("amin"),"products page");
+
 
         JScrollPane scrollPane = new JScrollPane(mainContent);
         scrollPane.setOpaque(false);
@@ -195,4 +195,9 @@ public class BaseFrame extends JFrame {
         button.setPreferredSize(new Dimension(200, 60));
 
     }
+
+    public void showAPanel(JPanel panel) {
+        mainContent.add(panel);
+    }
+
 }

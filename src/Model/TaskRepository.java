@@ -34,5 +34,7 @@ public class TaskRepository {
         this.tasksNumbers.put(t.getTaskNumber() , t);
     }
 
-
+    public ArrayList<Task> getListOfTasks() {
+        return listOfTasks;
+    }
 }

@@ -9,15 +9,20 @@ import java.util.HashMap;
 public class ProductLineRepository {
     ArrayList<ProductLine> listOfProductLines = new ArrayList<>();
     HashMap<Integer , ProductLine> productLineNumbers = new HashMap<>();
-
-    public ProductLineRepository(){
-
+    private final TaskRepository taskRepository;
+    public ProductLineRepository(TaskRepository tr){
+       this.taskRepository = tr;
     }
 
     public void load(String path){
         this.listOfProductLines = DataReader.readProductLines(path);
-        for(ProductLine pl : this.listOfProductLines)
+        for(ProductLine pl : this.listOfProductLines){
             productLineNumbers.put(pl.getId() , pl);
+            for(Integer i : pl.listOfTaskNumbers){
+                //get the task by its number from the map of tasks
+                pl.getTaskLine().add(this.taskRepository.getTaskByNumber(i));
+            }
+        }
     }
 
     public void save(){

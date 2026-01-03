@@ -11,16 +11,17 @@ import javax.swing.*;
 public class Main {
     public static void main(String[] args) {
 
-  //      FlatLightLaf.setup();
+        FlatLightLaf.setup();
   //        FlatDarkLaf.setup();
   /*      ItemRepository itemRepository = new ItemRepository();
         itemRepository.load();
         ProductRepository productRepository = new ProductRepository();
         productRepository.load();
-        ProductLineRepository productLineRepository = new ProductLineRepository();
-        productLineRepository.load("./Files/ProductLines.csv");
         TaskRepository taskRepository = new TaskRepository();
         taskRepository.load();
+        ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
+        productLineRepository.load("./Files/ProductLines.csv");
+
         TaskService taskService = new TaskService(itemRepository ,productRepository ,taskRepository ,productLineRepository);
         ProductLine pl = productLineRepository.getProductLineByNumber(1);
         ProductLineService productLineService= new ProductLineService(pl , taskService);
@@ -30,12 +31,18 @@ public class Main {
 
    */
 
-       try {
-            FlatLightLaf.setup();
-        } catch (Exception ex) {
-              System.err.println("Failed to initialize LaF");
-     }
-        new BaseFrame("gg","gg");
+//       try {
+//            FlatLightLaf.setup();
+//        } catch (Exception ex) {
+//              System.err.println("Failed to initialize LaF");
+//     }
+//        new BaseFrame("gg","gg");
+        TaskRepository taskRepository = new TaskRepository();
+        taskRepository.load();
+
+        BaseFrame bf = new BaseFrame("Hamza", "Tasks");
+        bf.showAPanel(new TaskView(taskRepository.getListOfTasks()));
+
 //         new LoginController();
         // new LoginView();
         //new ProductsView("aaa");
