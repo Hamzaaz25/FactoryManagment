@@ -26,7 +26,7 @@ public class Main {
         ProductLineService productLineService= new ProductLineService(pl , taskService);
         Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
         productLineService.addTask(te);
-
+        System.out.println();
 //       try {
 //            FlatLightLaf.setup();
 //        } catch (Exception ex) {
