@@ -23,15 +23,15 @@ public class Main {
         ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
         productLineRepository.load("./Files/ProductLines.csv");
         TaskService taskService = new TaskService(itemRepository ,productRepository ,taskRepository ,productLineRepository);
-        ProductLine pl = productLineRepository.getProductLineByNumber(2);
-        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
+        ProductLine pl = productLineRepository.getProductLineByNumber(1);
+//        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
         ProductLineService productLineService= new ProductLineService(productLineRepository,pl , taskService );
-        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
+//        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
 
-        Task te = new Task("carpet" , 10 ,"s3eed" ,2 , TaskStatus.InProgress  );
-        Task se = new Task("chair" , 10 ,"s3eed" ,1 , TaskStatus.InProgress  );
+        Task te = new Task("carpet" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
+        Task se = new Task("chair" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
         productLineService.addTask(te);
-        productLineServic.addTask(se);
+        productLineService.addTask(se);
 
 
         BaseFrame frame = new BaseFrame("hamza" ,"Tasks");

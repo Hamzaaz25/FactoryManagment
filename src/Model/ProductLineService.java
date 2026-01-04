@@ -21,10 +21,11 @@ public class ProductLineService {
     }
 
     public void addTask(Task t) {
-        TaskValidation validation = taskService.registerTask(t);
+        TaskValidation validation = taskService.validateAndReserve(t);
+        System.out.println(validation);
         if (validation == TaskValidation.Valid) {
-                executor.submit(() -> taskService.runTask(t));
                 productLine.taskLine.add(t);
+                executor.submit(() -> taskService.runTask(t));
 
             }
         }
