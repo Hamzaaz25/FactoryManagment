@@ -17,7 +17,7 @@ public class Task {
     private int progressPercentage ;
     private volatile boolean  valid;
     private AtomicBoolean working = new AtomicBoolean(false);
-    private static int count = 100;
+    static int count = 100;
 
 
     public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, LocalDate startDate, LocalDate endDate, TaskStatus status, int productLine, int progressPercentage) {

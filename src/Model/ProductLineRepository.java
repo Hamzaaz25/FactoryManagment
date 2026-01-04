@@ -33,4 +33,9 @@ public class ProductLineRepository {
         return productLineNumbers.get(num);
     }
 
+    public void insert(ProductLine productLine){
+        this.listOfProductLines.add(productLine);
+        this.productLineNumbers.put(productLine.getId() , productLine);
+    }
+
 }

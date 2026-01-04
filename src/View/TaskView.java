@@ -191,7 +191,7 @@ public class TaskView extends JPanel {
                     model.setValueAt(t.getStatus().toString() ,i, 3 );
                 }
                 if ( t.getStatus() == TaskStatus.InProgress && t.getProgressPercentage() < 100) {
-                    t.setProgressPercentage(t.getProgressPercentage() + 15);
+
                     model.setValueAt(t.getProgressPercentage(), i, 4); // update table
 
                 }

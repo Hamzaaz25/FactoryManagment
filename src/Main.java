@@ -1,4 +1,5 @@
 import Controller.LoginController;
+import Controller.TaskController;
 import Enums.TaskStatus;
 import Model.*;
 import View.*;
@@ -13,7 +14,7 @@ public class Main {
 
         FlatLightLaf.setup();
   //        FlatDarkLaf.setup();
-  /*      ItemRepository itemRepository = new ItemRepository();
+        ItemRepository itemRepository = new ItemRepository();
         itemRepository.load();
         ProductRepository productRepository = new ProductRepository();
         productRepository.load();
@@ -21,15 +22,21 @@ public class Main {
         taskRepository.load();
         ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
         productLineRepository.load("./Files/ProductLines.csv");
-
         TaskService taskService = new TaskService(itemRepository ,productRepository ,taskRepository ,productLineRepository);
-        ProductLine pl = productLineRepository.getProductLineByNumber(1);
-        ProductLineService productLineService= new ProductLineService(pl , taskService);
-        Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
+        ProductLine pl = productLineRepository.getProductLineByNumber(2);
+        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
+        ProductLineService productLineService= new ProductLineService(productLineRepository,pl , taskService );
+        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
+
+        Task te = new Task("carpet" , 10 ,"s3eed" ,2 , TaskStatus.InProgress  );
+        Task se = new Task("chair" , 10 ,"s3eed" ,1 , TaskStatus.InProgress  );
         productLineService.addTask(te);
+        productLineServic.addTask(se);
 
 
-   */
+        BaseFrame frame = new BaseFrame("hamza" ,"Tasks");
+        new TaskController(taskRepository,frame);
+
 
 //       try {
 //            FlatLightLaf.setup();
@@ -37,11 +44,11 @@ public class Main {
 //              System.err.println("Failed to initialize LaF");
 //     }
 //        new BaseFrame("gg","gg");
-        TaskRepository taskRepository = new TaskRepository();
-        taskRepository.load();
+//        TaskRepository taskRepository = new TaskRepository();
+//        taskRepository.load();
 
-        BaseFrame bf = new BaseFrame("Hamza", "Tasks");
-        bf.showAPanel(new TaskView(taskRepository.getListOfTasks()));
+//        BaseFrame bf = new BaseFrame("Hamza", "Tasks");
+//        bf.showAPanel(new TaskView(taskRepository.getListOfTasks()));
 
 //         new LoginController();
         // new LoginView();

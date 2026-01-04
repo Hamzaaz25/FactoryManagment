@@ -4,8 +4,15 @@ Sorry the task numbered 105 cannot be executed because the product line 2 is cur
 Sorry the task numbered 104 cannot be executed because the items stock is insufficient 
 Sorry the task numbered 105 cannot be executed because the product line 2 is currently on maintenance
 Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2025-12-29
-Sorry the task numbered 105 cannot be executed because the product line 2 is currently on maintenance2025-12-29
+Sorry the task numbered 105 cannot be executed because the product line 2 is currently on maintenance 2025-12-29
 Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2025-12-29
 Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2025-12-31
 Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-01
 Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-01
+Sorry the task numbered 105 cannot be executed because the items stock is insufficient 2026-01-04
+Sorry the task numbered 105 cannot be executed because the items stock is insufficient 2026-01-04
+Sorry the task numbered 107 cannot be executed because the items stock is insufficient 2026-01-04
+Sorry the task numbered 109 cannot be executed because the items stock is insufficient 2026-01-04
+Sorry the task numbered 105 cannot be executed because the items stock is insufficient 2026-01-04
+Sorry the task numbered 107 cannot be executed because the items stock is insufficient 2026-01-04
+Sorry the task numbered 105 cannot be executed because the items stock is insufficient 2026-01-04

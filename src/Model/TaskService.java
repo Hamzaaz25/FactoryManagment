@@ -61,15 +61,16 @@ public class TaskService {
     public TaskValidation registerTask(Task t){
         ProductLine pl = this.productLineRepository.getProductLineByNumber(t.getProductLine());
         TaskValidation validation = isTaskValid(t);
-        System.out.println(validation);
         if(validation == TaskValidation.Valid){
             this.taskRepository.insert(t);
 
         }
         else if(validation == TaskValidation.InsufficientStock){
+
             logTaskErrors("Sorry the task numbered "+t.getTaskNumber()+" cannot be executed because the items stock is insufficient " + LocalDate.now());
         }
         else if(validation == TaskValidation.ProductLineMaintenance){
+
             logTaskErrors("Sorry the task numbered "+ t.getTaskNumber() + " cannot be executed because the product line "+pl.getId()+" is currently on maintenance" + LocalDate.now());
         }
         this.taskRepository.save();
@@ -102,7 +103,7 @@ public class TaskService {
                     }
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
@@ -151,5 +152,7 @@ public class TaskService {
         t.setStatus(TaskStatus.Cancelled);
         t.setWorking(false);
     }
+
+
 
 }
