@@ -46,12 +46,16 @@ public class TaskService {
             int needed = p.getRecipe().get(name) * req;
 
             if (item.getAvailableQuantity() < needed) {
+                logTaskErrors("Sorry the task numbered "+t.getTaskNumber()+" cannot be executed because the items stock is insufficient " + LocalDate.now());
                 return TaskValidation.InsufficientStock;
             }
         }
-        synchronized (this.productLineRepository.getProductLineByNumber(t.getProductLine())){
-        if(this.productLineRepository.getProductLineByNumber(t.getProductLine()).getStatus() == Status.Maintenance )
+        ProductLine pl = this.productLineRepository.getProductLineByNumber(t.getProductLine());
+        synchronized (pl){
+        if(pl.getStatus() == Status.Maintenance ){
+            logTaskErrors("Sorry the task numbered "+ t.getTaskNumber() + " cannot be executed because the product line "+pl.getId()+" is currently on maintenance" + LocalDate.now());
             return TaskValidation.ProductLineMaintenance;
+        }
 }
         // 2. Reserve (CRITICAL PART)
         for (String name : p.getRecipe().keySet()) {
