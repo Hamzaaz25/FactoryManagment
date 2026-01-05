@@ -15,7 +15,7 @@ public class BaseFrame extends JFrame {
     protected JPanel container;
     protected JLabel TitlelblPage;
     String title;
-
+    JButton backButton;
 
 
 
@@ -41,7 +41,7 @@ public class BaseFrame extends JFrame {
 
         ImageIcon icon = new ImageIcon("./assets/return.png");
         Image scaled = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        JButton backButton = new JButton("Back", icon);
+        backButton = new JButton("Back", icon);
         backButton.setIcon(new ImageIcon(scaled));
         backButton.setBackground(new Color(55, 100, 145));
 
@@ -179,7 +179,7 @@ public class BaseFrame extends JFrame {
          this.add(container,BorderLayout.CENTER);
          this.add(sideBar,BorderLayout.WEST);
 
-        this.setVisible(true);
+        this.setVisible(false);
     }
     public void styleSidebarButton(JButton button) {
         button.setContentAreaFilled(true);
@@ -211,6 +211,8 @@ public class BaseFrame extends JFrame {
         mainContent.revalidate();
         mainContent.repaint();
     }
-
+public JButton getBackButton(){
+        return this.backButton;
+}
 
 }

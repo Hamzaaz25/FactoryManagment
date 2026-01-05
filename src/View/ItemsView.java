@@ -1,5 +1,7 @@
 package View;
 
+import Model.Item;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -18,7 +20,7 @@ public class ItemsView extends JPanel {
     JLabel NoResults = new JLabel("No items match your search", SwingConstants.CENTER);
     String name;
 
-   public ItemsView(String name) {
+   public ItemsView(String name , ArrayList<Item> list) {
 
        this.name = name;
        this.setOpaque(false);
@@ -102,7 +104,7 @@ public class ItemsView extends JPanel {
         container.setBorder(new EmptyBorder(40, 150, 40, 150));
         container.setOpaque(false);
 
-        setCards();
+        setCards(list);
 
 
         JPanel mainContentPanel = new JPanel();
@@ -175,26 +177,13 @@ public class ItemsView extends JPanel {
 
     AddBtn addCard;
 
-    public void setCards() {
+    public void setCards(ArrayList<Item> list ) {
 
-        addNewItem("cotton", "$5.00", new ImageIcon("./assets/wool.png"), "description");
-        addNewItem("wood", "$4.00", new ImageIcon("./assets/wood.png"), "description");
-        addNewItem("silk", "$2.50", new ImageIcon("./assets/silk.png"), "description");
-        addNewItem("spring", "$3.50", new ImageIcon("./assets/spring.png"), "description");
-        addNewItem("hinge", "$5.50", new ImageIcon("./assets/hinge.png"), "description");
-        addNewItem("handle", "$34.50", new ImageIcon("./assets/handle.png"), "description");
-        addNewItem("screw", "$3.50", new ImageIcon("./assets/screw.png"), "description");
-        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
-        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
-        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
-        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
-        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
-        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
-
-
+    for (Item item : list) {
+        addNewItem(item.getName(), String.valueOf(item.getPrice()), new ImageIcon(item.getImage()), "description");
+    }
 
         addCard = new AddBtn(() -> {
-
             addNewItem("New Item", "$0.00",new ImageIcon("./assets/paint.png"),"description");
         });
 
@@ -219,6 +208,9 @@ public class ItemsView extends JPanel {
         container.repaint();
     }
 
+    public ArrayList<ItemBtn> getProductButtons() {
+        return this.allCards;
+    }
 
 
 

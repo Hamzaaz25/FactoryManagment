@@ -3,6 +3,7 @@ package View;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 public class ThingDetails extends JPanel {
     String name;
@@ -10,9 +11,10 @@ public class ThingDetails extends JPanel {
     String description;
     ImageIcon productIcon;
     int Amount;
+    JButton btnAction;
 
 
-    public ThingDetails(String name, String price, String description, ImageIcon productIcon, int Amount) {
+    public ThingDetails( String name, String price, String description, ImageIcon productIcon, int Amount) {
         this.name=name;
         this.price=price;
         this.description=description;
@@ -56,7 +58,7 @@ public class ThingDetails extends JPanel {
         txtDescription.setAlignmentX(Component.LEFT_ALIGNMENT);
 
 
-        JButton btnAction = new JButton("Ok");
+        btnAction = new JButton("OK");
         btnAction.setFont(new Font("Segoe UI", Font.BOLD, 20));
         btnAction.setBackground(new Color(55, 100, 145));
         btnAction.setForeground(Color.WHITE);
@@ -90,5 +92,10 @@ public class ThingDetails extends JPanel {
 
         this.add(infoPanel);
         this.add(imageContainer);
+    }
+
+
+    public void addActionListener(ActionListener a){
+        this.btnAction.addActionListener(a);
     }
 }

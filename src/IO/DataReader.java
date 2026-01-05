@@ -100,9 +100,8 @@ public class DataReader {
                 double price = Double.parseDouble(row[3].trim());
                 int available = Integer.parseInt(row[4].trim());
                 int miniAllowed = Integer.parseInt(row[5].trim());
-
-
-                Item item = new Item(name ,price , available,type ,miniAllowed);
+                String image = row[7].trim();
+                Item item = new Item(name ,price , available,type ,miniAllowed , image);
                 listOfItems.add(item);
 
 
@@ -137,15 +136,16 @@ public static ArrayList<Product> readProducts(String path){
             String name = row[1].trim();
 
             int amount = Integer.parseInt(row[2].trim());
-            String image = row[3].trim();
-            for(int i =4; i+1<row.length;i+=2){
+            double price = Double.parseDouble(row[3].trim());
+            String image = row[4].trim();
+            for(int i =5; i+1<row.length;i+=2){
                 String key = row[i].trim();
                 int value =Integer.parseInt(row[i+1].trim());
 
                 recipe.put(key , value);
 
             }
-            Product product = new Product(name,amount ,recipe,image);
+            Product product = new Product(name,amount,price,recipe,image);
             listOfProducts.add(product);
 
 

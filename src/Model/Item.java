@@ -11,18 +11,28 @@ public class Item {
     MaterialType type;
     private int minimumAllowedQuantity;
     ItemStatus status ;
+    String imagePath;
     static int count = 0 ;
 public Item(){
 
 
 }
 
-    public Item(String name,MaterialType type ,double price, int availableQuantity) {
+    public String getImage() {
+        return imagePath;
+    }
+
+    public void setImage(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public Item(String name, MaterialType type , double price, int availableQuantity , String path) {
         this.id = ++count;
         this.type = type;
         this.name = name;
         this.price = price;
         this.availableQuantity = availableQuantity;
+        this.imagePath = path;
         if(this.availableQuantity > this.minimumAllowedQuantity)
             this.status = ItemStatus.Available;
         else
@@ -30,13 +40,14 @@ public Item(){
 
     }
 
-    public Item( String name, double price, int availableQuantity, MaterialType type, int minimumAllowedQuantity) {
+    public Item( String name, double price, int availableQuantity, MaterialType type, int minimumAllowedQuantity, String path) {
         this.id = ++count;
         this.name = name;
         this.price = price;
         this.availableQuantity = availableQuantity;
         this.type = type;
         this.minimumAllowedQuantity = minimumAllowedQuantity;
+        this.imagePath = path;
         if(this.availableQuantity > this.minimumAllowedQuantity)
             this.status = ItemStatus.Available;
         else

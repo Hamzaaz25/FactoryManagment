@@ -48,5 +48,7 @@ public class ItemRepository {
         return this.itemNames.containsKey(name);
     }
 
-
+    public ArrayList<Item> getList() {
+        return listOfItems;
+    }
 }

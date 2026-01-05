@@ -8,12 +8,17 @@ public class Product {
     private String name;
     private HashMap <String , Integer > recipe = new HashMap<>();
     private String imagePath;
+    private double price;
+
+
+
     static int count =0;
-    public Product(String name, int amount, HashMap<String, Integer> recipe , String imagePath) {
+    public Product(String name, int amount,double price, HashMap<String, Integer> recipe , String imagePath) {
         this.id = ++count;
         this.name = name;
         this.amount = amount;
         this.recipe = recipe;
+        this.price = price;
         this.imagePath = imagePath;
     }
 
@@ -63,4 +68,16 @@ public class Product {
     public String getImage(){
         return this.imagePath;
     }
+
+    public void setImage(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
 }

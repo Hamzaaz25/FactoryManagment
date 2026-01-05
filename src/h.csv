@@ -1,5 +1,13 @@
-id , name ,material , price , available , minimum , status
-1 , oak , Wood , 5.0 , 67,20,Available
-2 , silk , Fabric , 12.0 , 500,20,Available
-3 , cotton , Fabric , 7.0 , 20,30,BelowMinimum
-4 , zan , Wood , 5.0 , 400,10,Available
+     addNewItem("cotton", "$5.00", new ImageIcon("./assets/wool.png"), "description");
+        addNewItem("wood", "$4.00", new ImageIcon("./assets/wood.png"), "description");
+        addNewItem("silk", "$2.50", new ImageIcon("./assets/silk.png"), "description");
+        addNewItem("spring", "$3.50", new ImageIcon("./assets/spring.png"), "description");
+        addNewItem("hinge", "$5.50", new ImageIcon("./assets/hinge.png"), "description");
+        addNewItem("handle", "$34.50", new ImageIcon("./assets/handle.png"), "description");
+        addNewItem("screw", "$3.50", new ImageIcon("./assets/screw.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");
+        addNewItem("paint", "$9.50", new ImageIcon("./assets/paint.png"), "description");

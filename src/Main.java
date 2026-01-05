@@ -19,6 +19,10 @@ public class Main {
   //        FlatDarkLaf.setup();
 //        ItemRepository itemRepository = new ItemRepository();
 //        itemRepository.load();
+//        BaseFrame frame = new BaseFrame("Hzmza" , "Base");
+//       frame.switchContent( new ItemsView("Hamza" , itemRepository.getList()) , "Items");
+//       frame.setVisible(true);
+
 //        ProductRepository productRepository = new ProductRepository();
 //        productRepository.load();
 //        TaskRepository taskRepository = new TaskRepository();

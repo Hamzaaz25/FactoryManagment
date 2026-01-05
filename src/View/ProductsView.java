@@ -174,7 +174,7 @@ public class ProductsView extends JPanel{
 
     public void setCards(ArrayList <Product> list) {
 for(Product p : list) {
-    addNewProduct(p.getName(), "10.43", new ImageIcon(p.getImage()), "description");
+    addNewProduct(p.getName(), String.valueOf(p.getPrice()), new ImageIcon(p.getImage()), "description");
 }
 
         addCard = new AddBtn(() -> {
@@ -202,7 +202,9 @@ for(Product p : list) {
         container.repaint();
     }
 
-
+    public ArrayList<ProductBtn> getProductButtons() {
+        return allCards;
+    }
 
 
 }

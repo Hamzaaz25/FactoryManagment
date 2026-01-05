@@ -14,14 +14,14 @@ public class InventoryService {
         this.productRepository = productRepository;
     }
 
-    public void addItem(String name , MaterialType mt  , int quantity , double price) {
+    public void addItem(String name , MaterialType mt  , int quantity , double price ,String path) {
 
         if(itemRepository.containsName(name)){
             //Increment the available quantity if the Model.Item's name exist
             itemRepository.getByName(name).incrementAvailableQuantity(quantity);
         }
         else{
-            Item item = new Item(name , mt ,price , quantity );
+            Item item = new Item(name , mt ,price , quantity ,path);
             itemRepository.insert(item);
 
         }
@@ -51,13 +51,13 @@ public class InventoryService {
 
     }
 
-    public void addProduct(String name , int amount , HashMap<String , Integer> recipe,String imagePath){
+    public void addProduct(String name , int amount ,double price, HashMap<String , Integer> recipe,String imagePath){
         if(this.productRepository.containsName(name)){
             //Increment the available amount if the Model.Product's name exist
             this.productRepository.getByName(name).incrementAmount(amount);
         }
         else{
-            Product product = new Product(name , amount ,recipe ,imagePath );
+            Product product = new Product(name , amount,price ,recipe ,imagePath );
             this.productRepository.insert(product);
         }
         this.productRepository.save();

@@ -14,10 +14,10 @@ public class DataWriter {
     public static void writeItems(String path,ArrayList<Item> list ){
 
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path ))) {
-            bw.write("id , name ,material , price , available , minimum , status");
+            bw.write("id , name ,material , price , available , minimum , status ,Image");
             bw.newLine();
             for(Item b : list){
-                bw.write(b.getId() + " , " + b.getName() +" , " +b.getType()+" , "+b.getPrice() +" , " + b.getAvailableQuantity() + "," +b.getMinimumAllowedQuantity()+","+ b.getStatus());
+                bw.write(b.getId() + " , " + b.getName() +" , " +b.getType()+" , "+b.getPrice() +" , " + b.getAvailableQuantity() + "," +b.getMinimumAllowedQuantity()+","+ b.getStatus() + " , "+b.getImage());
                 bw.newLine();
             }
 
@@ -31,10 +31,10 @@ public class DataWriter {
     public static void writeProducts(String path,ArrayList<Product> list ){
 
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path ))) {
-            bw.write("Id ,Name , Amount , Model.Item , Items Quantity ");
+            bw.write("Id ,Name , Amount,Price ,Path, Item , Items Quantity ");
             bw.newLine();
             for(Product b : list){
-                bw.write(b.getId()+" , "+b.getName() +" , " +b.getAmount()+" , ");
+                bw.write(b.getId()+" , "+b.getName() +" , " +b.getAmount()+" , "+b.getPrice()+" , "+b.getImage()+" , ");
                 for(Map.Entry entry : b.getRecipe().entrySet()){
                     bw.write(entry.getKey() + " , " +entry.getValue() +" , ");
 
