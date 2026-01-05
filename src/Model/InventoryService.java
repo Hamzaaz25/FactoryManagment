@@ -51,13 +51,13 @@ public class InventoryService {
 
     }
 
-    public void addProduct(String name , int amount , HashMap<String , Integer> recipe){
+    public void addProduct(String name , int amount , HashMap<String , Integer> recipe,String imagePath){
         if(this.productRepository.containsName(name)){
             //Increment the available amount if the Model.Product's name exist
             this.productRepository.getByName(name).incrementAmount(amount);
         }
         else{
-            Product product = new Product(name , amount ,recipe );
+            Product product = new Product(name , amount ,recipe ,imagePath );
             this.productRepository.insert(product);
         }
         this.productRepository.save();

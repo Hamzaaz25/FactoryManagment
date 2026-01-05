@@ -13,7 +13,7 @@ public class TaskController {
     public TaskController(TaskRepository model , BaseFrame view) {
         this.model = model;
         this.view = view;
-        view.showAPanel(new TaskView(model.getListOfTasks()));
+        view.switchContent(new TaskView(model.getListOfTasks()) , "Tasks");
 
 
     }

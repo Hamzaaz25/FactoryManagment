@@ -7,12 +7,14 @@ public class Product {
     private int amount;
     private String name;
     private HashMap <String , Integer > recipe = new HashMap<>();
+    private String imagePath;
     static int count =0;
-    public Product(String name, int amount, HashMap<String, Integer> recipe) {
+    public Product(String name, int amount, HashMap<String, Integer> recipe , String imagePath) {
         this.id = ++count;
         this.name = name;
         this.amount = amount;
         this.recipe = recipe;
+        this.imagePath = imagePath;
     }
 
     public Product(String name, int amount) {
@@ -56,5 +58,9 @@ public class Product {
 
     public void incrementAmount(int amount){
         this.amount += amount;
+    }
+
+    public String getImage(){
+        return this.imagePath;
     }
 }

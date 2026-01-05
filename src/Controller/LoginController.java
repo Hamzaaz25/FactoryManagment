@@ -20,12 +20,8 @@ public class LoginController {
                 if (p == Enums.LoginResult.Success){
                     System.out.println("Success");
                     view.setVisible(false);
-                    view.dispose(); // important
-                    if(model.getLoggedUser().getRole() == Role.Manager){new ProductLineDisplayView();
-                    }
-                    else{new SupervisorView(model.getLoggedUser().getUsername());
-                    }
-
+                    view.dispose();
+                    new MainController().onLoginSuccess(model.getLoggedUser());
                 }
                 else if (p == Enums.LoginResult.UserNotFound)
                     view.showError("User not found");

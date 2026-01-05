@@ -137,15 +137,15 @@ public static ArrayList<Product> readProducts(String path){
             String name = row[1].trim();
 
             int amount = Integer.parseInt(row[2].trim());
-
-            for(int i =3; i+1<row.length;i+=2){
+            String image = row[3].trim();
+            for(int i =4; i+1<row.length;i+=2){
                 String key = row[i].trim();
                 int value =Integer.parseInt(row[i+1].trim());
 
                 recipe.put(key , value);
 
             }
-            Product product = new Product(name,amount ,recipe);
+            Product product = new Product(name,amount ,recipe,image);
             listOfProducts.add(product);
 
 

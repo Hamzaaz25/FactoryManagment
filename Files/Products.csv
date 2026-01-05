@@ -1,4 +1,4 @@
-Id ,Name , Amount , Model.Item , Items Quantity 
-1 , chair , 119 , oak , 5 , cotton , 10 , 
-2 , carpet , 64 , silk , 30 , 
-3 , sofa , 47 , oak , 7 , cotton , 20 , 
+Id ,Name , Amount ,path, Model.Item , Items Quantity
+1 , table , 119 , ./assets/dinner.png ,oak , 5 , cotton , 10 ,
+2 , carpet , 64 ,./assets/carpet.png, silk , 30 ,
+3 , sofa , 47 ,./assets/hhh.png ,oak , 7 , cotton , 20 ,

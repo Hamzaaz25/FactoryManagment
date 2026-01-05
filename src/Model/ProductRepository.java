@@ -45,4 +45,8 @@ public class ProductRepository {
         name = name.trim();
         return this.productNames.containsKey(name);
     }
+
+    public ArrayList<Product> getList() {
+        return listOfProducts;
+    }
 }

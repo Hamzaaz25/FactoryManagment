@@ -1,5 +1,7 @@
 package View;
 
+import Model.Product;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -13,7 +15,7 @@ public class ProductsView extends JPanel{
     JLabel NoResults = new JLabel("No products match your search", SwingConstants.CENTER);
     String name ;
 
-    public ProductsView(String name) {
+    public ProductsView(String name , ArrayList<Product> list) {
 
         this.name=name;
         this.setOpaque(false);
@@ -97,7 +99,7 @@ public class ProductsView extends JPanel{
         container.setBorder(new EmptyBorder(40, 150, 40, 150));
         container.setOpaque(false);
 
-        setCards();
+        setCards(list);
 
 
         JPanel mainContentPanel = new JPanel();
@@ -170,25 +172,12 @@ public class ProductsView extends JPanel{
 
     AddBtn addCard;
 
-    public void setCards() {
-
-        addNewProduct("sofa", "$55.00", new ImageIcon("./assets/hhh.png"), "description");
-        addNewProduct("bed", "$40.00", new ImageIcon("./assets/bbed.png"), "description");
-        addNewProduct("table", "$12.50", new ImageIcon("./assets/dinner.png"), "description");
-        addNewProduct("carpet", "$31.50", new ImageIcon("./assets/carpet.png"), "description");
-        addNewProduct("wardrobe", "$59.50", new ImageIcon("./assets/wardrobee.png"), "description");
-        addNewProduct("dressing table", "$340.50", new ImageIcon("./assets/dressing.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-        addNewProduct("curtain", "$9.50", new ImageIcon("./assets/curtain.png"), "description");
-
+    public void setCards(ArrayList <Product> list) {
+for(Product p : list) {
+    addNewProduct(p.getName(), "10.43", new ImageIcon(p.getImage()), "description");
+}
 
         addCard = new AddBtn(() -> {
-
             addNewProduct("New Product", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
         });
 

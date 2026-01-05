@@ -1,5 +1,7 @@
 import Controller.LoginController;
+import Controller.MainController;
 import Controller.TaskController;
+import Enums.Role;
 import Enums.TaskStatus;
 import Model.*;
 import View.*;
@@ -13,29 +15,33 @@ public class Main {
     public static void main(String[] args) {
 
         FlatLightLaf.setup();
+        new MainController();
   //        FlatDarkLaf.setup();
-        ItemRepository itemRepository = new ItemRepository();
-        itemRepository.load();
-        ProductRepository productRepository = new ProductRepository();
-        productRepository.load();
-        TaskRepository taskRepository = new TaskRepository();
-        taskRepository.load();
-        ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
-        productLineRepository.load("./Files/ProductLines.csv");
-        TaskService taskService = new TaskService(itemRepository ,productRepository ,taskRepository ,productLineRepository);
-        ProductLine pl = productLineRepository.getProductLineByNumber(1);
-//        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
-        ProductLineService productLineService= new ProductLineService(productLineRepository,pl , taskService );
-//        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
+//        ItemRepository itemRepository = new ItemRepository();
+//        itemRepository.load();
+//        ProductRepository productRepository = new ProductRepository();
+//        productRepository.load();
+//        TaskRepository taskRepository = new TaskRepository();
+//        taskRepository.load();
+//        ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
+//        productLineRepository.load("./Files/ProductLines.csv");
+//        TaskService taskService = new TaskService(itemRepository ,productRepository ,taskRepository ,productLineRepository);
+//        ProductLine pl = productLineRepository.getProductLineByNumber(1);
+////        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
+//        ProductLineService productLineService= new ProductLineService(productLineRepository,pl , taskService );
+////        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
+//
+//        Task te = new Task("carpet" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
+//        Task se = new Task("chair" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
+//        productLineService.addTask(te);
+//        productLineService.addTask(se);
+//
 
-        Task te = new Task("carpet" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
-        Task se = new Task("chair" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
-        productLineService.addTask(te);
-        productLineService.addTask(se);
-
-
-        BaseFrame frame = new BaseFrame("hamza" ,"Tasks");
-        new TaskController(taskRepository,frame);
+//        BaseFrame frame = new BaseFrame("hamza" ,"Tasks");
+//        User user = new User("Hamza" , "Js" , Role.Manager);
+//        frame.showAPanel(new ProfileView(user));
+//        new LoginController();
+//        new TaskController(taskRepository,frame);
 
 
 //       try {
