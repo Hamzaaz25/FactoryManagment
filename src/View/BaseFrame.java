@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 public class BaseFrame extends JFrame {
     String name;
@@ -15,7 +16,11 @@ public class BaseFrame extends JFrame {
     protected JPanel container;
     protected JLabel TitlelblPage;
     String title;
-    JButton backButton;
+    JButton productsLineButton;
+    JButton productsButton;
+    JButton itemsButton;
+    JButton tasksButton;
+    private JButton SelectedButton = null;
 
 
 
@@ -37,16 +42,57 @@ public class BaseFrame extends JFrame {
         sideBar.setPreferredSize(new Dimension(150, 200));
         sideBar.setBackground (new Color(120, 165, 200) );
         sideBar.setLayout(new BorderLayout());
+        sideBar.setBorder(new EmptyBorder(60,0,0,0));
+
+        ImageIcon icon1 = new ImageIcon("./assets/productline.png");
+        Image scaled1 = icon1.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+        productsLineButton = new JButton("Lines", icon1);
+        productsLineButton.setIcon(new ImageIcon(scaled1));
 
 
-        ImageIcon icon = new ImageIcon("./assets/return.png");
-        Image scaled = icon.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        backButton = new JButton("Back", icon);
-        backButton.setIcon(new ImageIcon(scaled));
-        backButton.setBackground(new Color(55, 100, 145));
+        ImageIcon icon2 = new ImageIcon("./assets/product.png");
+        Image scaled2 = icon2.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+        productsButton = new JButton("products", icon2);
+        productsButton.setIcon(new ImageIcon(scaled2));
 
-        styleSidebarButton(backButton);
-        sideBar.add(backButton, BorderLayout.NORTH);
+
+        ImageIcon icon3 = new ImageIcon("./assets/item.png");
+        Image scaled3 = icon3.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+        itemsButton = new JButton("items", icon3);
+        itemsButton.setIcon(new ImageIcon(scaled3));
+
+
+        ImageIcon icon4 = new ImageIcon("./assets/tasks.png");
+        Image scaled4 = icon4.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
+        tasksButton = new JButton("tasks", icon4);
+        tasksButton.setIcon(new ImageIcon(scaled4));
+
+
+        JPanel buttonsContainer = new JPanel(new GridLayout(0, 1, 0, 5));
+        buttonsContainer.setOpaque(false);
+
+        styleSidebarButton(productsButton, new ProductsView("Products",new ArrayList<>()), "Products");
+        productsButton.setOpaque(true);
+        productsButton.setContentAreaFilled(true);
+        productsButton.setBackground(new Color(20, 40, 80));
+        SelectedButton = productsButton;
+        buttonsContainer.add(productsButton);
+
+
+        styleSidebarButton(itemsButton, new ItemsView("Items",new ArrayList<>()), "Items");
+        buttonsContainer.add(itemsButton);
+
+
+        styleSidebarButton(productsLineButton, new ProductLineDisplayView(), "Product Lines");
+        buttonsContainer.add(productsLineButton);
+
+
+        styleSidebarButton(tasksButton, new TaskView(new ArrayList<>()), "Tasks");
+        buttonsContainer.add(tasksButton);
+
+
+
+        sideBar.add(buttonsContainer,BorderLayout.NORTH);
 
         JPanel socialPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 20));
         socialPanel.setOpaque(false);
@@ -121,7 +167,7 @@ public class BaseFrame extends JFrame {
         mainContent = new JPanel();
         mainContent.setLayout(new CardLayout());
         mainContent.setOpaque(false);
-        switchContent(new ThingDetails(name,"10.0","good",new ImageIcon("./assets/sssofa.jpg"),15),title);
+
 
         JScrollPane scrollPane = new JScrollPane(mainContent);
         scrollPane.setOpaque(false);
@@ -179,21 +225,41 @@ public class BaseFrame extends JFrame {
          this.add(container,BorderLayout.CENTER);
          this.add(sideBar,BorderLayout.WEST);
 
-        this.setVisible(false);
-    }
-    public void styleSidebarButton(JButton button) {
-        button.setContentAreaFilled(true);
-        button.setBorderPainted(true);
-        button.setFocusPainted(false);
-        button.setOpaque(true);
-        button.setFont(new Font("Segoe UI", Font.PLAIN, 30));
-        button.setForeground(Color.WHITE);
-        button.setHorizontalAlignment(SwingConstants.LEFT);
+        productsButton.doClick();
 
+        this.setVisible(true);
+    }
+    public void styleSidebarButton(JButton button, JPanel panel, String title) {
+        button.setContentAreaFilled(false);
+        button.setBorderPainted(false);
+        button.setFocusPainted(false);
+        button.setOpaque(false);
+        button.setFont(new Font("Segoe UI", Font.PLAIN, 20));
+        button.setForeground(Color.BLACK);
+        button.setHorizontalAlignment(SwingConstants.LEFT);
         button.setIconTextGap(15);
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setPreferredSize(new Dimension(200, 60));
+        button.setBorder(new EmptyBorder(0, 20, 0, 0));
 
+        button.addActionListener(e -> {
+
+            if (SelectedButton != null) {
+                SelectedButton.setOpaque(false);
+                SelectedButton.setContentAreaFilled(false);
+                SelectedButton.setBackground(null);
+            }
+
+            button.setOpaque(true);
+            button.setContentAreaFilled(true);
+            button.setBackground(new Color(20, 40, 80));
+
+            SelectedButton = button;
+
+            switchContent(panel, title);
+
+            button.repaint();
+        });
     }
 
 
@@ -211,8 +277,8 @@ public class BaseFrame extends JFrame {
         mainContent.revalidate();
         mainContent.repaint();
     }
-public JButton getBackButton(){
-        return this.backButton;
+public JButton getProductsLineButton(){
+        return this.productsLineButton;
 }
 
 }

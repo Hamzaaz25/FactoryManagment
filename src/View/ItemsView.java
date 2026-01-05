@@ -133,7 +133,7 @@ public class ItemsView extends JPanel {
 
         JPanel rightContainer = new JPanel(new BorderLayout());
         rightContainer.setOpaque(false);
-        rightContainer.add(container, BorderLayout.CENTER);
+        rightContainer.add(container, BorderLayout.NORTH);
 
         this.add(rightContainer, BorderLayout.CENTER);
         this.setVisible(true);

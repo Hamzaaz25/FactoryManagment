@@ -2,7 +2,7 @@ package View;
 import javax.swing.*;
 import java.awt.*;
 
-public class ProductLineDisplayView extends JFrame {
+public class ProductLineDisplayView extends JPanel {
 
     JPanel background;
     JLabel title;
@@ -16,10 +16,10 @@ public class ProductLineDisplayView extends JFrame {
 
         public ProductLineDisplayView() {
 
-            this.setTitle("Supervisor - Task Management");
+         //   this.setTitle("Supervisor - Task Management");
             this.setSize(1000, 650);
-            this.setLocationRelativeTo(null);
-            this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         //   this.setLocationRelativeTo(null);
+         //   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             this.setLayout(null);
 
             //background

@@ -78,7 +78,7 @@ public class LoginView extends JFrame {
         loginbutton.setMaximumSize(fieldSize);
         loginbutton.setPreferredSize(fieldSize);
         card.add(loginbutton);
-
+        this.getRootPane().setDefaultButton(loginbutton);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;

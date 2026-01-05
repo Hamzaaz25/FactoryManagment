@@ -10,12 +10,15 @@ import com.formdev.flatlaf.FlatLightLaf;
 //import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
 
         FlatLightLaf.setup();
-        new MainController();
+
+      new BaseFrame("aa","aa");
+     //  new MainController();
   //        FlatDarkLaf.setup();
 //        ItemRepository itemRepository = new ItemRepository();
 //        itemRepository.load();
