@@ -3,3 +3,5 @@ Model.Task Number , Requested Products , Quantity , Client , Start Date , End Da
 102 , chair , 100,Samer,24/1/2022,3/4/2022, Completed,1,100
 103 , carpet , 10,Amin,2/1/2022,4/8/2022, Completed,1,100
 104 , sofa , 19,s3eed,2/1/2026,21/1/2026, Completed,1,100
+105 , carpet , 5,s3eed,4/1/2026,9/1/2026, Completed,1,100
+106 , chair , 5,s3eed,4/1/2026,9/1/2026, Completed,1,100

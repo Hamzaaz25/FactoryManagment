@@ -138,7 +138,7 @@ public static ArrayList<Product> readProducts(String path){
 
             int amount = Integer.parseInt(row[2].trim());
 
-            for(int i =3; i<row.length;i+=2){
+            for(int i =3; i+1<row.length;i+=2){
                 String key = row[i].trim();
                 int value =Integer.parseInt(row[i+1].trim());
 

@@ -34,66 +34,49 @@ public class TaskService {
         DataWriter.writeErrors(message);
     }
 
-    public TaskValidation isTaskValid(Task t) {
 
-        // Get the requested product and its required quantity
-        Product p = this.productRepository.getByName(t.getRequestedProduct());
-        ProductLine pl = this.productLineRepository.getProductLineByNumber(t.getProductLine());
+    public TaskValidation validateAndReserve(Task t) {
+        Product p = productRepository.getByName(t.getRequestedProduct());
         int req = t.getRequestedQuantity();
-        if(pl.getStatus() == Status.Maintenance){
-            t.setValid(false);
-            return TaskValidation.ProductLineMaintenance;
 
-        }
-        // Check each ingredient in the product's recipe
+        // 1. Validate
         for (String name : p.getRecipe().keySet()) {
-            Item item = this.itemRepository.getByName(name);
-            int usage = p.getRecipe().get(name) * req;
-            if (item == null || !item.isStockAvailable() || item.getAvailableQuantity() <= usage) {
-                t.setValid(false);
-                return TaskValidation.InsufficientStock; // immediately return if any item fails
+
+            Item item = itemRepository.getByName(name);
+            int needed = p.getRecipe().get(name) * req;
+
+            if (item.getAvailableQuantity() < needed) {
+                logTaskErrors("Sorry the task numbered "+t.getTaskNumber()+" cannot be executed because the items stock is insufficient " + LocalDate.now());
+                return TaskValidation.InsufficientStock;
             }
         }
-        t.setValid(true);
+        ProductLine pl = this.productLineRepository.getProductLineByNumber(t.getProductLine());
+        synchronized (pl){
+        if(pl.getStatus() == Status.Maintenance ){
+            logTaskErrors("Sorry the task numbered "+ t.getTaskNumber() + " cannot be executed because the product line "+pl.getId()+" is currently on maintenance" + LocalDate.now());
+            return TaskValidation.ProductLineMaintenance;
+        }
+}
+        // 2. Reserve (CRITICAL PART)
+        for (String name : p.getRecipe().keySet()) {
+
+            Item item = itemRepository.getByName(name);
+            synchronized (item){
+            int needed = p.getRecipe().get(name) * req;
+            item.setAvailableQuantity(item.getAvailableQuantity() - needed);
+            }
+        }
+        this.taskRepository.insert(t);
         return TaskValidation.Valid;
     }
 
-    public TaskValidation registerTask(Task t){
-        ProductLine pl = this.productLineRepository.getProductLineByNumber(t.getProductLine());
-        TaskValidation validation = isTaskValid(t);
-        System.out.println(validation);
-        if(validation == TaskValidation.Valid){
-            this.taskRepository.insert(t);
-
-        }
-        else if(validation == TaskValidation.InsufficientStock){
-            logTaskErrors("Sorry the task numbered "+t.getTaskNumber()+" cannot be executed because the items stock is insufficient " + LocalDate.now());
-        }
-        else if(validation == TaskValidation.ProductLineMaintenance){
-            logTaskErrors("Sorry the task numbered "+ t.getTaskNumber() + " cannot be executed because the product line "+pl.getId()+" is currently on maintenance" + LocalDate.now());
-        }
-        this.taskRepository.save();
-
-        return validation;
-    }
-
     public void runTask(Task t){
-        System.out.println(this.isTaskValid(t));
+
         Product product = this.productRepository.getByName(t.getRequestedProduct().trim());
         int req = t.getRequestedQuantity();
 
-        ProductLine productLine = this.productLineRepository.getProductLineByNumber(t.getTaskNumber()) ;
-        ArrayList<Item> temp = new ArrayList<>();
-        if(isTaskValid(t) ==TaskValidation.Valid ) {
-            outer:
-            for (String name : product.getRecipe().keySet()) {
-                Item item = this.itemRepository.getByName(name);
-                temp.add(item);
-                synchronized(item){
-                    int usage = product.getRecipe().get(name) * req;
-                    item.setAvailableQuantity( item.getAvailableQuantity() - usage);
-                }
-            }
+        ProductLine productLine = this.productLineRepository.getProductLineByNumber(t.getProductLine()) ;
+
             if (t.getStatus() != TaskStatus.Cancelled) {
                 t.setWorking(true);
                 for (int i = 1; i <= t.getRequestedQuantity(); i++) {
@@ -102,11 +85,10 @@ public class TaskService {
                     }
 
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         throw new RuntimeException(e);
                     }
-                    t.setEndDate(LocalDate.now());
                     t.setEndDate(t.getStartDate().plusDays(i));
                     t.setProgressPercentage(i * 100 / t.getRequestedQuantity());
 
@@ -116,31 +98,35 @@ public class TaskService {
 
 
             float percent = (float)t.getProgressPercentage()/100;
-            synchronized (product) {
-                product.setAmount((int) (product.getAmount() + (req * percent)));
-            }
+            product.setAmount((int) (product.getAmount() + (req * percent)));
             if(t.getProgressPercentage() == 100 ){
                 t.setStatus(TaskStatus.Completed);
-            }else t.setStatus(TaskStatus.Cancelled);
-            for(Item item : temp){
-                if(!item.isStockSufficient()){
-                    notifyIfBelowMinimum(item.getName());
-                    item.setStatus(ItemStatus.BelowMinimum);
-                }
-                int produced = (int) (percent * req);
-                int notpProduced = req -produced;
-                int usagePerProduct = product.getRecipe().get(item.getName().trim());
-                item.setAvailableQuantity(item.getAvailableQuantity() + (usagePerProduct * notpProduced));
-
+            }else {
+                t.setStatus(TaskStatus.Cancelled);
+                this.returnUnusedResources(t, percent);
             }
 
-        }
-        else{
-            t.setStatus(TaskStatus.Cancelled);
-            t.setEndDate(LocalDate.now());
-            System.out.println("Task in not valid");
-        }
         this.saveAll();
+}
+
+
+    private void returnUnusedResources(Task t, float percent) {
+        Product product = productRepository.getByName(t.getRequestedProduct());
+        int produced = (int) (percent * t.getRequestedQuantity());
+        int notProduced = t.getRequestedQuantity() - produced;
+
+        for (String name : product.getRecipe().keySet()) {
+            Item item = itemRepository.getByName(name);
+            int usage = product.getRecipe().get(name);
+            item.setAvailableQuantity(
+                    item.getAvailableQuantity() + usage * notProduced
+            );
+
+            if (!item.isStockSufficient()) {
+                notifyIfBelowMinimum(item.getName());
+                item.setStatus(ItemStatus.BelowMinimum);
+            }
+        }
     }
 
     public void notifyIfBelowMinimum(String message){
@@ -151,5 +137,7 @@ public class TaskService {
         t.setStatus(TaskStatus.Cancelled);
         t.setWorking(false);
     }
+
+
 
 }

@@ -1,4 +1,5 @@
 import Controller.LoginController;
+import Controller.TaskController;
 import Enums.TaskStatus;
 import Model.*;
 import View.*;
@@ -13,7 +14,7 @@ public class Main {
 
         FlatLightLaf.setup();
   //        FlatDarkLaf.setup();
-  /*      ItemRepository itemRepository = new ItemRepository();
+        ItemRepository itemRepository = new ItemRepository();
         itemRepository.load();
         ProductRepository productRepository = new ProductRepository();
         productRepository.load();
@@ -21,31 +22,35 @@ public class Main {
         taskRepository.load();
         ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
         productLineRepository.load("./Files/ProductLines.csv");
-
         TaskService taskService = new TaskService(itemRepository ,productRepository ,taskRepository ,productLineRepository);
         ProductLine pl = productLineRepository.getProductLineByNumber(1);
-        ProductLineService productLineService= new ProductLineService(pl , taskService);
-        Task te = new Task("sofa" , 19 ,"s3eed" ,1 , TaskStatus.InProgress  );
+//        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
+        ProductLineService productLineService= new ProductLineService(productLineRepository,pl , taskService );
+//        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
+
+        Task te = new Task("carpet" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
+        Task se = new Task("chair" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
         productLineService.addTask(te);
+        productLineService.addTask(se);
 
 
-   */
+        BaseFrame frame = new BaseFrame("hamza" ,"Tasks");
+        new TaskController(taskRepository,frame);
 
-      try {
-            FlatLightLaf.setup();
-        } catch (Exception ex) {
-              System.err.println("Failed to initialize LaF");
-     }
-      new ProductLineDisplayView();
-     // new LoginView();
-     //  new BaseFrame("ss","gg");
-     //   TaskRepository taskRepository = new TaskRepository();
-     //   taskRepository.load();
 
-     //   BaseFrame bf = new BaseFrame("Hamza", "Tasks");
-     //   bf.switchContent(new TaskView(taskRepository.getListOfTasks()),"tasks");
+//       try {
+//            FlatLightLaf.setup();
+//        } catch (Exception ex) {
+//              System.err.println("Failed to initialize LaF");
+//     }
+//        new BaseFrame("gg","gg");
+//        TaskRepository taskRepository = new TaskRepository();
+//        taskRepository.load();
 
-        //new LoginController();
+//        BaseFrame bf = new BaseFrame("Hamza", "Tasks");
+//        bf.showAPanel(new TaskView(taskRepository.getListOfTasks()));
+
+//         new LoginController();
         // new LoginView();
         //new ProductsView("aaa");
         // new ItemsView("Hamza");
