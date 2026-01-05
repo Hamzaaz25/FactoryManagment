@@ -31,19 +31,21 @@ public class Main {
 
    */
 
-//       try {
-//            FlatLightLaf.setup();
-//        } catch (Exception ex) {
-//              System.err.println("Failed to initialize LaF");
-//     }
-//        new BaseFrame("gg","gg");
-        TaskRepository taskRepository = new TaskRepository();
-        taskRepository.load();
+      try {
+            FlatLightLaf.setup();
+        } catch (Exception ex) {
+              System.err.println("Failed to initialize LaF");
+     }
+      new ProductLineDisplayView();
+     // new LoginView();
+     //  new BaseFrame("ss","gg");
+     //   TaskRepository taskRepository = new TaskRepository();
+     //   taskRepository.load();
 
-        BaseFrame bf = new BaseFrame("Hamza", "Tasks");
-        bf.showAPanel(new TaskView(taskRepository.getListOfTasks()));
+     //   BaseFrame bf = new BaseFrame("Hamza", "Tasks");
+     //   bf.switchContent(new TaskView(taskRepository.getListOfTasks()),"tasks");
 
-//         new LoginController();
+        //new LoginController();
         // new LoginView();
         //new ProductsView("aaa");
         // new ItemsView("Hamza");

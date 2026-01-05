@@ -3,8 +3,6 @@ package View;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +13,9 @@ public class BaseFrame extends JFrame {
     protected JPanel menuBar;
     protected JPanel mainContent;
     protected JPanel container;
+    protected JLabel TitlelblPage;
     String title;
+
 
 
 
@@ -109,7 +109,7 @@ public class BaseFrame extends JFrame {
         gbc.gridx = 2;
         gbc.weightx = 1.0;
         menuBar.add(profilePanel, gbc);
-        JLabel TitlelblPage = new JLabel(title, SwingConstants.CENTER);
+        TitlelblPage = new JLabel(title, SwingConstants.CENTER);
         TitlelblPage.setFont(new Font("Segoe UI", Font.BOLD, 40));
         TitlelblPage.setForeground(Color.white);
         gbc.gridx = 1;
@@ -121,7 +121,7 @@ public class BaseFrame extends JFrame {
         mainContent = new JPanel();
         mainContent.setLayout(new CardLayout());
         mainContent.setOpaque(false);
-
+        switchContent(new ThingDetails(name,"10.0","good",new ImageIcon("./assets/sssofa.jpg"),15),title);
 
         JScrollPane scrollPane = new JScrollPane(mainContent);
         scrollPane.setOpaque(false);
@@ -196,8 +196,21 @@ public class BaseFrame extends JFrame {
 
     }
 
-    public void showAPanel(JPanel panel) {
-        mainContent.add(panel);
+
+    public void switchContent(JPanel newPanel, String newTitle) {
+
+        mainContent.removeAll();
+
+        mainContent.setLayout(new BorderLayout());
+        mainContent.add(newPanel, BorderLayout.CENTER);
+
+
+        TitlelblPage.setText(newTitle);
+
+
+        mainContent.revalidate();
+        mainContent.repaint();
     }
+
 
 }
