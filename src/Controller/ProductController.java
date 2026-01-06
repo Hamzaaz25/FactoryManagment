@@ -31,7 +31,7 @@ public class ProductController {
                 public void actionPerformed(ActionEvent e) {
                        Product product =  productRepository.getByName(pb.getTextName());
 
-                       ThingDetails details = new ThingDetails(product.getName() , "10" , "des" , new ImageIcon(product.getImage()) , product.getAmount());
+                       ThingDetails details = new ThingDetails(product.getName() , String.valueOf(product.getPrice()) , "des" , new ImageIcon(product.getImage()) , product.getAmount());
                        baseFrame.switchContent( details ,product.getName());
                        details.addActionListener(new ActionListener() {
                            @Override

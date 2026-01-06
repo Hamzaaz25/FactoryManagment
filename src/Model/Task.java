@@ -20,7 +20,7 @@ public class Task {
     static int count = 100;
 
 
-    public Task(int taskNumber, String requestedProduct, int requestedQuantity, String clientName, LocalDate startDate, LocalDate endDate, TaskStatus status, int productLine, int progressPercentage) {
+    public Task( String requestedProduct, int requestedQuantity, String clientName, LocalDate startDate, LocalDate endDate, TaskStatus status, int productLine, int progressPercentage) {
         this.taskNumber = ++count;
         this.requestedProduct = requestedProduct;
         this.requestedQuantity = requestedQuantity;

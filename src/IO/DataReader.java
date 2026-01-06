@@ -219,7 +219,7 @@ public static ArrayList<Product> readProducts(String path){
                 }
 
                 String[] row = line.split(",");
-                int taskNumber = Integer.parseInt(row[0].trim());
+//                int taskNumber = Integer.parseInt(row[0].trim());
                 String requestedProduct = row[1].trim();
                 int quantity = Integer.parseInt(row[2].trim());
                 String client = row[3].trim();
@@ -237,7 +237,7 @@ public static ArrayList<Product> readProducts(String path){
 
                 int progress = Integer.parseInt(row[8].trim());
 
-                Task task = new Task(taskNumber ,requestedProduct,quantity,client,start,end,tstatus,productLineNumber,progress );
+                Task task = new Task( requestedProduct,quantity,client,start,end,tstatus,productLineNumber,progress );
                 listOfTasks.add(task);
             }
             return listOfTasks;

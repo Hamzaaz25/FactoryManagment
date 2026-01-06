@@ -36,7 +36,7 @@ public class ThingDetails extends JPanel {
         lblName.setForeground(Color.WHITE);
         lblName.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        JLabel lblPrice = new JLabel("Price: " + price);
+        JLabel lblPrice = new JLabel("Price: " + this.price);
         lblPrice.setFont(new Font("Segoe UI", Font.PLAIN, 30));
         lblPrice.setForeground(new Color(200, 200, 200));
         lblPrice.setAlignmentX(Component.LEFT_ALIGNMENT);

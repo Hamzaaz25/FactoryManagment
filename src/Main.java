@@ -17,12 +17,12 @@ public class Main {
 
         FlatLightLaf.setup();
 
-      new BaseFrame("aa","aa");
-     //  new MainController();
+//      new BaseFrame("aa","aa");
+       new MainController();
   //        FlatDarkLaf.setup();
 //        ItemRepository itemRepository = new ItemRepository();
 //        itemRepository.load();
-//        BaseFrame frame = new BaseFrame("Hzmza" , "Base");
+//        BaseFrame frame = new BaseFrame("Hamza" , "Base");
 //       frame.switchContent( new ItemsView("Hamza" , itemRepository.getList()) , "Items");
 //       frame.setVisible(true);
 

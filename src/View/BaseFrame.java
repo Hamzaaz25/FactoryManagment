@@ -71,7 +71,7 @@ public class BaseFrame extends JFrame {
         JPanel buttonsContainer = new JPanel(new GridLayout(0, 1, 0, 5));
         buttonsContainer.setOpaque(false);
 
-        styleSidebarButton(productsButton, new ProductsView("Products",new ArrayList<>()), "Products");
+        styleSidebarButton(productsButton);
         productsButton.setOpaque(true);
         productsButton.setContentAreaFilled(true);
         productsButton.setBackground(new Color(20, 40, 80));
@@ -79,15 +79,15 @@ public class BaseFrame extends JFrame {
         buttonsContainer.add(productsButton);
 
 
-        styleSidebarButton(itemsButton, new ItemsView("Items",new ArrayList<>()), "Items");
+        styleSidebarButton(itemsButton);
         buttonsContainer.add(itemsButton);
 
 
-        styleSidebarButton(productsLineButton, new ProductLineDisplayView(), "Product Lines");
+        styleSidebarButton(productsLineButton);
         buttonsContainer.add(productsLineButton);
 
 
-        styleSidebarButton(tasksButton, new TaskView(new ArrayList<>()), "Tasks");
+        styleSidebarButton(tasksButton);
         buttonsContainer.add(tasksButton);
 
 
@@ -229,7 +229,7 @@ public class BaseFrame extends JFrame {
 
         this.setVisible(true);
     }
-    public void styleSidebarButton(JButton button, JPanel panel, String title) {
+    public void styleSidebarButton(JButton button) {
         button.setContentAreaFilled(false);
         button.setBorderPainted(false);
         button.setFocusPainted(false);
@@ -256,7 +256,7 @@ public class BaseFrame extends JFrame {
 
             SelectedButton = button;
 
-            switchContent(panel, title);
+//            switchContent(panel, title);
 
             button.repaint();
         });
@@ -281,4 +281,15 @@ public JButton getProductsLineButton(){
         return this.productsLineButton;
 }
 
+    public JButton getTasksButton() {
+        return tasksButton;
+    }
+
+    public JButton getItemsButton() {
+        return itemsButton;
+    }
+
+    public JButton getProductsButton() {
+        return productsButton;
+    }
 }
