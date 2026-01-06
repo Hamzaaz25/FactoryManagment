@@ -1,5 +1,6 @@
 package Model;
 
+import Enums.Status;
 import Enums.TaskValidation;
 import IO.DataWriter;
 
@@ -37,5 +38,9 @@ public class ProductLineService {
 
     }
 
+    public void editProductLineStatus(int id , Status s){
+       productLineRepository.getProductLineByNumber(id).setStatus(s);
+       productLineRepository.save();
+        }
 
     }

@@ -1,174 +1,155 @@
 package View;
+import Model.Task;
+
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class ProductLineDisplayView extends JPanel {
 
     JPanel background;
     JLabel title;
-
-    JPanel task1;
-    JPanel task2;
-    JPanel task3;
-
+    String font ="Segoe UI";
     JButton saveButton;
+    ArrayList<JPanel> taskPanels = new ArrayList<>();
 
 
-        public ProductLineDisplayView() {
+    public ProductLineDisplayView(ArrayList<Task> tasks) {
 
-         //   this.setTitle("Supervisor - Task Management");
-            this.setSize(1000, 650);
-         //   this.setLocationRelativeTo(null);
-         //   this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            this.setLayout(null);
+        setLayout(new BorderLayout());
+        setBackground(new Color(108, 185, 190));
 
-            //background
-            background = new JPanel();
-            background.setBackground(new Color(108, 185, 190));
-            background.setBounds(0, 0, 1000, 650);
-            background.setLayout(null);
-            this.add(background);
 
-            //title label
-            title = new JLabel("First Product Line", SwingConstants.CENTER);
-            title.setFont(new Font("Arial", Font.BOLD, 28));
-            title.setBounds(250, 20, 500, 40);
-            background.add(title);
+        title = new JLabel("First Product Line", SwingConstants.CENTER);
+        title.setFont(new Font(font, Font.BOLD, 28));
+        title.setBorder(new EmptyBorder(20, 0, 20, 0));
+        add(title, BorderLayout.NORTH);
 
-            //First Task
-            task1 = createTaskPanel(
-                    "1",
-                    "First Task",
-                    "First Product Line",
-                    "Running",
-                    60
-            );
-            task1.setBounds(150, 100, 650, 130);
-            background.add(task1);
+        JPanel centerPanel = new JPanel();
+        centerPanel.setOpaque(false);
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        centerPanel.setBorder(new EmptyBorder(20, 150, 20, 150));
+        centerPanel.setBackground(new Color(108,185,190));
+        add(centerPanel, BorderLayout.CENTER);
 
-            //Second Task
-            task2 = createTaskPanel(
-                    "2",
-                    "Second Task",
-                    "First Product Line",
-                    "Stopped",
-                    40
-            );
-            task2.setBounds(150, 250, 650, 130);
-            background.add(task2);
 
-            //Third Task
-            task3 = createTaskPanel(
-                    "3",
-                    "Third Task",
-                    "First Product Line",
-                    "Disabled",
-                    0
-            );
-            task3.setBounds(150, 400, 650, 130);
-            background.add(task3);
-
-            //save changes button
-            saveButton = new JButton("Save Changes");
-            saveButton.setBounds(410, 560, 180, 45);
-            saveButton.setFont(new Font("Arial", Font.BOLD, 16));
-            saveButton.setBackground(Color.BLACK);
-            saveButton.setForeground(Color.WHITE);
-            saveButton.setFocusPainted(false);
-            background.add(saveButton);
-
-            saveButton.addActionListener(e -> {
-                int result = JOptionPane.showConfirmDialog(
-                        this,
-                        "Are you sure you want to apply these changes?",
-                        "Confirm Changes",
-                        JOptionPane.YES_NO_OPTION
-                );
-
-                if (result == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(
-                            this,
-                            "Changes applied successfully!",
-                            "Success",
-                            JOptionPane.INFORMATION_MESSAGE
-                    );
-                }
-            });
-            this.setVisible(true);
+        this.taskPanels =createTasks(tasks);
+        for(JPanel pa :this.taskPanels){
+            centerPanel.add(pa);
         }
+        centerPanel.add(Box.createVerticalStrut(30));
 
-    JPanel panel;
-    JLabel titleLabel;
 
-    JLabel pLineLabel;
-    JLabel PStatusLabel;
+        saveButton = new JButton("Save Changes");
+        saveButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        saveButton.setFont(new Font(font, Font.BOLD, 16));
+        centerPanel.add(saveButton);
 
-    JProgressBar bar;
-    JButton deleteButton;
+        saveButton.addActionListener(e -> {
+            int result = JOptionPane.showConfirmDialog(
+                    this,
+                    "Are you sure you want to apply these changes?",
+                    "Confirm Changes",
+                    JOptionPane.YES_NO_OPTION
+            );
+
+            if (result == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Changes applied successfully!",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE
+                );
+            }
+        });
+    }
+
+
+
+
+    ProgressBarRenderer bar;
+    JButton cancelButton;
 
     private JPanel createTaskPanel(String id, String taskName,
-                                   String currentLine, String currentStatus,
+                                     String currentStatus,
                                    int progress) {
 
-        panel = new JPanel();
-        panel.setLayout(null);
+        JPanel panel = new JPanel(new BorderLayout(10, 10));
         panel.setBackground(Color.WHITE);
-        panel.setBorder(BorderFactory.createLineBorder(Color.GRAY));
+        panel.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createEmptyBorder(8, 8, 8, 8),
+                BorderFactory.createLineBorder(new Color(220, 220, 220), 1, true)
+        ));
 
-        //Task Title Label
-        titleLabel = new JLabel("ID: " + id + "   -   " + taskName);
-        titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        titleLabel.setBounds(20, 10, 400, 25);
-        panel.add(titleLabel);
+        panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));
 
-        //Product Line Tasks
-        pLineLabel = new JLabel("Product Line:");
-        pLineLabel.setBounds(20, 45, 100, 25);
-        panel.add(pLineLabel);
+        // ===== NORTH : Title =====
+        JLabel titleLabel = new JLabel("ID: " + id + "   -   " + taskName);
+        titleLabel.setFont(new Font(font, Font.BOLD, 16));
+        titleLabel.putClientProperty("FlatLaf.style",
+                "font: bold +2");
 
-        JComboBox<String> lineBox = new JComboBox<>(
-                new String[]{"Tables", "Beds", "Curtains"}
-        );
-        lineBox.setSelectedItem(currentLine);
-        lineBox.setBounds(130, 45, 200, 30);
-        panel.add(lineBox);
+        panel.add(titleLabel, BorderLayout.NORTH);
 
-        //Product Line Statues
-        PStatusLabel = new JLabel("Status:");
-        PStatusLabel.setBounds(360, 45, 60, 25);
-        panel.add(PStatusLabel);
+        // ===== CENTER : Controls =====
+        JPanel center = new JPanel(new FlowLayout(FlowLayout.RIGHT, 2, 2));
+        center.setOpaque(false);
 
-        JComboBox<String> statusBox = new JComboBox<>(
-                new String[]{"Running", "Stopped", "Disabled"}
-        );
-        statusBox.setSelectedItem(currentStatus);
-        statusBox.setBounds(430, 45, 160, 30);
-        panel.add(statusBox);
 
-        //Tasks Progress Bar
-        bar = new JProgressBar(0, 100);
+        center.add(new JLabel("Status:"));
+        JLabel statusLabel = new JLabel(currentStatus);
+        statusLabel.setFont(new Font(font, Font.BOLD, 13));
+        center.add(statusLabel);
+
+        panel.add(center, BorderLayout.CENTER);
+
+        // ===== SOUTH : Progress + Cancel =====
+        JPanel south = new JPanel(new BorderLayout(5, 0));
+        south.setOpaque(false);
+
+        bar = new ProgressBarRenderer();
         bar.setValue(progress);
         bar.setStringPainted(true);
-        bar.setBounds(20, 90, 420, 25);
-        panel.add(bar);
+        south.add(bar, BorderLayout.CENTER);
 
-        //Task Deleting
-        deleteButton = new JButton("Delete Task");
-        deleteButton.setBounds(460, 85, 160, 35);
-        panel.add(deleteButton);
+        this.cancelButton = new JButton("Cancel");
+        south.add(cancelButton, BorderLayout.EAST);
+        cancelButton.putClientProperty("FlatLaf.style",
+                "background: #f5f5f5; foreground: #555; arc:12");
+        cancelButton.setFocusPainted(false);
 
-        deleteButton.addActionListener(e -> {
+        panel.add(south, BorderLayout.SOUTH);
+
+        this.cancelButton.addActionListener(e -> {
             int confirm = JOptionPane.showConfirmDialog(
                     panel,
-                    "Are you sure you want to delete this task?",
-                    "Confirm Deletion",
+                    "Cancel this task?",
+                    "Confirm Cancel",
                     JOptionPane.YES_NO_OPTION
             );
             if (confirm == JOptionPane.YES_OPTION) {
-               panel.setVisible(false);
+                panel.setVisible(false);
             }
         });
 
         return panel;
     }
+
+   public ArrayList<JPanel> createTasks(ArrayList<Task> list){
+        ArrayList<JPanel>  panels = new ArrayList<>();
+        for(Task t : list){
+           panels.add(createTaskPanel(String.valueOf(t.getTaskNumber()), t.getClientName(),  t.getStatus().toString(), t.getProgressPercentage()));
+        }
+        return  panels;
+   }
+
+    public JButton getSaveButton() {
+        return saveButton;
+    }
+
+    public JButton getCancelButton() {
+        return cancelButton;
+    }
+
 }

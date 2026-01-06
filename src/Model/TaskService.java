@@ -80,7 +80,7 @@ public class TaskService {
             if (t.getStatus() != TaskStatus.Cancelled) {
                 t.setWorking(true);
                 for (int i = 1; i <= t.getRequestedQuantity(); i++) {
-                    if (t.getStatus() == TaskStatus.Cancelled) {
+                    if (t.getStatus() == TaskStatus.Cancelled || productLine.getStatus() == Status.Maintenance) {
                         break;
                     }
 

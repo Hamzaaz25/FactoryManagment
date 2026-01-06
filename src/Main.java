@@ -1,15 +1,13 @@
-import Controller.LoginController;
+
 import Controller.MainController;
-import Controller.TaskController;
-import Enums.Role;
-import Enums.TaskStatus;
-import Model.*;
-import View.*;
-import com.formdev.flatlaf.FlatDarkLaf;
+import Model.TaskRepository;
+import View.BaseFrame;
+import View.ProductLineDisplayView;
 import com.formdev.flatlaf.FlatLightLaf;
-//import com.formdev.flatlaf.FlatLightLaf;
+
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class Main {
@@ -17,8 +15,27 @@ public class Main {
 
         FlatLightLaf.setup();
 
+
+
+//        UIManager.put("Button.arc", 12);
+//        UIManager.put("Component.arc", 12);
+//        UIManager.put("ProgressBar.arc", 12);
+//        UIManager.put("TextComponent.arc", 10);
+//
+//        UIManager.put("Button.hoverBackground", new Color(230, 230, 230));
+//        UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
+//
+//        UIManager.put("Component.focusWidth", 1);
+//        UIManager.put("Component.innerFocusWidth", 0);
+
 //      new BaseFrame("aa","aa");
-       new MainController();
+//       new MainController();
+        BaseFrame frame = new BaseFrame("Hamza", "TEST");
+        TaskRepository taskRepository = new TaskRepository();
+        taskRepository.load();
+        System.out.println("Loaded");
+
+        frame.switchContent(new ProductLineDisplayView(taskRepository.getListOfTasks()),"Tasks");
   //        FlatDarkLaf.setup();
 //        ItemRepository itemRepository = new ItemRepository();
 //        itemRepository.load();
