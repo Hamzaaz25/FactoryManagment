@@ -1,10 +1,10 @@
-package Model;
+package Repository;
 
 import IO.DataReader;
 import IO.DataWriter;
+import Model.Item;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ItemRepository {

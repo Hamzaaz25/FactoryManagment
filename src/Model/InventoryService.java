@@ -1,7 +1,8 @@
 package Model;
 
 import Enums.MaterialType;
-import IO.DataWriter;
+import Repository.ItemRepository;
+import Repository.ProductRepository;
 
 import java.util.HashMap;
 

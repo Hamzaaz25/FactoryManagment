@@ -1,12 +1,15 @@
 package Controller;
 
+import Enums.MaterialType;
 import Model.Item;
-import Model.ItemRepository;
+import Repository.ItemRepository;
 import Model.User;
 import View.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class ItemController {
     private final ItemRepository itemRepository;
@@ -19,6 +22,23 @@ public class ItemController {
         view = new ItemsView(user.getUsername(),itemRepository.getList());
         this.baseFrame.setVisible(true);
         bf.switchContent(view , "Items");
+
+        view.getCategory().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = view.getCategory().getSelectedItem().toString();
+                if(selected.equals("All")){
+                    view.setCards(itemRepository.getList());
+                    bf.switchContent(view , "Items");
+                }else{
+                    view.getContainer().removeAll();
+                    ArrayList<Item> filtered = itemRepository.getList().stream().filter(item -> item.getType() == MaterialType.valueOf(selected)).collect(Collectors.toCollection(ArrayList :: new));
+                    view.updateCards(filtered);
+                    bf.switchContent(view , "Items");
+                }
+
+            }
+        });
         for(ItemBtn pb :view.getProductButtons()){
             pb.addActionListener(new ActionListener() {
                 @Override

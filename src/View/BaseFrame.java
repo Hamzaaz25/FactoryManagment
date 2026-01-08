@@ -1,5 +1,7 @@
 package View;
 
+import com.formdev.flatlaf.FlatLightLaf;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -8,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class BaseFrame extends JFrame {
+
     String name;
     protected JPanel sideBar;
     protected JPanel footerBar;
@@ -25,6 +28,8 @@ public class BaseFrame extends JFrame {
 
 
     public BaseFrame(String name,String title){
+
+
 
         this.name=name;
         this.title=title;

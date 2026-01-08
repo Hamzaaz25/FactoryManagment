@@ -1,41 +1,45 @@
 
 import Controller.MainController;
-import Model.TaskRepository;
-import View.BaseFrame;
-import View.ProductLineDisplayView;
 import com.formdev.flatlaf.FlatLightLaf;
 
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
 
-        FlatLightLaf.setup();
 
-
-
-//        UIManager.put("Button.arc", 12);
-//        UIManager.put("Component.arc", 12);
-//        UIManager.put("ProgressBar.arc", 12);
-//        UIManager.put("TextComponent.arc", 10);
-//
-//        UIManager.put("Button.hoverBackground", new Color(230, 230, 230));
-//        UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
-//
-//        UIManager.put("Component.focusWidth", 1);
-//        UIManager.put("Component.innerFocusWidth", 0);
 
 //      new BaseFrame("aa","aa");
-//       new MainController();
-        BaseFrame frame = new BaseFrame("Hamza", "TEST");
-        TaskRepository taskRepository = new TaskRepository();
-        taskRepository.load();
-        System.out.println("Loaded");
+        FlatLightLaf.setup();
+        UIManager.put("Button.arc", 12);
+        UIManager.put("Component.arc", 12);
+        UIManager.put("ProgressBar.arc", 12);
+        UIManager.put("TextComponent.arc", 10);
+        UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
 
-        frame.switchContent(new ProductLineDisplayView(taskRepository.getListOfTasks()),"Tasks");
+//        UIManager.put("Component.focusWidth", 1);
+//        UIManager.put("Component.innerFocusWidth", 0);
+       new MainController();
+//        BaseFrame frame = new BaseFrame("Hamza", "TEST");
+////        frame.switchContent(new SupervisorView("amin" ) , "supervisor");
+//        ItemRepository itemRepository= new ItemRepository();
+//        itemRepository.load();
+//        frame.switchContent(new ItemsView( "Hamza" , itemRepository.getList()) , "Items");
+//        ArrayList <Item> filtered = itemRepository.getList().stream().filter(item -> item.getType() == MaterialType.Fabric).collect(Collectors.toCollection(ArrayList :: new));
+//        frame.switchContent(new ItemsView( "Hamza" , filtered) , "Items");
+//        TaskRepository taskRepository = new TaskRepository();
+//        taskRepository.load();
+//        ArrayList<Task> tasks = taskRepository.getListOfTasks().stream()
+//                .filter(task -> task.getClientName()
+//                .equals("s3eed"))
+//                .collect(Collectors.toCollection(ArrayList::new));
+//        frame.switchContent(new ProductLineDisplayView(tasks),"Hello");
+//////
+//        System.out.println("Loaded");
+
+//        frame.switchContent(new ProductLineDisplayView(taskRepository.getListOfTasks()),"Tasks");
   //        FlatDarkLaf.setup();
 //        ItemRepository itemRepository = new ItemRepository();
 //        itemRepository.load();

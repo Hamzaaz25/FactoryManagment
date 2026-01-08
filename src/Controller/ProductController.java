@@ -1,7 +1,7 @@
 package Controller;
 
 import Model.Product;
-import Model.ProductRepository;
+import Repository.ProductRepository;
 import Model.User;
 import View.BaseFrame;
 import View.ProductBtn;

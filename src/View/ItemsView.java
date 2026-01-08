@@ -1,5 +1,7 @@
 package View;
 
+import Enums.MaterialType;
+import Enums.TaskStatus;
 import Model.Item;
 
 import javax.swing.*;
@@ -10,6 +12,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 
 public class ItemsView extends JPanel {
@@ -19,14 +22,34 @@ public class ItemsView extends JPanel {
     private JTextField Searchtext = new JTextField(" Search ...");;
     JLabel NoResults = new JLabel("No items match your search", SwingConstants.CENTER);
     String name;
+    ArrayList<Item> listOfItems ;
+    JComboBox<String> category;
 
-   public ItemsView(String name , ArrayList<Item> list) {
 
+    public ItemsView(String name , ArrayList<Item> list) {
+       this.listOfItems = list;
        this.name = name;
        this.setOpaque(false);
        this.setLayout(new BorderLayout());
 
 
+       JPanel topBar = new JPanel(new BorderLayout());
+       topBar.setOpaque(false);
+
+// category on the left
+       category = new JComboBox<>(new String[]{"All", MaterialType.Wood.toString(), MaterialType.Fabric.toString(), MaterialType.Metal.toString()});
+       JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
+       categoryPanel.setOpaque(false);
+       categoryPanel.add(category);
+
+// search stays centered
+
+
+
+
+//
+//        category.setPreferredSize(new Dimension(200 , 35));
+//        categoryLabel.add(category);
         Searchtext.setPreferredSize(new Dimension(250, 35));
         Searchtext.setForeground(Color.GRAY);
         Searchtext.setFont(new Font("Segoe UI", Font.ITALIC, 13));
@@ -97,8 +120,10 @@ public class ItemsView extends JPanel {
         searchBar.setOpaque(false);
         searchBar.add(Searchtext);
         searchBar.add(Searchbtn);
-
-       this.add(searchBar,BorderLayout.NORTH);
+        topBar.add(categoryPanel, BorderLayout.WEST);
+        topBar.add(searchBar, BorderLayout.CENTER);
+       this.add(topBar, BorderLayout.NORTH);
+//       this.add(searchBar,BorderLayout.NORTH);
 
 
         container.setBorder(new EmptyBorder(40, 150, 40, 150));
@@ -178,7 +203,7 @@ public class ItemsView extends JPanel {
     AddBtn addCard;
 
     public void setCards(ArrayList<Item> list ) {
-
+    container.removeAll();
     for (Item item : list) {
         addNewItem(item.getName(), String.valueOf(item.getPrice()), new ImageIcon(item.getImage()), "description");
     }
@@ -189,6 +214,19 @@ public class ItemsView extends JPanel {
 
         container.add(addCard);
 
+    }
+    public void updateCards(ArrayList<Item> list) {
+        container.removeAll();
+
+        for (Item item : list) {
+            allCards.stream()
+                    .filter(btn -> btn.getTextName().equals(item.getName()))
+                    .findFirst()
+                    .ifPresent(container::add);
+        }
+
+        container.revalidate();
+        container.repaint();
     }
 
     public void addNewItem(String name, String price, ImageIcon icon, String description) {
@@ -212,8 +250,17 @@ public class ItemsView extends JPanel {
         return this.allCards;
     }
 
+    public ArrayList<Item> getListOfItems() {
+        return listOfItems;
+    }
 
+    public JComboBox<String> getCategory() {
+        return category;
+    }
 
+    public JPanel getContainer() {
+        return container;
+    }
 }
 
 

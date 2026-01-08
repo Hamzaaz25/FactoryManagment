@@ -5,9 +5,12 @@ import Enums.Status;
 import Enums.TaskStatus;
 import Enums.TaskValidation;
 import IO.DataWriter;
+import Repository.ItemRepository;
+import Repository.ProductLineRepository;
+import Repository.ProductRepository;
+import Repository.TaskRepository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 
 public class TaskService {
    private final ItemRepository itemRepository ;

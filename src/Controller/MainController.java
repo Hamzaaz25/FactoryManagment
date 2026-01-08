@@ -1,12 +1,11 @@
 package Controller;
 
 import Enums.Role;
-import Model.ItemRepository;
-import Model.ProductRepository;
-import Model.TaskRepository;
+import Repository.ItemRepository;
+import Repository.ProductRepository;
+import Repository.TaskRepository;
 import Model.User;
 import View.BaseFrame;
-import View.ProductsView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -55,6 +54,7 @@ public void onLoginSuccess(User user){
 
 
 public void loadAll(){
+
         this.itemRepository.load();
         this.productRepository.load();
         this.taskRepository.load();

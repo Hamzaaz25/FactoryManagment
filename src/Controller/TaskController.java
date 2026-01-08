@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.TaskRepository;
+import Repository.TaskRepository;
 import View.BaseFrame;
 import View.TaskView;
 

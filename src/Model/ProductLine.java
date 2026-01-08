@@ -16,7 +16,7 @@ public class ProductLine  {
     private String name;
     private Status status ;
     List<Task> taskLine = Collections.synchronizedList(new ArrayList<>());
-    ArrayList<Integer> listOfTaskNumbers = new ArrayList<>();
+    private ArrayList<Integer> listOfTaskNumbers = new ArrayList<>();
     private static int count =0;
 
 
@@ -71,5 +71,7 @@ public class ProductLine  {
 //    }
 
 
-
+    public ArrayList<Integer> getListOfTaskNumbers() {
+        return listOfTaskNumbers;
+    }
 }

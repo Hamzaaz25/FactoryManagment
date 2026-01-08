@@ -46,7 +46,7 @@ public class DataManager {
         }
         DataWriter.writeItems("./Files/Items.csv" , this.listOfItems);
         for(ProductLine pl :this.listOfProductLines){
-            for(Integer i : pl.listOfTaskNumbers){
+            for(Integer i : pl.getListOfTaskNumbers()){
                 //get the task by its number from the map of tasks
                 pl.getTaskLine().add(this.tasksNumbered.get(i));
             }

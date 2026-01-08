@@ -18,7 +18,7 @@ public class ProductLineDisplayView extends JPanel {
     public ProductLineDisplayView(ArrayList<Task> tasks) {
 
         setLayout(new BorderLayout());
-        setBackground(new Color(108, 185, 190));
+        setBackground(new Color(0, 35, 71));
 
 
         title = new JLabel("First Product Line", SwingConstants.CENTER);
@@ -27,10 +27,11 @@ public class ProductLineDisplayView extends JPanel {
         add(title, BorderLayout.NORTH);
 
         JPanel centerPanel = new JPanel();
-        centerPanel.setOpaque(false);
+
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBorder(new EmptyBorder(20, 150, 20, 150));
-        centerPanel.setBackground(new Color(108,185,190));
+        centerPanel.setBackground(new Color(0, 35, 71));
+        centerPanel.setOpaque(true);
         add(centerPanel, BorderLayout.CENTER);
 
 
@@ -38,7 +39,7 @@ public class ProductLineDisplayView extends JPanel {
         for(JPanel pa :this.taskPanels){
             centerPanel.add(pa);
         }
-        centerPanel.add(Box.createVerticalStrut(30));
+        centerPanel.add(Box.createVerticalStrut(50));
 
 
         saveButton = new JButton("Save Changes");
@@ -79,7 +80,7 @@ public class ProductLineDisplayView extends JPanel {
         panel.setBackground(Color.WHITE);
         panel.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createEmptyBorder(8, 8, 8, 8),
-                BorderFactory.createLineBorder(new Color(220, 220, 220), 1, true)
+                BorderFactory.createLineBorder(new Color(255, 255, 255), 1, true)
         ));
 
         panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 110));

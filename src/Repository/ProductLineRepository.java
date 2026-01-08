@@ -1,7 +1,8 @@
-package Model;
+package Repository;
 
 import IO.DataReader;
 import IO.DataWriter;
+import Model.ProductLine;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public class ProductLineRepository {
         this.listOfProductLines = DataReader.readProductLines(path);
         for(ProductLine pl : this.listOfProductLines){
             productLineNumbers.put(pl.getId() , pl);
-            for(Integer i : pl.listOfTaskNumbers){
+            for(Integer i : pl.getListOfTaskNumbers()){
                 //get the task by its number from the map of tasks
                 pl.getTaskLine().add(this.taskRepository.getTaskByNumber(i));
             }
