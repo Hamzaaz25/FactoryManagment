@@ -24,7 +24,7 @@ public class DataWriter {
 
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            DataWriter.writeErrors(e);
         }
 
     }
@@ -46,7 +46,7 @@ public class DataWriter {
 
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            DataWriter.writeErrors(e);
         }
 
     }
@@ -64,7 +64,7 @@ public class DataWriter {
 
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            DataWriter.writeErrors(e);
         }
 
     }
@@ -83,7 +83,7 @@ public class DataWriter {
 
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            DataWriter.writeErrors(e);
         }
 
     }
@@ -92,7 +92,7 @@ public class DataWriter {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
 
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path ))) {
-            bw.write("Model.Task Number , Requested Products , Quantity , Client , Start Date , End Date , Status ,PL number ,Progress  ");
+            bw.write("Task Number , Requested Products , Quantity , Client , Start Date , End Date , Status ,PL number ,Progress  ");
             bw.newLine();
             for(Task t : list){
                 bw.write( t.getTaskNumber()+ " , " + t.getRequestedProduct() +" , " + t.getRequestedQuantity() +"," +t.getClientName() +"," + t.getStartDate().format(formatter) + "," + t.getEndDate().format(formatter) + ", " + t.getStatus()+"," +t.getProductLine() +"," + t.getProgressPercentage());
@@ -102,7 +102,7 @@ public class DataWriter {
 
 
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            DataWriter.writeErrors(e);
         }
 
     }
@@ -110,13 +110,14 @@ public class DataWriter {
     public static void writeErrors(Exception e){
         String path ="./Files/Errors.txt";
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path , true ))) {
-            bw.write(e.getClass() +" : "+e.getCause() + " in "+ LocalDate.now());
+            bw.write("Exception : "+ e.toString()  + " in "+ LocalDate.now());
             bw.newLine();
 
         } catch (IOException h) {
-            throw new RuntimeException(h);
+            DataWriter.writeErrors(e);
         }
     }
+
 
     public static void writeErrors(String msg){
         String path ="./Files/Errors.txt";

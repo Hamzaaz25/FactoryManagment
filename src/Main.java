@@ -1,5 +1,6 @@
 
 
+import IO.DataWriter;
 import View.BaseFrame;
 import View.ImageFileChooser;
 
@@ -21,9 +22,10 @@ public class Main {
 //        UIManager.put("Component.focusWidth", 1);
 //        UIManager.put("Component.innerFocusWidth", 0);
 //       new MainController();
-        BaseFrame frame = new BaseFrame("Hamza", "TEST");
-        ImageFileChooser im = new ImageFileChooser(frame);
-        System.out.println(im.getPath());
+
+//        BaseFrame frame = new BaseFrame("Hamza", "TEST");
+//        ImageFileChooser im = new ImageFileChooser(frame);
+//        System.out.println(im.getPath());
 //        frame.switchContent(new SupervisorView("amin" ) , "supervisor");
 //        ItemRepository itemRepository= new ItemRepository();
 //        itemRepository.load();

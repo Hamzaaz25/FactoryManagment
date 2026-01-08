@@ -37,7 +37,7 @@ public class DataReader {
             return new ArrayList<>();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            DataWriter.writeErrors(e);
             return new ArrayList<>();
         }
     }
@@ -69,10 +69,10 @@ public class DataReader {
             return listOfUsers;
         }
         catch (IOException e) {
-
-            System.out.println("h");
-            return listOfUsers;
+            DataWriter.writeErrors(e);
+            return null;
         }catch (IllegalArgumentException il){
+            DataWriter.writeErrors(il);
             System.out.println("Not valid file content");
             return new ArrayList<>();
         }
@@ -109,9 +109,10 @@ public class DataReader {
             return listOfItems;
         }
         catch (IOException e) {
-            System.out.println("h");
+            DataWriter.writeErrors(e);
             return listOfItems;
         }catch (IllegalArgumentException il){
+            DataWriter.writeErrors(il);
             System.out.println("Not valid file content Items");
             return new ArrayList<>();
         }
@@ -154,11 +155,10 @@ public static ArrayList<Product> readProducts(String path){
         return listOfProducts;
     }
     catch (IOException e) {
-        e.printStackTrace();
-        System.out.println("h");
+        DataWriter.writeErrors(e);
         return new ArrayList<>();
     }catch (IllegalArgumentException il){
-        System.out.println("Not valid file content Products");
+        DataWriter.writeErrors(il);
         return new ArrayList<>();
     }
 }
@@ -196,10 +196,10 @@ public static ArrayList<Product> readProducts(String path){
         }
         catch (IOException e) {
 
-            System.out.println(e.getCause());
+            DataWriter.writeErrors(e);
             return listOfProductLines;
         }catch (IllegalArgumentException il){
-            System.out.println("Not valid file content Pl");
+            DataWriter.writeErrors(il);
             return new ArrayList<>();
         }
     }
@@ -244,10 +244,10 @@ public static ArrayList<Product> readProducts(String path){
         }
         catch (IOException e) {
 
-            System.out.println(e.toString());
+            DataWriter.writeErrors(e);
             return listOfTasks;
         }catch (IllegalArgumentException il){
-            System.out.println("Not valid file content Model.Task");
+            DataWriter.writeErrors(il);
             return new ArrayList<>();
         }
     }

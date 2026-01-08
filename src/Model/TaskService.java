@@ -90,7 +90,7 @@ public class TaskService {
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
+                        DataWriter.writeErrors(e);
                     }
                     t.setEndDate(t.getStartDate().plusDays(i));
                     t.setProgressPercentage(i * 100 / t.getRequestedQuantity());
