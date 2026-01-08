@@ -10,6 +10,7 @@ public class ItemBtn extends JButton {
     JLabel Pricelbl;
     String description;
     JLabel Desclbl;
+    JButton Deletebtn ;
 
     public String getTextName() {
         return Namelbl.getText();
@@ -93,37 +94,37 @@ public class ItemBtn extends JButton {
         styleActionIcon(Editbtn, new Color(240, 240, 240));
 
 
-        JButton Deletebtn = new JButton();
+        Deletebtn = new JButton();
         ImageIcon DeleteIcon = new ImageIcon("./assets/delete.png");
         Image scaleImg = DeleteIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         Deletebtn.setIcon(new ImageIcon(scaleImg));
         Deletebtn.setPreferredSize(new Dimension(38, 38));
         styleActionIcon(Deletebtn, new Color(240, 240, 240));
 
-        Deletebtn.addActionListener(e -> {
-
-            int response = JOptionPane.showConfirmDialog(
-                    null,
-                    "Are you sure you want to delete this item?",
-                    "Delete Confirmation",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE
-            );
-
-            if (response == JOptionPane.YES_OPTION) {
-                Container parent = this.getParent();
-                parent.remove(this);
-                parent.revalidate();
-                parent.repaint();
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Model.Product has been deleted successfully!",
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
-            }
-        });
+//        Deletebtn.addActionListener(e -> {
+//
+//            int response = JOptionPane.showConfirmDialog(
+//                    null,
+//                    "Are you sure you want to delete this item?",
+//                    "Delete Confirmation",
+//                    JOptionPane.YES_NO_OPTION,
+//                    JOptionPane.WARNING_MESSAGE
+//            );
+//
+//            if (response == JOptionPane.YES_OPTION) {
+//                Container parent = this.getParent();
+//                parent.remove(this);
+//                parent.revalidate();
+//                parent.repaint();
+//
+//                JOptionPane.showMessageDialog(
+//                        null,
+//                        "Model.Product has been deleted successfully!",
+//                        "Success",
+//                        JOptionPane.INFORMATION_MESSAGE
+//                );
+//            }
+//        });
         actionsPanel.add(Editbtn);
         actionsPanel.add(Deletebtn);
 
@@ -144,6 +145,9 @@ public class ItemBtn extends JButton {
         btn.putClientProperty("JComponent.arc", 15);
         btn.setBorder(BorderFactory.createLineBorder(bg, 2));
 
+    }
+    public JButton getDeleteBtn() {
+        return this.Deletebtn;
     }
 
 }

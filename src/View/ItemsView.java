@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class ItemsView extends JPanel {
 
-    private ArrayList<ItemBtn> allCards = new ArrayList<>();
+    public ArrayList<ItemBtn> allCards = new ArrayList<>();
     private JPanel container=new JPanel(new GridLayout(0, 3, 100, 100));
     private JTextField Searchtext = new JTextField(" Search ...");;
     JLabel NoResults = new JLabel("No items match your search", SwingConstants.CENTER);
@@ -117,7 +117,7 @@ public class ItemsView extends JPanel {
         topBar.add(categoryPanel, BorderLayout.WEST);
         topBar.add(searchBar, BorderLayout.CENTER);
         this.add(topBar, BorderLayout.NORTH);
-//       this.add(searchBar,BorderLayout.NORTH);
+
 
 
         container.setBorder(new EmptyBorder(40, 150, 40, 150));
@@ -141,15 +141,10 @@ public class ItemsView extends JPanel {
         mainContentPanel.add(container);
 
 
-
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setOpaque(false);
 
         wrapperPanel.add(container, BorderLayout.NORTH);
-
-
-
-
 
         JPanel rightContainer = new JPanel(new BorderLayout());
         rightContainer.setOpaque(false);
@@ -161,9 +156,16 @@ public class ItemsView extends JPanel {
 
 
     private void performSearch(String query) {
-        int matchCountProduct = 0;
+
         String searchText = query.toLowerCase().trim();
+        if (searchText.isEmpty() || searchText.equals(" Search ...")) {
+            updateCards();
+            return;
+        }
+
+        int matchCountProduct = 0;
         container.removeAll();
+
         for (ItemBtn card : activeCards) {
             if (card.getTextName().toLowerCase().contains(searchText)) {
                 container.add(card);
@@ -171,23 +173,14 @@ public class ItemsView extends JPanel {
             }
         }
 
-        if (matchCountProduct == 0 && !searchText.isEmpty()) {
-            container.setLayout(new BorderLayout());
-
-            NoResults.setHorizontalAlignment(SwingConstants.CENTER);
-            NoResults.setVerticalAlignment(SwingConstants.CENTER);
-
-            container.add(NoResults, BorderLayout.CENTER);
-            NoResults.setVisible(true);
-
-            if(addCard != null) addCard.setVisible(false);
+        if (matchCountProduct == 0) {
+            showNoResults();
         } else {
             container.setLayout(new GridLayout(0, 3, 100, 100));
-
             NoResults.setVisible(false);
+
             if (addCard != null) {
-                addCard.setVisible(true);
-                container.add(addCard);
+                addCard.setVisible(false);
             }
         }
 
@@ -195,17 +188,26 @@ public class ItemsView extends JPanel {
         container.repaint();
     }
 
-    AddBtn addCard;
+    public AddBtn addCard;
 
     public void setCards(ArrayList<Item> list  ) {
+        allCards.clear();
+        activeCards.clear();
     container.removeAll();
     for (Item item : list) {
-        addNewItem(item.getName(), String.valueOf(item.getPrice()), new ImageIcon(item.getImage()), "description");
+        ItemBtn newCard = new ItemBtn(item.getName(), String.valueOf(item.getPrice()), new ImageIcon(item.getImage()), "description");
+        allCards.add(newCard);
+        activeCards.add(newCard);
+        container.add(newCard);
     }
 
-        addCard = new AddBtn(() -> {
-            addNewItem("New Item", "$0.00",new ImageIcon("./assets/paint.png"),"description");
-        });
+        if (addCard == null) {
+            addCard = new AddBtn(() -> {
+                addNewItem("New Item", "$0.00", new ImageIcon("./assets/paint.png"), "description");
+            });
+        }
+        updateCards();
+        addCard.setVisible(true);
 
         container.add(addCard);
         container.revalidate();
@@ -214,25 +216,64 @@ public class ItemsView extends JPanel {
     }
     public void updateCards() {
         container.removeAll();
+        container.setLayout(new GridLayout(0, 3, 100, 100));
+
         for (ItemBtn button : activeCards) {
         container.add(button);
+        }
+        boolean isAllSelected = category.getSelectedItem().equals("All");
+        boolean isSearchEmpty = Searchtext.getText().isEmpty() || Searchtext.getText().equals(" Search ...");
+
+        if (addCard != null) {
+            if (isAllSelected && isSearchEmpty) {
+                addCard.setVisible(true);
+                container.add(addCard);
+            } else {
+                addCard.setVisible(false);
+            }
         }
 
         container.revalidate();
         container.repaint();
     }
 
-    public void addNewItem(String name, String price, ImageIcon icon, String description) {
+    public ItemBtn addNewItem(String name, String price, ImageIcon icon, String description) {
 
         ItemBtn newCard = new ItemBtn(name, price, icon, description);
 
         allCards.add(newCard);
+        activeCards.add(newCard);
 
-        if (container.getComponentCount() > 0 && addCard != null) {
-            int addCardIndex = container.getComponentCount() - 1;
-            container.add(newCard, addCardIndex);
+        if (addCard != null) {
+            int index = container.getComponentZOrder(addCard);
+            if (index != -1) {
+                container.add(newCard, index);
+            } else {
+                container.add(newCard);
+                container.add(addCard);
+            }
         } else {
             container.add(newCard);
+        }
+
+        container.revalidate();
+        container.repaint();
+
+        return newCard;
+
+    }
+
+    private void showNoResults() {
+
+        container.removeAll();
+
+        container.setLayout(new BorderLayout());
+
+        NoResults.setVisible(true);
+        container.add(NoResults, BorderLayout.CENTER);
+
+        if (addCard != null) {
+            addCard.setVisible(false);
         }
 
         container.revalidate();
@@ -255,17 +296,32 @@ public class ItemsView extends JPanel {
         return activeCards;
     }
 
-    public void setActiveCards(ArrayList<Item> activeCards) {
+    public void setActiveCards(ArrayList<Item> filteredItems) {
         ArrayList<ItemBtn> btns = new ArrayList<>();
 
-        for (Item item : activeCards) {
-            allCards.stream()
-                    .filter(itemBtn -> itemBtn.getTextName()
-                            .equalsIgnoreCase(item.getName()))
-                    .forEach(btns::add);
+        for (Item item : filteredItems) {
+            for (ItemBtn btn : allCards) {
+                if (btn.getTextName().equalsIgnoreCase(item.getName())) {
+                    btns.add(btn);
+                    break;
+                }
+            }
         }
 
         this.activeCards = btns;
+
+        updateCards();
+    }
+
+    public void removeItem(ItemBtn card) {
+
+        allCards.remove(card);
+        activeCards.remove(card);
+
+        container.remove(card);
+
+        container.revalidate();
+        container.repaint();
     }
 
 
