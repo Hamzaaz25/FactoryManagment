@@ -28,14 +28,16 @@ public class ItemController {
             public void actionPerformed(ActionEvent e) {
                 String selected = view.getCategory().getSelectedItem().toString();
                 if(selected.equals("All")){
-                    view.setCards(itemRepository.getList());
-                    bf.switchContent(view , "Items");
+                    view.setActiveCards(itemRepository.getList());
+                    view.setCurrentItems(itemRepository.getList());
                 }else{
-                    view.getContainer().removeAll();
-                    ArrayList<Item> filtered = itemRepository.getList().stream().filter(item -> item.getType() == MaterialType.valueOf(selected)).collect(Collectors.toCollection(ArrayList :: new));
-                    view.updateCards(filtered);
-                    bf.switchContent(view , "Items");
+                    ArrayList<Item> base = itemRepository.getList().stream().filter(item -> item.getType() == MaterialType.valueOf(selected)).collect(Collectors.toCollection(ArrayList :: new));
+                    view.setActiveCards(base);
+                    view.setCurrentItems(base);
                 }
+                view.updateCards();
+
+                bf.switchContent(view , "Items");
 
             }
         });

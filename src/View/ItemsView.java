@@ -22,12 +22,13 @@ public class ItemsView extends JPanel {
     private JTextField Searchtext = new JTextField(" Search ...");;
     JLabel NoResults = new JLabel("No items match your search", SwingConstants.CENTER);
     String name;
-    ArrayList<Item> listOfItems ;
+    ArrayList<Item> currentItems ;
+    ArrayList<ItemBtn> activeCards = new ArrayList<>();
     JComboBox<String> category;
 
 
     public ItemsView(String name , ArrayList<Item> list) {
-       this.listOfItems = list;
+       this.currentItems = new ArrayList<>();
        this.name = name;
        this.setOpaque(false);
        this.setLayout(new BorderLayout());
@@ -36,20 +37,13 @@ public class ItemsView extends JPanel {
        JPanel topBar = new JPanel(new BorderLayout());
        topBar.setOpaque(false);
 
-// category on the left
+
        category = new JComboBox<>(new String[]{"All", MaterialType.Wood.toString(), MaterialType.Fabric.toString(), MaterialType.Metal.toString()});
        JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
        categoryPanel.setOpaque(false);
        categoryPanel.add(category);
 
-// search stays centered
 
-
-
-
-//
-//        category.setPreferredSize(new Dimension(200 , 35));
-//        categoryLabel.add(category);
         Searchtext.setPreferredSize(new Dimension(250, 35));
         Searchtext.setForeground(Color.GRAY);
         Searchtext.setFont(new Font("Segoe UI", Font.ITALIC, 13));
@@ -122,7 +116,7 @@ public class ItemsView extends JPanel {
         searchBar.add(Searchbtn);
         topBar.add(categoryPanel, BorderLayout.WEST);
         topBar.add(searchBar, BorderLayout.CENTER);
-       this.add(topBar, BorderLayout.NORTH);
+        this.add(topBar, BorderLayout.NORTH);
 //       this.add(searchBar,BorderLayout.NORTH);
 
 
@@ -130,6 +124,7 @@ public class ItemsView extends JPanel {
         container.setOpaque(false);
 
         setCards(list);
+        this.activeCards.addAll(allCards);
 
 
         JPanel mainContentPanel = new JPanel();
@@ -169,7 +164,7 @@ public class ItemsView extends JPanel {
         int matchCountProduct = 0;
         String searchText = query.toLowerCase().trim();
         container.removeAll();
-        for (ItemBtn card : allCards) {
+        for (ItemBtn card : activeCards) {
             if (card.getTextName().toLowerCase().contains(searchText)) {
                 container.add(card);
                 matchCountProduct++;
@@ -202,7 +197,7 @@ public class ItemsView extends JPanel {
 
     AddBtn addCard;
 
-    public void setCards(ArrayList<Item> list ) {
+    public void setCards(ArrayList<Item> list  ) {
     container.removeAll();
     for (Item item : list) {
         addNewItem(item.getName(), String.valueOf(item.getPrice()), new ImageIcon(item.getImage()), "description");
@@ -213,16 +208,14 @@ public class ItemsView extends JPanel {
         });
 
         container.add(addCard);
+        container.revalidate();
+        container.repaint();
 
     }
-    public void updateCards(ArrayList<Item> list) {
+    public void updateCards() {
         container.removeAll();
-
-        for (Item item : list) {
-            allCards.stream()
-                    .filter(btn -> btn.getTextName().equals(item.getName()))
-                    .findFirst()
-                    .ifPresent(container::add);
+        for (ItemBtn button : activeCards) {
+        container.add(button);
         }
 
         container.revalidate();
@@ -250,9 +243,31 @@ public class ItemsView extends JPanel {
         return this.allCards;
     }
 
-    public ArrayList<Item> getListOfItems() {
-        return listOfItems;
+    public ArrayList<Item> getCurrentItems() {
+        return currentItems;
     }
+
+    public void setCurrentItems(ArrayList<Item> currentItems) {
+        this.currentItems = currentItems;
+    }
+
+    public ArrayList<ItemBtn> getActiveCards() {
+        return activeCards;
+    }
+
+    public void setActiveCards(ArrayList<Item> activeCards) {
+        ArrayList<ItemBtn> btns = new ArrayList<>();
+
+        for (Item item : activeCards) {
+            allCards.stream()
+                    .filter(itemBtn -> itemBtn.getTextName()
+                            .equalsIgnoreCase(item.getName()))
+                    .forEach(btns::add);
+        }
+
+        this.activeCards = btns;
+    }
+
 
     public JComboBox<String> getCategory() {
         return category;

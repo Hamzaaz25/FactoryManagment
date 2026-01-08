@@ -18,7 +18,6 @@ public class Main {
         UIManager.put("ProgressBar.arc", 12);
         UIManager.put("TextComponent.arc", 10);
         UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
-
 //        UIManager.put("Component.focusWidth", 1);
 //        UIManager.put("Component.innerFocusWidth", 0);
        new MainController();
