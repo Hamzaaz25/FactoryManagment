@@ -90,15 +90,12 @@ public class ItemController {
 
                 if (response == JOptionPane.YES_OPTION) {
 
-                    view.allCards.remove(pb);
-                    view.getActiveCards().remove(pb);
-                    view.getContainer().remove(pb);
+                    view.removeItem(pb);
+
 
                     itemRepository.getList().removeIf(item -> item.getName().equals(pb.getTextName()));
 
 
-                    view.getContainer().revalidate();
-                    view.getContainer().repaint();
 
                     JOptionPane.showMessageDialog(null, "Item deleted successfully!");
                 }
