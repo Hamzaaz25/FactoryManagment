@@ -23,6 +23,7 @@ public class BaseFrame extends JFrame {
     JButton productsButton;
     JButton itemsButton;
     JButton tasksButton;
+    JButton logo;
     private JButton SelectedButton = null;
 
 
@@ -47,7 +48,16 @@ public class BaseFrame extends JFrame {
         sideBar.setPreferredSize(new Dimension(150, 200));
         sideBar.setBackground (new Color(120, 165, 200) );
         sideBar.setLayout(new BorderLayout());
-        sideBar.setBorder(new EmptyBorder(60,0,0,0));
+
+
+        ImageIcon icon5 = new ImageIcon("./assets/logoo.png");
+        Image scaled5 = icon5.getImage().getScaledInstance(150, 56, Image.SCALE_SMOOTH);
+        logo = new JButton( icon5);
+        logo.setBorderPainted(false);
+        logo.setFocusPainted(false);
+        logo.setContentAreaFilled(false);
+        logo.setMargin(new java.awt.Insets(0, 0, 0, 0));
+       logo.setIcon(new ImageIcon(scaled5));
 
         ImageIcon icon1 = new ImageIcon("./assets/productline.png");
         Image scaled1 = icon1.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
@@ -73,8 +83,10 @@ public class BaseFrame extends JFrame {
         tasksButton.setIcon(new ImageIcon(scaled4));
 
 
-        JPanel buttonsContainer = new JPanel(new GridLayout(0, 1, 0, 5));
+        JPanel buttonsContainer = new JPanel(new GridLayout(0, 1, 0, 0));
         buttonsContainer.setOpaque(false);
+
+        buttonsContainer.add(logo);
 
         styleSidebarButton(productsButton);
         productsButton.setOpaque(true);
@@ -94,8 +106,6 @@ public class BaseFrame extends JFrame {
 
         styleSidebarButton(tasksButton);
         buttonsContainer.add(tasksButton);
-
-
 
         sideBar.add(buttonsContainer,BorderLayout.NORTH);
 
@@ -190,7 +200,7 @@ public class BaseFrame extends JFrame {
                 super.paintComponent(g);
             }
         };
-        footerBar.setPreferredSize(new Dimension(0, 100));
+        footerBar.setPreferredSize(new Dimension(0, 85));
         footerBar.setBackground(new Color(255, 255, 255, 200));
         footerBar.setOpaque(false);
         JLabel Footerlbl = new JLabel("©  AMH Furniture ", SwingConstants.CENTER);
@@ -227,6 +237,37 @@ public class BaseFrame extends JFrame {
          container.add(scrollPane,BorderLayout.CENTER);
          container.add(footerBar,BorderLayout.SOUTH);
 
+        JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        topBar.setOpaque(true);
+        topBar.setBackground(new Color(20, 33, 61));
+        topBar.setPreferredSize(new Dimension(this.getWidth(), 30));
+
+        JButton closeBtn = new JButton();
+        ImageIcon originalIcon = new ImageIcon("./assets/cancel.png");
+        Image scaledImgg = originalIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
+        closeBtn.setIcon(new ImageIcon(scaledImgg));
+        closeBtn.setFocusPainted(false);
+        closeBtn.setBorderPainted(false);
+        closeBtn.setContentAreaFilled(false);
+        closeBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        closeBtn.setForeground(Color.RED);
+        closeBtn.setFont(new Font("Arial", Font.BOLD, 18));
+
+        closeBtn.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(this,
+                    "Are you sure you want to exit?", "Exit",
+                    JOptionPane.YES_NO_OPTION);
+
+            if (confirm == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
+
+        topBar.add(closeBtn);
+
+        this.add(topBar, BorderLayout.NORTH);
+
+
          this.add(container,BorderLayout.CENTER);
          this.add(sideBar,BorderLayout.WEST);
 
@@ -261,7 +302,6 @@ public class BaseFrame extends JFrame {
 
             SelectedButton = button;
 
-//            switchContent(panel, title);
 
             button.repaint();
         });
