@@ -1,28 +1,30 @@
 
-import Controller.MainController;
-import com.formdev.flatlaf.FlatLightLaf;
 
+import View.BaseFrame;
+import View.ImageFileChooser;
 
-import javax.swing.*;
-import java.awt.*;
+import java.io.IOException;
+
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args)  {
 
 
 
 //      new BaseFrame("aa","aa");
-        FlatLightLaf.setup();
-        UIManager.put("Button.arc", 12);
-        UIManager.put("Component.arc", 12);
-        UIManager.put("ProgressBar.arc", 12);
-        UIManager.put("TextComponent.arc", 10);
-        UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
+//        FlatLightLaf.setup();
+//        UIManager.put("Button.arc", 12);
+//        UIManager.put("Component.arc", 12);
+//        UIManager.put("ProgressBar.arc", 12);
+//        UIManager.put("TextComponent.arc", 10);
+//        UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
 //        UIManager.put("Component.focusWidth", 1);
 //        UIManager.put("Component.innerFocusWidth", 0);
-       new MainController();
-//        BaseFrame frame = new BaseFrame("Hamza", "TEST");
-////        frame.switchContent(new SupervisorView("amin" ) , "supervisor");
+//       new MainController();
+        BaseFrame frame = new BaseFrame("Hamza", "TEST");
+        ImageFileChooser im = new ImageFileChooser(frame);
+        System.out.println(im.getPath());
+//        frame.switchContent(new SupervisorView("amin" ) , "supervisor");
 //        ItemRepository itemRepository= new ItemRepository();
 //        itemRepository.load();
 //        frame.switchContent(new ItemsView( "Hamza" , itemRepository.getList()) , "Items");
@@ -35,7 +37,7 @@ public class Main {
 //                .equals("s3eed"))
 //                .collect(Collectors.toCollection(ArrayList::new));
 //        frame.switchContent(new ProductLineDisplayView(tasks),"Hello");
-//////
+//
 //        System.out.println("Loaded");
 
 //        frame.switchContent(new ProductLineDisplayView(taskRepository.getListOfTasks()),"Tasks");
@@ -54,9 +56,9 @@ public class Main {
 //        productLineRepository.load("./Files/ProductLines.csv");
 //        TaskService taskService = new TaskService(itemRepository ,productRepository ,taskRepository ,productLineRepository);
 //        ProductLine pl = productLineRepository.getProductLineByNumber(1);
-////        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
+//        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
 //        ProductLineService productLineService= new ProductLineService(productLineRepository,pl , taskService );
-////        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
+//        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
 //
 //        Task te = new Task("carpet" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
 //        Task se = new Task("chair" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
@@ -107,18 +109,18 @@ public class Main {
 //   worker.t.start();
 
 //Model.Task se = new Model.Task("carpet" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
-////Model.Task he = new Model.Task("chair" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
-////
-////
-////Model.Task fe = new Model.Task("carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress );
-//////Model.DataManager.getInstance().editProductLineStatus(2 , Status.Maintenance);
+//Model.Task he = new Model.Task("chair" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
+//
+//
+//Model.Task fe = new Model.Task("carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress );
+//Model.DataManager.getInstance().editProductLineStatus(2 , Status.Maintenance);
 //        ProductLine p = DataManager.getInstance().getProductLineByNumber(1);
-////
+//
 //       p.addTask(te);
 //       p.RunWorker();
 
 //       new Controller.LoginController();
-////        p.addTask(se);
+//        p.addTask(se);
 //        p.addTask(fe);
 //
 //for(Model.Task t : p.taskLine)
@@ -129,7 +131,7 @@ public class Main {
 //
 //Thread.sleep(10000);
 //        p.addTask(he);
-////
+//
 //
 
 //        Thread b = new Thread(new Runnable() {
@@ -155,7 +157,7 @@ public class Main {
 //           pl.addTask(te);
 //  }
 //  Model.Task t = Model.DataManager.getInstance().getTaskByNumber(102);
-////  Thread.sleep(1000);
+//  Thread.sleep(1000);
 //  t.setRequestedQuantity(10);
 
 //

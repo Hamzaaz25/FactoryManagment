@@ -5,6 +5,7 @@ import Model.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
@@ -106,14 +107,25 @@ public class DataWriter {
 
     }
 
+    public static void writeErrors(Exception e){
+        String path ="./Files/Errors.txt";
+        try(BufferedWriter bw = new BufferedWriter(new FileWriter(path , true ))) {
+            bw.write(e.getClass() +" : "+e.getCause() + " in "+ LocalDate.now());
+            bw.newLine();
+
+        } catch (IOException h) {
+            throw new RuntimeException(h);
+        }
+    }
+
     public static void writeErrors(String msg){
         String path ="./Files/Errors.txt";
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path , true ))) {
             bw.write(msg);
             bw.newLine();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException h) {
+            throw new RuntimeException(h);
         }
     }
 
