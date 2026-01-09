@@ -59,6 +59,7 @@ public class BaseFrame extends JFrame {
         logo.setMargin(new java.awt.Insets(0, 0, 0, 0));
        logo.setIcon(new ImageIcon(scaled5));
 
+
         ImageIcon icon1 = new ImageIcon("./assets/productline.png");
         Image scaled1 = icon1.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         productsLineButton = new JButton("Lines", icon1);
