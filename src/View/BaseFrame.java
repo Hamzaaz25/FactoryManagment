@@ -241,7 +241,7 @@ public class BaseFrame extends JFrame {
         JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         topBar.setOpaque(true);
         topBar.setBackground(new Color(20, 33, 61));
-        topBar.setPreferredSize(new Dimension(this.getWidth(), 30));
+        topBar.setPreferredSize(new Dimension(this.getWidth(), 35));
 
         JButton closeBtn = new JButton();
         ImageIcon originalIcon = new ImageIcon("./assets/cancel.png");
