@@ -1,9 +1,15 @@
 
 
+//import Controller.MainController;
 import Controller.MainController;
+import Enums.Role;
 import IO.DataWriter;
+import Model.User;
+import Repository.ItemRepository;
 import View.BaseFrame;
 import View.ImageFileChooser;
+import View.ItemsView;
+import View.ProfileView;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
@@ -27,7 +33,10 @@ public class Main {
         UIManager.put("Component.innerFocusWidth", 0);
        new MainController();
 
-//        BaseFrame frame = new BaseFrame("Hamza", "TEST");
+//        ItemRepository itemRepository = new ItemRepository();
+//        itemRepository.load();
+
+//        frame.switchContent(new ItemsView(itemRepository.getList()) , "Items");
 //        ImageFileChooser im = new ImageFileChooser(frame);
 //        System.out.println(im.getPath());
 //        frame.switchContent(new SupervisorView("amin" ) , "supervisor");

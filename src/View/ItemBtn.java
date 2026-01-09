@@ -1,7 +1,12 @@
 package View;
 
+import Model.Item;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.function.Consumer;
 
 public class ItemBtn extends JButton {
     String name;
@@ -11,17 +16,19 @@ public class ItemBtn extends JButton {
     String description;
     JLabel Desclbl;
     JButton Deletebtn ;
+    JButton Editbtn;
 
     public String getTextName() {
         return Namelbl.getText();
     }
 
-    public ItemBtn(String name, String price, ImageIcon icon, String description) {
+    public ItemBtn(Item item , ImageIcon icon, String description ,  Consumer<Item> onSelect,
+                   Consumer<Item> onDelete , Consumer<Item> onEdit) {
         super.putClientProperty("JButton.buttonType", "roundRect"); // rounded buttons
         super.putClientProperty("JComponent.hoverBackground", Color.CYAN);
 
-        this.name=name;
-        this.price=price;
+        this.name=item.getName();
+        this.price=String.valueOf(item.getPrice());
         this.description=description;
         this.setLayout(new BorderLayout(5, 5));
         this.setPreferredSize(new Dimension(180, 220));
@@ -86,7 +93,7 @@ public class ItemBtn extends JButton {
         JPanel actionsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 5, 0));
         actionsPanel.setOpaque(false);
 
-        JButton Editbtn = new JButton();
+         Editbtn = new JButton();
         ImageIcon editIcon = new ImageIcon("./assets/pen.png");
         Image scaledImg = editIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         Editbtn.setIcon(new ImageIcon(scaledImg));
@@ -100,6 +107,29 @@ public class ItemBtn extends JButton {
         Deletebtn.setIcon(new ImageIcon(scaleImg));
         Deletebtn.setPreferredSize(new Dimension(38, 38));
         styleActionIcon(Deletebtn, new Color(240, 240, 240));
+
+
+
+        this.Deletebtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onDelete.accept(item);
+            }
+        });
+
+        this.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onSelect.accept(item);
+            }
+        });
+
+        this.Editbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onEdit.accept(item);
+            }
+        });
 
 //        Deletebtn.addActionListener(e -> {
 //
@@ -149,6 +179,11 @@ public class ItemBtn extends JButton {
     public JButton getDeleteBtn() {
         return this.Deletebtn;
     }
+
+
+
+
+
 
 }
 

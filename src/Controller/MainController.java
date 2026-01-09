@@ -23,7 +23,7 @@ public void onLoginSuccess(User user){
         this.loadAll();
         if(user.getRole()== Role.Manager){
           frame = new BaseFrame(user.getUsername() , user.getRole().toString());
-          new ItemController(itemRepository , frame , user);
+          new ItemController(itemRepository , frame );
         }
         if(user.getRole()== Role.Supervisor){
             frame = new BaseFrame(user.getUsername() , user.getRole().toString());
@@ -31,7 +31,7 @@ public void onLoginSuccess(User user){
             frame.getItemsButton().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new ItemController(itemRepository,frame , user);
+                    new ItemController(itemRepository,frame );
                 }
             });
 

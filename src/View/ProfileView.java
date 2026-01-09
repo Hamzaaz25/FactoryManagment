@@ -1,13 +1,15 @@
 package View;
 
+import Model.User;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
-public class profileView extends JPanel {
-    public profileView() {
+public class ProfileView extends JPanel {
+    public ProfileView(User user) {
 
         setLayout(new BorderLayout());
         setBackground(new Color(26, 35, 50));
@@ -18,9 +20,9 @@ public class profileView extends JPanel {
         infoPanel.setBorder(new EmptyBorder(100, 60, 0, 0));
         infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
 
-        JLabel nameLabel = createLabel("Name : Amin Issa", 65, true);
-        JLabel jobLabel = createLabel("Role : Supervisor", 40, false);
-        JLabel emailLabel = createLabel("Email : amin@gmail.com", 25, false);
+        JLabel nameLabel = createLabel("Name : "+user.getUsername(), 65, true);
+        JLabel jobLabel = createLabel("Role : "+user.getRole().toString(), 40, false);
+        JLabel emailLabel = createLabel("Email : "+user.getEmail(), 25, false);
 
         infoPanel.add(nameLabel);
         infoPanel.add(Box.createVerticalStrut(50));

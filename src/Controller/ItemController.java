@@ -7,8 +7,11 @@ import Repository.ItemRepository;
 import Model.User;
 import View.*;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
@@ -16,120 +19,139 @@ public class ItemController {
     private final ItemRepository itemRepository;
     private final BaseFrame baseFrame;
     private final ItemsView view;
+    ArrayList<ItemBtn> activeCards = new ArrayList<>();
 
-    public ItemController(ItemRepository itemRepository, BaseFrame bf, User user) {
+    public ItemController(ItemRepository itemRepository, BaseFrame bf) {
         this.itemRepository = itemRepository;
         this.baseFrame = bf;
-        view = new ItemsView(user.getUsername(), itemRepository.getList());
+        view = new ItemsView(itemRepository.getList(), this::onItemSelect, this::onItemDelete , this::onItemEdit);
         this.baseFrame.setVisible(true);
         bf.switchContent(view, "Items");
 
         view.getCategory().addActionListener(e -> {
-
-            String selected = view.getCategory().getSelectedItem().toString();
-            ArrayList<Item> filteredList;
-            boolean isAllSelected = selected.equals("All");
-
-            if (isAllSelected) {
-                filteredList = itemRepository.getList();
-                view.setActiveCardsWhenAll(filteredList);
-            } else {
-                filteredList = itemRepository.getList().stream()
-                        .filter(item -> item.getType() == MaterialType.valueOf(selected))
-                        .collect(Collectors.toCollection(ArrayList::new));
-                view.setActiveCards(filteredList);
-            }
-
-            view.setCurrentItems(filteredList);
-
-            attachListenersToCards();
-
-            view.updateCards();
-
-            bf.switchContent(view, "Items");
-        });
-
-        view.getAvailable().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String selected = view.getAvailable().getSelectedItem().toString();
-                ArrayList<Item> filteredList;
-                boolean isAllSelected = selected.equals("All");
-
-                if (isAllSelected) {
-                    filteredList = itemRepository.getList();
-                    view.setActiveCardsWhenAll(filteredList);
-                } else {
-                    filteredList = itemRepository.getList().stream()
-                            .filter(item -> item.getStatus() == ItemStatus.valueOf(selected))
-                            .collect(Collectors.toCollection(ArrayList::new));
-                    view.setActiveCards(filteredList);
-                }
-
-                view.setCurrentItems(filteredList);
-
-                attachListenersToCards();
-
-                view.updateCards();
-
-                bf.switchContent(view, "Items");
-            }
-        });
-
-        attachListenersToCards();
-
-        if (view.addCard != null) {
-            view.addCard.addActionListener(e -> {
-
-                view.addNewItem("New Item", "0.00", new ImageIcon("./assets/paint.png"), "des");
-                attachListenersToCards();
-
-                System.out.println("Add new item clicked!");
+            applyFilters();;
             });
-        }
+        view.getAvailable().addActionListener(e -> {
+            applyFilters();;
+        });
+
+
+        view.getSearchText().addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (view.getSearchText().getText().equals(" Search ...")) {
+                    view.getSearchText().setText("");
+                    view.getSearchText().setForeground(Color.BLACK);
+                }
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                if (view.getSearchText().getText().isEmpty()) {
+                    view.getSearchText().putClientProperty("JTextField.placeholderText", "Search...");
+                    view.getSearchText().setForeground(Color.GRAY);
+                    applyFilters();
+                }
+            }
+        });
+
+        view.getSearchBtn().addActionListener(e -> {
+           applyFilters();
+        });
+
+        view.getSearchText().addActionListener(e -> {
+          applyFilters();
+        });
+
+        view.getSearchText().getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+            public void insertUpdate(javax.swing.event.DocumentEvent e) {
+              applyFilters();
+            }
+            public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                applyFilters();
+            }
+            public void changedUpdate(javax.swing.event.DocumentEvent e) {
+               applyFilters();
+            }
+        });
+        applyFilters();
+
     }
 
-    private void attachListenersToCards() {
-        for (ItemBtn pb : view.getProductButtons()) {
-            for (ActionListener al : pb.getActionListeners()) pb.removeActionListener(al);
-            for (ActionListener al : pb.getDeleteBtn().getActionListeners())
-                pb.getDeleteBtn().removeActionListener(al);
+    private String getQuery() {
+        String q = view.getSearchText().getText().trim().toLowerCase();
+        return q.equals("search ...") ? "" : q;
+    }
 
-            pb.addActionListener(e -> {
-                Item item = itemRepository.getByName(pb.getTextName());
-                if (item != null) {
-                    ThingDetails details = new ThingDetails(
-                            item.getName(),
-                            String.valueOf(item.getPrice()),
-                            "Description...",
-                            new ImageIcon(item.getImage()),
-                            item.getAvailableQuantity()
-                    );
+    private void applyFilters() {
+        String query = getQuery();
 
-                    baseFrame.switchContent(details, item.getName());
+        String selectedCategory =
+                view.getCategory().getSelectedItem().toString();
 
+        String selectedStatus =
+                view.getAvailable().getSelectedItem().toString();
 
-                    details.addActionListener(backEvt -> {
-                                baseFrame.switchContent(view, "Items");
-                            }
-                    );
-                }
-            });
-            pb.getDeleteBtn().addActionListener(e -> {
-                int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+        ArrayList<Item> filtered = itemRepository.getList().stream()
+                // search
+                .filter(item ->
+                        query.isEmpty() ||
+                                item.getName().toLowerCase().contains(query)
+                )
 
-                if (response == JOptionPane.YES_OPTION) {
+                // category
+                .filter(item ->
+                        selectedCategory.equals("All") ||
+                                item.getType() == MaterialType.valueOf(selectedCategory)
+                )
 
-                    view.removeItem(pb);
-
-
-                    itemRepository.getList().removeIf(item -> item.getName().equals(pb.getTextName()));
+                //availability
+                .filter(item ->
+                        selectedStatus.equals("All") ||
+                                item.getStatus() == ItemStatus.valueOf(selectedStatus)
+                )
+                        .collect(Collectors.toCollection(ArrayList::new));
 
 
+        view.renderItems(filtered, this::onItemSelect, this::onItemDelete , this::onItemEdit);
+    }
 
-                    JOptionPane.showMessageDialog(null, "Item deleted successfully!");
-                }
-            });
+
+    public void onItemEdit(Item item){
+        System.out.println(item.getName() + "Edit");
+    }
+
+
+
+    public void onItemSelect(Item item) {
+
+        ThingDetails details = new ThingDetails(
+                item.getName(),
+                String.valueOf(item.getPrice()),
+                "Description...",
+                new ImageIcon(item.getImage()),
+                item.getAvailableQuantity()
+        );
+        this.baseFrame.switchContent(details, "Details");
+        details.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                baseFrame.switchContent(view, "Items");
+            }
+        });
+
+    }
+
+    public void onItemDelete(Item item) {
+        System.out.println(item.getName() + " Delete ");
+        int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
+
+        if (response == JOptionPane.YES_OPTION) {
+
+            itemRepository.removeByName(item.getName());
+            view.renderItems(itemRepository.getList() , this::onItemSelect , this::onItemDelete , this::onItemEdit);
+
+            JOptionPane.showMessageDialog(null, "Item deleted successfully!");
         }
     }
 }
