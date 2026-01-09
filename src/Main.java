@@ -1,9 +1,13 @@
 
 
+import Controller.MainController;
 import IO.DataWriter;
 import View.BaseFrame;
 import View.ImageFileChooser;
+import com.formdev.flatlaf.FlatLightLaf;
 
+import javax.swing.*;
+import java.awt.*;
 import java.io.IOException;
 
 
@@ -12,16 +16,16 @@ public class Main {
 
 
 
-//      new BaseFrame("aa","aa");
-//        FlatLightLaf.setup();
-//        UIManager.put("Button.arc", 12);
-//        UIManager.put("Component.arc", 12);
-//        UIManager.put("ProgressBar.arc", 12);
-//        UIManager.put("TextComponent.arc", 10);
-//        UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
-//        UIManager.put("Component.focusWidth", 1);
-//        UIManager.put("Component.innerFocusWidth", 0);
-//       new MainController();
+
+        FlatLightLaf.setup();
+        UIManager.put("Button.arc", 12);
+        UIManager.put("Component.arc", 12);
+        UIManager.put("ProgressBar.arc", 12);
+        UIManager.put("TextComponent.arc", 10);
+        UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
+        UIManager.put("Component.focusWidth", 1);
+        UIManager.put("Component.innerFocusWidth", 0);
+       new MainController();
 
 //        BaseFrame frame = new BaseFrame("Hamza", "TEST");
 //        ImageFileChooser im = new ImageFileChooser(frame);

@@ -244,7 +244,7 @@ public class BaseFrame extends JFrame {
         topBar.setPreferredSize(new Dimension(this.getWidth(), 30));
 
         JButton closeBtn = new JButton();
-        ImageIcon originalIcon = new ImageIcon("./assets/cancel.png");
+        ImageIcon originalIcon = new ImageIcon("./assets/cross.png");
         Image scaledImgg = originalIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         closeBtn.setIcon(new ImageIcon(scaledImgg));
         closeBtn.setFocusPainted(false);

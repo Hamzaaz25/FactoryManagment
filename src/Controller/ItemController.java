@@ -1,5 +1,6 @@
 package Controller;
 
+import Enums.ItemStatus;
 import Enums.MaterialType;
 import Model.Item;
 import Repository.ItemRepository;
@@ -31,12 +32,14 @@ public class ItemController {
 
             if (isAllSelected) {
                 filteredList = itemRepository.getList();
+                view.setActiveCardsWhenAll(filteredList);
             } else {
                 filteredList = itemRepository.getList().stream()
                         .filter(item -> item.getType() == MaterialType.valueOf(selected))
                         .collect(Collectors.toCollection(ArrayList::new));
+                view.setActiveCards(filteredList);
             }
-            view.setActiveCards(filteredList);
+
             view.setCurrentItems(filteredList);
 
             attachListenersToCards();
@@ -44,6 +47,33 @@ public class ItemController {
             view.updateCards();
 
             bf.switchContent(view, "Items");
+        });
+
+        view.getAvailable().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String selected = view.getAvailable().getSelectedItem().toString();
+                ArrayList<Item> filteredList;
+                boolean isAllSelected = selected.equals("All");
+
+                if (isAllSelected) {
+                    filteredList = itemRepository.getList();
+                    view.setActiveCardsWhenAll(filteredList);
+                } else {
+                    filteredList = itemRepository.getList().stream()
+                            .filter(item -> item.getStatus() == ItemStatus.valueOf(selected))
+                            .collect(Collectors.toCollection(ArrayList::new));
+                    view.setActiveCards(filteredList);
+                }
+
+                view.setCurrentItems(filteredList);
+
+                attachListenersToCards();
+
+                view.updateCards();
+
+                bf.switchContent(view, "Items");
+            }
         });
 
         attachListenersToCards();
