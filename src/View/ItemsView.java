@@ -1,5 +1,6 @@
 package View;
 
+import Enums.ItemStatus;
 import Enums.MaterialType;
 import Enums.TaskStatus;
 import Model.Item;
@@ -25,6 +26,7 @@ public class ItemsView extends JPanel {
     ArrayList<Item> currentItems ;
     ArrayList<ItemBtn> activeCards = new ArrayList<>();
     JComboBox<String> category;
+    JComboBox<String> available;
 
 
     public ItemsView(String name , ArrayList<Item> list) {
@@ -42,6 +44,12 @@ public class ItemsView extends JPanel {
        JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
        categoryPanel.setOpaque(false);
        categoryPanel.add(category);
+
+        available = new JComboBox<>(new String[]{"All", ItemStatus.Available.toString(), ItemStatus.BelowMinimum.toString()});
+        JPanel availablePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
+        availablePanel.setOpaque(false);
+        availablePanel.add(available);
+
 
 
         Searchtext.setPreferredSize(new Dimension(250, 35));
@@ -115,6 +123,7 @@ public class ItemsView extends JPanel {
         searchBar.add(Searchtext);
         searchBar.add(Searchbtn);
         topBar.add(categoryPanel, BorderLayout.WEST);
+        topBar.add(availablePanel ,BorderLayout.EAST);
         topBar.add(searchBar, BorderLayout.CENTER);
         this.add(topBar, BorderLayout.NORTH);
 
@@ -189,6 +198,7 @@ public class ItemsView extends JPanel {
     }
 
     public AddBtn addCard;
+
 
     public void setCards(ArrayList<Item> list  ) {
         allCards.clear();
@@ -300,6 +310,23 @@ public class ItemsView extends JPanel {
         ArrayList<ItemBtn> btns = new ArrayList<>();
 
         for (Item item : filteredItems) {
+            for (ItemBtn btn : activeCards) {
+                if (btn.getTextName().equalsIgnoreCase(item.getName())) {
+                    btns.add(btn);
+                    break;
+                }
+            }
+        }
+
+        this.activeCards = btns;
+
+        updateCards();
+    }
+
+    public void setActiveCardsWhenAll(ArrayList<Item> filteredItems) {
+        ArrayList<ItemBtn> btns = new ArrayList<>();
+
+        for (Item item : filteredItems) {
             for (ItemBtn btn : allCards) {
                 if (btn.getTextName().equalsIgnoreCase(item.getName())) {
                     btns.add(btn);
@@ -328,6 +355,11 @@ public class ItemsView extends JPanel {
     public JComboBox<String> getCategory() {
         return category;
     }
+
+    public JComboBox<String> getAvailable() {
+        return available;
+    }
+
 
     public JPanel getContainer() {
         return container;
