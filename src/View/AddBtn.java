@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class AddBtn extends JButton {
-    public AddBtn(Runnable onAddAction) {
+    public AddBtn() {
         setLayout(new BorderLayout());
         setPreferredSize(new Dimension(200, 250));
         setBackground(new Color(94, 142, 180));
@@ -20,11 +20,11 @@ public class AddBtn extends JButton {
         JLabel Textlbl = new JLabel("Add New ", SwingConstants.CENTER);
         add(Textlbl, BorderLayout.SOUTH);
 
-        addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                onAddAction.run();
-            }
-        });
+//        addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mousePressed(MouseEvent e) {
+//                onAddAction.run();
+//            }
+//        });
     }
 }

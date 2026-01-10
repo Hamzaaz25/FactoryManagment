@@ -1,97 +1,62 @@
 package View;
-
 import Model.Product;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 public class ProductsView extends JPanel{
-    private ArrayList<ProductBtn> allCards = new ArrayList<>();
-    private JPanel container;
-    private JTextField Searchtext = new JTextField(" Search ...");;
-    JLabel NoResults = new JLabel("No products match your search", SwingConstants.CENTER);
-    String name ;
+    private final JPanel container;
+    private JTextField searchText = new JTextField(" Search ...");;
+    private JLabel noResults = new JLabel("No products match your search", SwingConstants.CENTER);
+    private JButton searchButton;
 
-    public ProductsView(String name , ArrayList<Product> list) {
+    public ProductsView( ArrayList<Product> list , Consumer<Product> onSelect , Consumer<Product> onDelete , Consumer<Product> onEdit) {
 
-        this.name=name;
+
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
 
 
-        Searchtext.setPreferredSize(new Dimension(250, 35));
-        Searchtext.setForeground(Color.GRAY);
-        Searchtext.setFont(new Font("Segoe UI", Font.ITALIC, 13));
+        searchText.setPreferredSize(new Dimension(250, 35));
+        searchText.setForeground(Color.GRAY);
+        searchText.setFont(new Font("Segoe UI", Font.ITALIC, 13));
 
-        Searchtext.putClientProperty("JComponent.arc", 15);
-        Searchtext.setBorder(BorderFactory.createCompoundBorder(
+        searchText.putClientProperty("JComponent.arc", 15);
+        searchText.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
                 BorderFactory.createEmptyBorder(0, 10, 0, 10)
         ));
 
 
-        Searchtext.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                if (Searchtext.getText().equals(" Search ...")) {
-                    Searchtext.setText("");
-                    Searchtext.setForeground(Color.BLACK);
-                }
-            }
-
-            @Override
-            public void focusLost(FocusEvent e) {
-                if (Searchtext.getText().isEmpty()) {
-                    Searchtext.setText(" Search ...");
-                    Searchtext.setForeground(Color.GRAY);
-                    performSearch("");
-                }
-            }
-        });
 
 
-        NoResults.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        NoResults.setForeground(Color.black);
-        NoResults.setVisible(false);
-        NoResults.setIcon(new ImageIcon(("./assets/notFound.png")));
-        NoResults.setVerticalTextPosition(JLabel.BOTTOM);
-        NoResults.setHorizontalTextPosition(JLabel.CENTER);
+
+        noResults.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        noResults.setForeground(Color.black);
+        noResults.setVisible(false);
+        noResults.setIcon(new ImageIcon(("./assets/notFound.png")));
+        noResults.setVerticalTextPosition(JLabel.BOTTOM);
+        noResults.setHorizontalTextPosition(JLabel.CENTER);
 
 
-        JButton Searchbtn = new JButton();
+         searchButton = new JButton();
         ImageIcon iconn = new ImageIcon("./assets/searchh.png");
         Image scaledImgg = iconn.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
-        Searchbtn.setIcon(new ImageIcon(scaledImgg));
-        Searchbtn.setBackground(Color.white);
-        Searchbtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        searchButton.setIcon(new ImageIcon(scaledImgg));
+        searchButton.setBackground(Color.white);
+        searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        Searchbtn.addActionListener(e -> {
-            performSearch(Searchtext.getText());
-        });
-
-        Searchtext.addActionListener(e -> {
-            performSearch(Searchtext.getText());
-        });
-
-        Searchtext.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
-            public void insertUpdate(javax.swing.event.DocumentEvent e) {
-                performSearch(Searchtext.getText());
-            }
-            public void removeUpdate(javax.swing.event.DocumentEvent e) {
-                performSearch(Searchtext.getText());
-            }
-            public void changedUpdate(javax.swing.event.DocumentEvent e) {
-                performSearch(Searchtext.getText());
-            }
-        });
 
         JPanel searchBar = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         searchBar.setOpaque(false);
-        searchBar.add(Searchtext);
-        searchBar.add(Searchbtn);
+        searchBar.add(searchText);
+        searchBar.add(searchButton);
 
         this.add(searchBar,BorderLayout.NORTH);
 
@@ -99,7 +64,7 @@ public class ProductsView extends JPanel{
         container.setBorder(new EmptyBorder(40, 150, 40, 150));
         container.setOpaque(false);
 
-        setCards(list);
+        renderProducts(list , onSelect , onDelete ,onEdit);
 
 
         JPanel mainContentPanel = new JPanel();
@@ -122,10 +87,7 @@ public class ProductsView extends JPanel{
 
         wrapperPanel.add(container, BorderLayout.NORTH);
 
-
-
-
-
+        
         JPanel rightContainer = new JPanel(new BorderLayout());
         rightContainer.setOpaque(false);
         rightContainer.add(container, BorderLayout.NORTH);
@@ -135,76 +97,64 @@ public class ProductsView extends JPanel{
     }
 
 
-    private void performSearch(String query) {
-        int matchCountProduct = 0;
-        String searchText = query.toLowerCase().trim();
+
+    AddBtn addCard = new AddBtn();
+
+
+
+    public void renderProducts(ArrayList<Product> list , Consumer<Product> onSelect, Consumer<Product> onDelete , Consumer<Product> onEdit) {
         container.removeAll();
-        for (ProductBtn card : allCards) {
-            if (card.getTextName().toLowerCase().contains(searchText)) {
-                container.add(card);
-                matchCountProduct++;
-            }
-        }
-
-        if (matchCountProduct == 0 && !searchText.isEmpty()) {
-            container.setLayout(new BorderLayout());
-
-            NoResults.setHorizontalAlignment(SwingConstants.CENTER);
-            NoResults.setVerticalAlignment(SwingConstants.CENTER);
-
-            container.add(NoResults, BorderLayout.CENTER);
-            NoResults.setVisible(true);
-
-            if(addCard != null) addCard.setVisible(false);
-        } else {
-            container.setLayout(new GridLayout(0, 3, 100, 100));
-
-            NoResults.setVisible(false);
-            if (addCard != null) {
-                addCard.setVisible(true);
-                container.add(addCard);
-            }
-        }
-
-        container.revalidate();
-        container.repaint();
-    }
-
-    AddBtn addCard;
-
-    public void setCards(ArrayList <Product> list) {
-for(Product p : list) {
-    addNewProduct(p.getName(), String.valueOf(p.getPrice()), new ImageIcon(p.getImage()), "description");
-}
-
-        addCard = new AddBtn(() -> {
-            addNewProduct("New Product", "$0.00",new ImageIcon("./assets/dinner.png"),"description");
-        });
-
-        container.add(addCard);
-
-    }
-
-    public void addNewProduct(String name, String price,ImageIcon icon, String description) {
-
-        ProductBtn newCard = new ProductBtn(name, price, icon, description);
-
-        allCards.add(newCard);
-
-        if (container.getComponentCount() > 0 && addCard != null) {
-            int addCardIndex = container.getComponentCount() - 1;
-            container.add(newCard, addCardIndex);
-        } else {
+        for (Product product : list) {
+            ProductBtn newCard = new ProductBtn(product, "description" , onSelect ,onDelete , onEdit);
             container.add(newCard);
         }
+        if (list.isEmpty()) {
+            showNoResults();
+        } else
+            getNoResults().setVisible(false);
 
+
+        addCard.setVisible(true);
+
+        container.add(addCard);
         container.revalidate();
         container.repaint();
-    }
 
-    public ArrayList<ProductBtn> getProductButtons() {
-        return allCards;
     }
 
 
+    private void showNoResults() {
+
+        getContainer().removeAll();
+
+        getContainer().setLayout(new BorderLayout());
+
+        getNoResults().setVisible(true);
+        getContainer().add(getNoResults(), BorderLayout.CENTER);
+
+        if (addCard != null) {
+            addCard.setVisible(false);
+        }
+
+        getContainer().revalidate();
+        getContainer().repaint();
+    }
+
+
+
+    public JPanel getContainer() {
+        return container;
+    }
+
+    public JLabel getNoResults() {
+        return noResults;
+    }
+
+    public JTextField getSearchText() {
+        return searchText;
+    }
+
+    public JButton getSearchButton() {
+        return searchButton;
+    }
 }

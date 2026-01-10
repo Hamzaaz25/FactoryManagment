@@ -20,7 +20,7 @@ public class ItemsView extends JPanel {
     private final JComboBox<String> category;
     private final JComboBox<String> available;
     private final JButton searchButton;
-    private AddBtn addCard;
+    private AddBtn addCard = new AddBtn();
 
 
 
@@ -131,6 +131,7 @@ public class ItemsView extends JPanel {
     }
         if (list.isEmpty()) {
             showNoResults();
+
         } else
             noResults.setVisible(false);
 

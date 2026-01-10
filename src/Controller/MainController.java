@@ -54,7 +54,6 @@ public void onLoginSuccess(User user){
 
 
 public void loadAll(){
-
         this.itemRepository.load();
         this.productRepository.load();
         this.taskRepository.load();

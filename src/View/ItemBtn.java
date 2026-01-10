@@ -131,30 +131,7 @@ public class ItemBtn extends JButton {
             }
         });
 
-//        Deletebtn.addActionListener(e -> {
-//
-//            int response = JOptionPane.showConfirmDialog(
-//                    null,
-//                    "Are you sure you want to delete this item?",
-//                    "Delete Confirmation",
-//                    JOptionPane.YES_NO_OPTION,
-//                    JOptionPane.WARNING_MESSAGE
-//            );
-//
-//            if (response == JOptionPane.YES_OPTION) {
-//                Container parent = this.getParent();
-//                parent.remove(this);
-//                parent.revalidate();
-//                parent.repaint();
-//
-//                JOptionPane.showMessageDialog(
-//                        null,
-//                        "Model.Product has been deleted successfully!",
-//                        "Success",
-//                        JOptionPane.INFORMATION_MESSAGE
-//                );
-//            }
-//        });
+
         actionsPanel.add(Editbtn);
         actionsPanel.add(Deletebtn);
 

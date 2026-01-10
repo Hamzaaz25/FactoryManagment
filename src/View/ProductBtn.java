@@ -1,9 +1,13 @@
 package View;
 
 
+import Model.Product;
+
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.function.Consumer;
 
 
 public class ProductBtn extends JButton {
@@ -18,10 +22,11 @@ public class ProductBtn extends JButton {
         return Namelbl.getText();
     }
 
-    public ProductBtn(String name, String price, ImageIcon icon, String description) {
+    public ProductBtn(Product product, String description , Consumer<Product> onSelect, Consumer<Product> onDelete,Consumer<Product> onEdit) {
 
-        this.name=name;
-        this.price=price;
+        this.name= product.getName();
+        this.price=String.valueOf(product.getPrice());
+        ImageIcon icon = new ImageIcon(product.getImage());
         this.description=description;
         this.setLayout(new BorderLayout(5, 5));
         this.setPreferredSize(new Dimension(180, 220));
@@ -99,30 +104,28 @@ public class ProductBtn extends JButton {
         Deletebtn.setPreferredSize(new Dimension(38, 38));
         styleActionIcon(Deletebtn, new Color(240, 240, 240));
 
-        Deletebtn.addActionListener(e -> {
-
-            int response = JOptionPane.showConfirmDialog(
-                    null,
-                    "Are you sure you want to delete this item?",
-                    "Delete Confirmation",
-                    JOptionPane.YES_NO_OPTION,
-                    JOptionPane.WARNING_MESSAGE
-            );
-
-            if (response == JOptionPane.YES_OPTION) {
-                Container parent = this.getParent();
-                parent.remove(this);
-                parent.revalidate();
-                parent.repaint();
-
-                JOptionPane.showMessageDialog(
-                        null,
-                        "Model.Product has been deleted successfully!",
-                        "Success",
-                        JOptionPane.INFORMATION_MESSAGE
-                );
+        Editbtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onEdit.accept(product);
             }
         });
+
+        Deletebtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onDelete.accept(product);
+            }
+        });
+
+        this.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                onSelect.accept(product);
+            }
+        });
+
+
         actionsPanel.add(Editbtn);
         actionsPanel.add(Deletebtn);
 

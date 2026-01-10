@@ -1,27 +1,16 @@
 
 
-//import Controller.MainController;
+
 import Controller.MainController;
-import Enums.Role;
-import IO.DataWriter;
-import Model.User;
-import Repository.ItemRepository;
-import View.BaseFrame;
-import View.ImageFileChooser;
-import View.ItemsView;
-import View.ProfileView;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
+
 
 
 public class Main {
     public static void main(String[] args)  {
-
-
-
 
         FlatLightLaf.setup();
         UIManager.put("Button.arc", 12);
@@ -73,10 +62,10 @@ public class Main {
 //        ProductLine pl = productLineRepository.getProductLineByNumber(1);
 //        ProductLine pl2 = productLineRepository.getProductLineByNumber(1);
 //        ProductLineService productLineService= new ProductLineService(productLineRepository,pl , taskService );
-//        ProductLineService productLineServic= new ProductLineService(productLineRepository,pl2 , taskService );
+//        ProductLineService productLineService= new ProductLineService(productLineRepository,pl2 , taskService );
 //
-//        Task te = new Task("carpet" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
-//        Task se = new Task("chair" , 5 ,"s3eed" ,1 , TaskStatus.InProgress  );
+//        Task te = new Task("carpet" , 5 ,"saeed" ,1 , TaskStatus.InProgress  );
+//        Task se = new Task("chair" , 5 ,"saeed" ,1 , TaskStatus.InProgress  );
 //        productLineService.addTask(te);
 //        productLineService.addTask(se);
 //
@@ -123,8 +112,8 @@ public class Main {
 //   Model.ProductLine.Worker worker =  new Model.ProductLine.Worker(pl);
 //   worker.t.start();
 
-//Model.Task se = new Model.Task("carpet" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
-//Model.Task he = new Model.Task("chair" , 1 ,"s3eed" ,1 , TaskStatus.InProgress  );
+//Model.Task se = new Model.Task("carpet" , 1 ,"saeed" ,1 , TaskStatus.InProgress  );
+//Model.Task he = new Model.Task("chair" , 1 ,"saeed" ,1 , TaskStatus.InProgress  );
 //
 //
 //Model.Task fe = new Model.Task("carpet" , 4 ,"Bilal" ,2 , TaskStatus.InProgress );
@@ -193,30 +182,7 @@ public class Main {
 //  for(Model.ProductLine pl :i.listOfProductLines){
 //      pl
 //  }
-//   for(String p :i.productsAmount.keySet()){
-//       System.out.println();
-//   }
-//if(i.isTaskValid(101)) System.out.println("Thread run");
 
-//        Model.ProductLine pl = new Model.ProductLine("vanity" );
-//        Model.ProductLine pl1 = new Model.ProductLine("carpet" );
-//        i.editProductLineStatus(1, Status.Maintenance);
-//        i.displayProductLinePerformance(1);
-//
-//
-//
-//        i.addProductLine(pl);
-//        i.addProductLine(pl1);
-
-
-//
-//        i.removeItem("pizza");
-//        i.removeItem("wood");
-
-//        ArrayList<Model.Task > t = Model.DataManager.getInstance().showTasksForProductLine(3);
-//        t.forEach( task -> {
-//            System.out.println(task.getTaskNumber());
-//        });
 
     }
 }
