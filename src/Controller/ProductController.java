@@ -94,6 +94,7 @@ public class ProductController {
                                 product.getName().toLowerCase().contains(query)
                 )
 
+
                 .collect(Collectors.toCollection(ArrayList::new));
 
 

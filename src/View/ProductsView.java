@@ -110,13 +110,15 @@ public class ProductsView extends JPanel{
         }
         if (list.isEmpty()) {
             showNoResults();
-        } else
+        } else{
             getNoResults().setVisible(false);
+            addCard.setVisible(true);
+            container.add(addCard);}
 
 
-        addCard.setVisible(true);
 
-        container.add(addCard);
+
+
         container.revalidate();
         container.repaint();
 
@@ -127,10 +129,8 @@ public class ProductsView extends JPanel{
 
         getContainer().removeAll();
 
-        getContainer().setLayout(new BorderLayout());
-
         getNoResults().setVisible(true);
-        getContainer().add(getNoResults(), BorderLayout.CENTER);
+        getContainer().add(getNoResults());
 
         if (addCard != null) {
             addCard.setVisible(false);

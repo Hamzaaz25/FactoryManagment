@@ -9,7 +9,6 @@ import Repository.ItemRepository;
 import Repository.ProductLineRepository;
 import Repository.ProductRepository;
 import Repository.TaskRepository;
-
 import java.time.LocalDate;
 
 public class TaskService {
@@ -126,8 +125,8 @@ public class TaskService {
             );
 
             if (!item.isStockSufficient()) {
-                notifyIfBelowMinimum(item.getName());
                 item.setStatus(ItemStatus.BelowMinimum);
+                notifyIfBelowMinimum(item.getName());
             }
         }
     }

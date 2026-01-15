@@ -131,14 +131,12 @@ public class ItemsView extends JPanel {
     }
         if (list.isEmpty()) {
             showNoResults();
+        } else{
+            getNoResults().setVisible(false);
+            addCard.setVisible(true);
+            container.add(addCard);}
 
-        } else
-            noResults.setVisible(false);
 
-
-        addCard.setVisible(true);
-
-        container.add(addCard);
         container.revalidate();
         container.repaint();
 
@@ -149,10 +147,8 @@ public class ItemsView extends JPanel {
 
         getContainer().removeAll();
 
-        getContainer().setLayout(new BorderLayout());
-
         getNoResults().setVisible(true);
-        getContainer().add(getNoResults(), BorderLayout.CENTER);
+        getContainer().add(getNoResults());
 
         if (addCard != null) {
             addCard.setVisible(false);
