@@ -38,11 +38,9 @@ public class LoginController {
 //TIP Amin
 public LoginController() {
     this.model = new LoginModel();
-   this.view = new LoginView();
-   this.view.setVisible(true);
+    this.view = new LoginView();
+    this.view.setVisible(true);
     view.addLoginListener(actionListener);
-
-
 }
 
 }

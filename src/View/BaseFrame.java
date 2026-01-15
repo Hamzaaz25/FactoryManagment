@@ -18,6 +18,7 @@ public class BaseFrame extends JFrame {
     protected JPanel mainContent;
     protected JPanel container;
     protected JLabel TitlelblPage;
+    JButton profileButton;
     String title;
     JButton productsLineButton;
     JButton productsButton;
@@ -158,16 +159,16 @@ public class BaseFrame extends JFrame {
         Userlbl.setForeground(Color.WHITE);
         ImageIcon profileImg = new ImageIcon("./assets/profile.png");
         Image img = profileImg.getImage().getScaledInstance(35, 35, Image.SCALE_SMOOTH);
-        JButton Profilebtn = new JButton();
-        Profilebtn.setIcon(new ImageIcon(img));
-        Profilebtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        profileButton = new JButton();
+        profileButton.setIcon(new ImageIcon(img));
+        profileButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        Profilebtn.setPreferredSize(new Dimension(35, 35));
-        Profilebtn.setFocusPainted(false);
-        Profilebtn.setContentAreaFilled(false);
-        Profilebtn.setBorderPainted(false);
+        profileButton.setPreferredSize(new Dimension(35, 35));
+        profileButton.setFocusPainted(false);
+        profileButton.setContentAreaFilled(false);
+        profileButton.setBorderPainted(false);
         profilePanel.add(Userlbl);
-        profilePanel.add(Profilebtn);
+        profilePanel.add(profileButton);
         gbc.gridx = 2;
         gbc.weightx = 1.0;
         menuBar.add(profilePanel, gbc);
@@ -337,5 +338,9 @@ public JButton getProductsLineButton(){
 
     public JButton getProductsButton() {
         return productsButton;
+    }
+
+    public JButton getProfileButton(){
+        return this.profileButton;
     }
 }

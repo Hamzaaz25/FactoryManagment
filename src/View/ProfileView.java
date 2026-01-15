@@ -9,6 +9,7 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public class ProfileView extends JPanel {
+    private final JButton logoutButton;
     public ProfileView(User user) {
 
         setLayout(new BorderLayout());
@@ -32,7 +33,7 @@ public class ProfileView extends JPanel {
 
         infoPanel.add(Box.createVerticalStrut(200));
 
-        JButton logoutButton = new JButton("Log Out");
+        logoutButton = new JButton("Log Out");
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
         logoutButton.setForeground(new Color(255, 102, 102));
         logoutButton.setBackground(new Color(40, 50, 65));
@@ -85,5 +86,9 @@ public class ProfileView extends JPanel {
         Image img = icon.getImage();
         Image resizedImg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImg);
+    }
+
+    public JButton getLogoutButton() {
+        return logoutButton;
     }
 }
