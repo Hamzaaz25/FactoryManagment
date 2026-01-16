@@ -119,6 +119,7 @@ public class ItemController {
 
     public void onItemEdit(Item item){
         System.out.println(item.getName() + "Edit");
+        baseFrame.switchContent(new EditThingDetails(item.getName() , String.valueOf(item.getPrice()),""  , new ImageIcon(item.getImage()),10 ) , "");
     }
 
 
