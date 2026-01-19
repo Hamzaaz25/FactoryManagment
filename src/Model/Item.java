@@ -83,12 +83,12 @@ public Item(){
     }
 
     public void setAvailableQuantity(int availableQuantity) {
+        this.availableQuantity = availableQuantity;
         if(availableQuantity < this.minimumAllowedQuantity){
             this.status = ItemStatus.BelowMinimum;
         }
         else{
         this.status = ItemStatus.Available;
-        this.availableQuantity = availableQuantity;
         }
     }
 

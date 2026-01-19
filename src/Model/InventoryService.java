@@ -46,7 +46,7 @@ public class InventoryService {
             Item item = this.itemRepository.getByName(name);
             item.setAvailableQuantity(quantity);
             item.setPrice(price);
-            item.setMinimumAllowedQuantity(minimum);
+//            item.setMinimumAllowedQuantity(minimum);
             this.itemRepository.save();
         }
 
