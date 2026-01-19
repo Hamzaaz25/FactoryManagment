@@ -72,6 +72,16 @@ public class InventoryService {
         this.productRepository.save();
     }
 
+    public void editProduct(String name , int quantity , double price  ){
+        name = name.trim();
+        if(this.productRepository.containsName(name)) {
+            Product product = this.productRepository.getByName(name);
+            product.setAmount(quantity);
+            product.setPrice(price);
+            this.productRepository.save();
+        }
+
+    }
 
 
 }

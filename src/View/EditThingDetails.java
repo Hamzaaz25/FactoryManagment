@@ -99,9 +99,39 @@ public class EditThingDetails extends JPanel {
     public String getName() { return txtName.getText(); }
     public String getPrice() { return txtPrice.getText(); }
     public String getDescription() { return txtDescription.getText(); }
-    public int getAmount() { return Integer.parseInt(txtAmount.getText()); }
+    public String getAmount() { return txtAmount.getText(); }
 
     public void addActionListener(ActionListener a) {
         this.btnSave.addActionListener(a);
+    }
+
+
+    public void showError(String message) {
+        // Create a custom panel for the popup
+        JPanel panel = new JPanel();
+        panel.setBackground(UIManager.getColor("OptionPane.background"));
+        panel.setLayout(new BorderLayout(10, 10));
+
+        JLabel msgLabel = new JLabel(message);
+        msgLabel.setForeground(UIManager.getColor("OptionPane.messageForeground"));
+        msgLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        panel.add(msgLabel, BorderLayout.CENTER);
+
+        // Show the popup
+        JOptionPane.showMessageDialog(
+                this,
+                panel,
+                message,
+                JOptionPane.ERROR_MESSAGE
+        );
+
+        // Reset GUI
+        txtName.setText(this.getName());
+        txtPrice.setText(String.valueOf(getPrice()));
+        txtAmount.setText(String.valueOf(this.getAmount()));
+        txtName.requestFocusInWindow();
+
+
     }
 }

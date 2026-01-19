@@ -2,6 +2,7 @@ package Controller;
 
 import Enums.ItemStatus;
 import Enums.MaterialType;
+import Model.InventoryService;
 import Model.Item;
 import Repository.ItemRepository;
 import Model.User;
@@ -19,9 +20,11 @@ public class ItemController {
     private final ItemRepository itemRepository;
     private final BaseFrame baseFrame;
     private final ItemsView view;
+    private final InventoryService inventoryService;
     ArrayList<ItemBtn> activeCards = new ArrayList<>();
 
-    public ItemController(ItemRepository itemRepository, BaseFrame bf) {
+    public ItemController(ItemRepository itemRepository,InventoryService inventoryService, BaseFrame bf) {
+        this.inventoryService = inventoryService;
         this.itemRepository = itemRepository;
         this.baseFrame = bf;
         view = new ItemsView(itemRepository.getList(), this::onItemSelect, this::onItemDelete , this::onItemEdit);
@@ -119,7 +122,21 @@ public class ItemController {
 
     public void onItemEdit(Item item){
         System.out.println(item.getName() + "Edit");
-        baseFrame.switchContent(new EditThingDetails(item.getName() , String.valueOf(item.getPrice()),""  , new ImageIcon(item.getImage()),10 ) , "");
+        EditThingDetails editThingDetails = new EditThingDetails(item.getName() , String.valueOf(item.getPrice()),""  , new ImageIcon(item.getImage()),item.getAvailableQuantity() );
+        baseFrame.switchContent( editThingDetails, "Item Edit");
+        editThingDetails.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(validateEdit(editThingDetails.getPrice(), editThingDetails.getAmount())){
+                inventoryService.editItem(item.getName() , Integer.parseInt(editThingDetails.getAmount().trim()) , Double.parseDouble(editThingDetails.getPrice() .trim()) , 20);
+                applyFilters();
+                baseFrame.switchContent(view , "Items");}
+                else {
+                    editThingDetails.showError("Price or amount cannot contain letters");
+                }
+            }
+        });
+
     }
 
 
@@ -155,4 +172,14 @@ public class ItemController {
             JOptionPane.showMessageDialog(null, "Item deleted successfully!");
         }
     }
+    private boolean validateEdit(String price , String amount ){
+        try {
+            Double.parseDouble(price);
+            Integer.parseInt(amount);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
 }

@@ -2,14 +2,12 @@ package Controller;
 
 import Enums.ItemStatus;
 import Enums.MaterialType;
+import Model.InventoryService;
 import Model.Item;
 import Model.Product;
 import Repository.ProductRepository;
 import Model.User;
-import View.BaseFrame;
-import View.ProductBtn;
-import View.ProductsView;
-import View.ThingDetails;
+import View.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,10 +22,12 @@ public class ProductController {
     ProductsView view;
     private final ProductRepository productRepository;
     BaseFrame baseFrame;
+    private final InventoryService inventoryService;
 
 
 
-    public ProductController(ProductRepository productRepository , BaseFrame bf  , User user) {
+    public ProductController(ProductRepository productRepository, InventoryService inventoryService , BaseFrame bf ) {
+        this.inventoryService = inventoryService;
         this.productRepository = productRepository;
         this.baseFrame = bf;
         view = new ProductsView(productRepository.getList() ,this::onProductSelect , this::onProductDelete , this::onProductEdit);
@@ -107,7 +107,21 @@ public class ProductController {
 
 
     public void onProductEdit(Product product){
-        System.out.println(product.getName() + "Edit");
+        EditThingDetails editThingDetails = new EditThingDetails(product.getName() , String.valueOf(product.getPrice()), "Descreption" , new ImageIcon(product.getImage()) , product.getAmount());
+        baseFrame.switchContent(editThingDetails, "Product Edit");
+        editThingDetails.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(validateEdit(editThingDetails.getPrice() , editThingDetails.getAmount())){
+                inventoryService.editProduct(product.getName() , Integer.parseInt(editThingDetails.getAmount().trim()) , Double.parseDouble(editThingDetails.getPrice().trim()));
+                applyFilters();
+                baseFrame.switchContent(view , "Products");
+                }
+                else{
+                    editThingDetails.showError("Price or amount cannot contain letters");
+                }
+            }
+        });
     }
 
 
@@ -143,5 +157,15 @@ public class ProductController {
         }
     }
 
+
+    private boolean validateEdit(String price , String amount ){
+        try {
+            Double.parseDouble(price);
+            Integer.parseInt(amount);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
 
 }
