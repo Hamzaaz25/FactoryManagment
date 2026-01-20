@@ -21,6 +21,7 @@ public class Main {
         UIManager.put("Component.focusWidth", 1);
         UIManager.put("Component.innerFocusWidth", 0);
        new MainController();
+//        System.out.println("test");
 //        System.out.println("0.3".matches("^[0-9]+.[0-9]") && "54".matches("^[0-9] + [0-9]"));
 
 //        ItemRepository itemRepository = new ItemRepository();
