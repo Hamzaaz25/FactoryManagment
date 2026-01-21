@@ -126,11 +126,8 @@ public class EditThingDetails extends JPanel {
                 JOptionPane.ERROR_MESSAGE
         );
 
-        // Reset GUI
-        txtName.setText(this.getName());
-        txtPrice.setText(String.valueOf(getPrice()));
-        txtAmount.setText(String.valueOf(this.getAmount()));
-        txtName.requestFocusInWindow();
+
+
 
 
     }

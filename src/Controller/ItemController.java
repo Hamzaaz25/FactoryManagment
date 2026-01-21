@@ -58,6 +58,7 @@ public class ItemController {
             }
         });
 
+
         view.getSearchBtn().addActionListener(e -> {
            applyFilters();
         });
@@ -78,6 +79,7 @@ public class ItemController {
             }
         });
         applyFilters();
+        addItemListener();
 
     }
 
@@ -165,8 +167,7 @@ public class ItemController {
         int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (response == JOptionPane.YES_OPTION) {
-
-            itemRepository.removeByName(item.getName());
+            inventoryService.removeItem(item.getName());
             view.renderItems(itemRepository.getList() , this::onItemSelect , this::onItemDelete , this::onItemEdit);
 
             JOptionPane.showMessageDialog(null, "Item deleted successfully!");
@@ -180,6 +181,56 @@ public class ItemController {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    private void addItemListener(){
+        final String[] imagePath = new String[1];
+        view.getAddCard().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                AddItem addItemPanel = new AddItem();
+                addItemPanel.getCancel().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        baseFrame.switchContent(view , "Items");
+                    }
+                });
+                baseFrame.switchContent(addItemPanel , "Item");
+                //Save ActionListener
+                addItemPanel.getSave().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(!addItemPanel.isAnyFieldBlank()){
+                            if(validateEdit(addItemPanel.getPrice(), addItemPanel.getAmount()) && validateEdit(addItemPanel.getPrice(), addItemPanel.getMinimum())){
+                                if(imagePath[0] != null){
+                                  inventoryService.addItem(addItemPanel.getName().trim() , addItemPanel.getCategory() , Integer.parseInt(addItemPanel.getAmount()) , Double.parseDouble(addItemPanel.getPrice()) , imagePath[0]);
+                                  applyFilters();
+                                  baseFrame.switchContent(view , "Items");
+                                }
+                                else{
+                                    baseFrame.showError("You should add an image");
+                                }
+                            }else{
+                                baseFrame.showError("You cannot enter chars in number fields");
+                            }
+
+                        }else {
+                            baseFrame.showError("No field should be blank");
+                        }
+                    }
+                });
+                addItemPanel.getImageBtn().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        ImageFileChooser imageFileChooser= new ImageFileChooser(baseFrame);
+                        imagePath[0] =imageFileChooser.getPath();
+
+                    }
+                });
+
+
+            }
+        });
     }
 
 }

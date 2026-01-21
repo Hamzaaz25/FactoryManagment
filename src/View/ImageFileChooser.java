@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.time.Clock;
 import java.time.LocalDate;
 
 public class ImageFileChooser extends JFileChooser {
@@ -26,10 +28,11 @@ public class ImageFileChooser extends JFileChooser {
         int returnVal = this.showOpenDialog(frame);
         if(returnVal == JFileChooser.APPROVE_OPTION) {
             try {
-                String imgpath = this.getSelectedFile().getCanonicalPath();
-                BufferedImage image = ImageIO.read(new File(imgpath));
+                Path imgpath = this.getSelectedFile().toPath();
+
+                BufferedImage image = ImageIO.read(new File(imgpath.toString()));
                 int count =0;
-                String finalPath = "./assets/loaded"+ ++count +".png";
+                String finalPath = "./assets/"+imgpath.getFileName() ;
                 ImageIO.write(image , "png"  ,new File(finalPath));
                 return finalPath;
             } catch (IOException e) {

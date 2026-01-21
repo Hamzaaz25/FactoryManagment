@@ -2,11 +2,16 @@
 
 
 import Controller.MainController;
+import Enums.MaterialType;
+import View.AddItem;
+import View.AddProduct;
+import View.BaseFrame;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Main {
@@ -21,6 +26,19 @@ public class Main {
         UIManager.put("Component.focusWidth", 1);
         UIManager.put("Component.innerFocusWidth", 0);
        new MainController();
+
+//        BaseFrame frame = new BaseFrame("Hello" , "<");
+//        AddItem add = new AddItem();
+//        add.getSave().addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println(add.getName() + " "ama + add.getCategory().toString());
+//            }
+//        });
+//        frame.switchContent( new AddProduct(), "");
+
+
+
 //        System.out.println("test");
 //        System.out.println("0.3".matches("^[0-9]+.[0-9]") && "54".matches("^[0-9] + [0-9]"));
 

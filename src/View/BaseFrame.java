@@ -324,6 +324,8 @@ public class BaseFrame extends JFrame {
         mainContent.revalidate();
         mainContent.repaint();
     }
+
+
 public JButton getProductsLineButton(){
         return this.productsLineButton;
 }
@@ -342,5 +344,31 @@ public JButton getProductsLineButton(){
 
     public JButton getProfileButton(){
         return this.profileButton;
+    }
+
+
+    public void showError(String message) {
+        // Create a custom panel for the popup
+        JPanel panel = new JPanel();
+        panel.setBackground(UIManager.getColor("OptionPane.background"));
+        panel.setLayout(new BorderLayout(10, 10));
+
+        JLabel msgLabel = new JLabel(message);
+        msgLabel.setForeground(UIManager.getColor("OptionPane.messageForeground"));
+        msgLabel.setFont(new Font("Segoe UI", Font.BOLD, 14));
+
+        panel.add(msgLabel, BorderLayout.CENTER);
+
+        // Show the popup
+        JOptionPane.showMessageDialog(
+                this,
+                panel,
+                message,
+                JOptionPane.ERROR_MESSAGE
+        );
+
+
+
+
     }
 }
