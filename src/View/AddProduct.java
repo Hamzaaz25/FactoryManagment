@@ -1,17 +1,21 @@
 package View;
 
+import Model.Item;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class AddProduct extends JPanel {
-    JTextField nameField;
-    JTextField priceField;
-    JTextField itemsField;
+    private final JTextField nameField;
+    private final JTextField priceField;
+    private final JTextField itemsField;
+    private final JButton imageBtn;
+    private final JButton save;
+    private final JButton cancel;
 
-    //Test map
-    Map<String, Integer> selectedItems = new LinkedHashMap<>();
 
 
     public AddProduct(){
@@ -27,12 +31,13 @@ public class AddProduct extends JPanel {
         int gapY = 40;
 
         //Name
-        addRow("Name", startX, startY, labelW, fieldW, rowH);
-        nameField = (JTextField) getComponent(getComponentCount() - 1);
+        nameField = new JTextField();
+        addRow("Name", startX, startY, labelW, fieldW, rowH , nameField);
+
 
         //Price
-        addRow("Price", startX, startY + (rowH + gapY), labelW, fieldW, rowH);
-        priceField = (JTextField) getComponent(getComponentCount() - 1);
+        priceField=new JTextField();
+        addRow("Price", startX, startY + (rowH + gapY), labelW, fieldW, rowH,priceField);
 
         //Pick Items (button like field)
         JLabel itemsLabel = new JLabel("Items");
@@ -54,15 +59,10 @@ public class AddProduct extends JPanel {
                 new Color(120, 165, 200), 2));
         this.add(itemsField);
 
-        //To open the pick Items frame
-        itemsField.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent e) {
-                new PickItemsFrame(AddProduct.this);
-            }
-        });
+
 
         //Add image button
-        JButton imageBtn = new JButton("+");
+        imageBtn = new JButton("+");
         imageBtn.setBounds(950, startY, 360, 360);
         imageBtn.setFont(new Font("Arial", Font.BOLD, 170));
         imageBtn.setBackground(new Color(20, 33, 61));
@@ -73,26 +73,25 @@ public class AddProduct extends JPanel {
         this.add(imageBtn);
 
         //Save and Cancel
-        JButton save = new JButton("Save");
+        save = new JButton("Save");
         save.setBounds(980, startY + 400, 130, 45);
         styleButton(save, new Color(58, 80, 120));
         this.add(save);
 
-        JButton cancel = new JButton("Cancel");
+        cancel = new JButton("Cancel");
         cancel.setBounds(1130, startY + 400, 130, 45);
         styleButton(cancel, new Color(90, 110, 140));
         this.add(cancel);
     }
 
     //Add row method (to have a label and a textfield in each row similar to the other rows)
-    private void addRow(String text, int x, int y, int labelW, int fieldW, int h) {
+    private void addRow(String text, int x, int y, int labelW, int fieldW, int h , JTextField field) {
         JLabel label = new JLabel(text);
         label.setBounds(x, y, labelW, h);
         label.setForeground(Color.WHITE);
         label.setFont(new Font("Arial", Font.BOLD, 18));
         this.add(label);
 
-        JTextField field = new JTextField();
         field.setBounds(x + labelW + 10, y, fieldW, h);
         field.setFont(new Font("Arial", Font.PLAIN, 16));
         field.setBackground(new Color(20, 33, 61));
@@ -112,11 +111,31 @@ public class AddProduct extends JPanel {
     }
 
     //The final result in the pick items "button"
-    public void updateItemsField() {
+    public void updateItemsField(HashMap<String, Integer> items) {
         StringBuilder sb = new StringBuilder();
-        selectedItems.forEach((k, v) ->
+        items.forEach((k, v) ->
                 sb.append(k).append(" x").append(v).append(", "));
         itemsField.setText(sb.toString());
+    }
 
+
+    public String getNameField() {
+        return nameField.getText();
+    }
+
+    public String getPriceField() {
+        return priceField.getText();
+    }
+
+    public JButton getSave() {
+        return save;
+    }
+
+    public JButton getCancel() {
+        return cancel;
+    }
+
+    public JButton getImageBtn() {
+        return imageBtn;
     }
 }

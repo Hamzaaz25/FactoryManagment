@@ -5,15 +5,13 @@ import Enums.MaterialType;
 import Model.InventoryService;
 import Model.Item;
 import Repository.ItemRepository;
-import Model.User;
 import View.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class ItemController {
@@ -21,7 +19,6 @@ public class ItemController {
     private final BaseFrame baseFrame;
     private final ItemsView view;
     private final InventoryService inventoryService;
-    ArrayList<ItemBtn> activeCards = new ArrayList<>();
 
     public ItemController(ItemRepository itemRepository,InventoryService inventoryService, BaseFrame bf) {
         this.inventoryService = inventoryService;
@@ -31,12 +28,8 @@ public class ItemController {
         this.baseFrame.setVisible(true);
         bf.switchContent(view, "Items");
 
-        view.getCategory().addActionListener(e -> {
-            applyFilters();;
-            });
-        view.getAvailable().addActionListener(e -> {
-            applyFilters();;
-        });
+        view.getCategory().addActionListener(_ -> applyFilters());
+        view.getAvailable().addActionListener(_ -> applyFilters());
 
 
         view.getSearchText().addFocusListener(new FocusAdapter() {
@@ -59,13 +52,9 @@ public class ItemController {
         });
 
 
-        view.getSearchBtn().addActionListener(e -> {
-           applyFilters();
-        });
+        view.getSearchBtn().addActionListener(_ -> applyFilters());
 
-        view.getSearchText().addActionListener(e -> {
-          applyFilters();
-        });
+        view.getSearchText().addActionListener(_ -> applyFilters());
 
         view.getSearchText().getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
             public void insertUpdate(javax.swing.event.DocumentEvent e) {
@@ -92,10 +81,10 @@ public class ItemController {
         String query = getQuery();
 
         String selectedCategory =
-                view.getCategory().getSelectedItem().toString();
+                Objects.requireNonNull(view.getCategory().getSelectedItem()).toString();
 
         String selectedStatus =
-                view.getAvailable().getSelectedItem().toString();
+                Objects.requireNonNull(view.getAvailable().getSelectedItem()).toString();
 
         ArrayList<Item> filtered = itemRepository.getList().stream()
                 // search
@@ -126,16 +115,13 @@ public class ItemController {
         System.out.println(item.getName() + "Edit");
         EditThingDetails editThingDetails = new EditThingDetails(item.getName() , String.valueOf(item.getPrice()),""  , new ImageIcon(item.getImage()),item.getAvailableQuantity() );
         baseFrame.switchContent( editThingDetails, "Item Edit");
-        editThingDetails.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(validateEdit(editThingDetails.getPrice(), editThingDetails.getAmount())){
-                inventoryService.editItem(item.getName() , Integer.parseInt(editThingDetails.getAmount().trim()) , Double.parseDouble(editThingDetails.getPrice() .trim()) , 20);
-                applyFilters();
-                baseFrame.switchContent(view , "Items");}
-                else {
-                    editThingDetails.showError("Price or amount cannot contain letters");
-                }
+        editThingDetails.addActionListener(_ -> {
+            if(validateEdit(editThingDetails.getPrice(), editThingDetails.getAmount())){
+            inventoryService.editItem(item.getName() , Integer.parseInt(editThingDetails.getAmount().trim()) , Double.parseDouble(editThingDetails.getPrice() .trim()) , 20);
+            applyFilters();
+            baseFrame.switchContent(view , "Items");}
+            else {
+                editThingDetails.showError("Price or amount cannot contain letters");
             }
         });
 
@@ -153,12 +139,7 @@ public class ItemController {
                 item.getAvailableQuantity()
         );
         this.baseFrame.switchContent(details, "Details");
-        details.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                baseFrame.switchContent(view, "Items");
-            }
-        });
+        details.addActionListener(_ -> baseFrame.switchContent(view, "Items"));
 
     }
 
@@ -185,51 +166,37 @@ public class ItemController {
 
     private void addItemListener(){
         final String[] imagePath = new String[1];
-        view.getAddCard().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                AddItem addItemPanel = new AddItem();
-                addItemPanel.getCancel().addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        baseFrame.switchContent(view , "Items");
-                    }
-                });
-                baseFrame.switchContent(addItemPanel , "Item");
-                //Save ActionListener
-                addItemPanel.getSave().addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        if(!addItemPanel.isAnyFieldBlank()){
-                            if(validateEdit(addItemPanel.getPrice(), addItemPanel.getAmount()) && validateEdit(addItemPanel.getPrice(), addItemPanel.getMinimum())){
-                                if(imagePath[0] != null){
-                                  inventoryService.addItem(addItemPanel.getName().trim() , addItemPanel.getCategory() , Integer.parseInt(addItemPanel.getAmount()) , Double.parseDouble(addItemPanel.getPrice()) , imagePath[0]);
-                                  applyFilters();
-                                  baseFrame.switchContent(view , "Items");
-                                }
-                                else{
-                                    baseFrame.showError("You should add an image");
-                                }
-                            }else{
-                                baseFrame.showError("You cannot enter chars in number fields");
-                            }
-
-                        }else {
-                            baseFrame.showError("No field should be blank");
+        view.getAddCard().addActionListener(_ -> {
+            AddItem addItemPanel = new AddItem();
+            addItemPanel.getCancel().addActionListener(_ -> baseFrame.switchContent(view , "Items"));
+            baseFrame.switchContent(addItemPanel , "Item");
+            //Save ActionListener
+            addItemPanel.getSave().addActionListener(_ -> {
+                if(!addItemPanel.isAnyFieldBlank()){
+                    if(validateEdit(addItemPanel.getPrice(), addItemPanel.getAmount()) && validateEdit(addItemPanel.getPrice(), addItemPanel.getMinimum())){
+                        if(imagePath[0] != null){
+                          inventoryService.addItem(addItemPanel.getName().trim() , addItemPanel.getCategory() , Integer.parseInt(addItemPanel.getAmount()) , Double.parseDouble(addItemPanel.getPrice()) , imagePath[0]);
+                          applyFilters();
+                          baseFrame.switchContent(view , "Items");
                         }
+                        else{
+                            baseFrame.showError("You should add an image");
+                        }
+                    }else{
+                        baseFrame.showError("You cannot enter chars in number fields");
                     }
-                });
-                addItemPanel.getImageBtn().addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ImageFileChooser imageFileChooser= new ImageFileChooser(baseFrame);
-                        imagePath[0] =imageFileChooser.getPath();
 
-                    }
-                });
+                }else {
+                    baseFrame.showError("No field should be blank");
+                }
+            });
+            addItemPanel.getImageBtn().addActionListener(_ -> {
+                ImageFileChooser imageFileChooser= new ImageFileChooser(baseFrame);
+                imagePath[0] =imageFileChooser.getPath();
+
+            });
 
 
-            }
         });
     }
 

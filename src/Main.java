@@ -2,16 +2,19 @@
 
 
 import Controller.MainController;
-import Enums.MaterialType;
-import View.AddItem;
+
+import Model.Item;
+import Repository.ItemRepository;
 import View.AddProduct;
 import View.BaseFrame;
+import View.PickItemsFrame;
 import com.formdev.flatlaf.FlatLightLaf;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class Main {
@@ -28,6 +31,8 @@ public class Main {
        new MainController();
 
 //        BaseFrame frame = new BaseFrame("Hello" , "<");
+//        frame.switchContent(new AddProduct() , "");
+
 //        AddItem add = new AddItem();
 //        add.getSave().addActionListener(new ActionListener() {
 //            @Override
