@@ -303,7 +303,5 @@ public class ManagerBaseFrame extends JFrame {
                 JOptionPane.ERROR_MESSAGE
         );
     }
-    public static void main(String[] args)  {
-        new ManagerBaseFrame("aa","aa");
-    }
+
 }
