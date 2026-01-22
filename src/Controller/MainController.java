@@ -3,6 +3,7 @@ package Controller;
 import Enums.Role;
 import Model.InventoryService;
 import Repository.ItemRepository;
+import Repository.ProductLineRepository;
 import Repository.ProductRepository;
 import Repository.TaskRepository;
 import Model.User;
@@ -19,6 +20,8 @@ public class MainController {
     TaskRepository taskRepository = new TaskRepository();
     LoginController loginController ;
     InventoryService inventoryService = new InventoryService(itemRepository  ,productRepository);
+    ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
+
     public MainController(){
     loginController= new LoginController();
     }
@@ -31,7 +34,7 @@ public void onLoginSuccess(User user){
 
         if(user.getRole()== Role.Supervisor){
             frame = new BaseFrame(user.getUsername() , user.getRole().toString());
-            new ProductController(productRepository , inventoryService,frame );
+            new ProductController(productRepository , inventoryService,frame ,itemRepository,taskRepository ,productLineRepository);
             frame.getItemsButton().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -42,7 +45,7 @@ public void onLoginSuccess(User user){
             frame.getProductsButton().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    new ProductController(productRepository , inventoryService,frame );
+                    new ProductController(productRepository , inventoryService,frame , itemRepository ,taskRepository ,productLineRepository);
                 }
             });
 
@@ -74,8 +77,12 @@ public void onLoginSuccess(User user){
 
 public void loadAll(){
         this.itemRepository.load();
-        this.productRepository.load();
         this.taskRepository.load();
+        this.productRepository.load();
+        this.productLineRepository.load();
+
 }
 
 }
+
+

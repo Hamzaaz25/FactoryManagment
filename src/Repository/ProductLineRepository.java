@@ -15,8 +15,8 @@ public class ProductLineRepository {
        this.taskRepository = tr;
     }
 
-    public void load(String path){
-        this.listOfProductLines = DataReader.readProductLines(path);
+    public void load(){
+        this.listOfProductLines = DataReader.readProductLines("./Files/ProductLines.csv");
         for(ProductLine pl : this.listOfProductLines){
             productLineNumbers.put(pl.getId() , pl);
             for(Integer i : pl.getListOfTaskNumbers()){
@@ -39,4 +39,7 @@ public class ProductLineRepository {
         this.productLineNumbers.put(productLine.getId() , productLine);
     }
 
+    public ArrayList<ProductLine> getList() {
+        return listOfProductLines;
+    }
 }

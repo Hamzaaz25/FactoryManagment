@@ -1,4 +1,6 @@
 package View;
+import Enums.ItemStatus;
+import Enums.MaterialType;
 import Model.Product;
 
 import javax.swing.*;
@@ -15,27 +17,34 @@ public class ProductsView extends JPanel{
     private JTextField searchText = new JTextField(" Search ...");;
     private JLabel noResults = new JLabel("No products match your search", SwingConstants.CENTER);
     private JButton searchButton;
+    JComboBox<String> filters;
+    JComboBox<String> productLines;
 
-    public ProductsView( ArrayList<Product> list , Consumer<Product> onSelect , Consumer<Product> onDelete , Consumer<Product> onEdit) {
-
+    public ProductsView(ArrayList<Product> list,String[] options ,Consumer<Product> onSelect, Consumer<Product> onDelete, Consumer<Product> onEdit) {
 
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
 
+        // --- Combo boxes ---
+        productLines = new JComboBox<>(options);
+        JPanel plPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
+        plPanel.setOpaque(false);
+        plPanel.add(productLines);
 
+        filters = new JComboBox<>(new String[]{"All", "Most Tasked "});
+        JPanel availablePanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
+        availablePanel.setOpaque(false);
+        availablePanel.add(filters);
+
+        // --- Search setup ---
         searchText.setPreferredSize(new Dimension(250, 35));
         searchText.setForeground(Color.GRAY);
         searchText.setFont(new Font("Segoe UI", Font.ITALIC, 13));
-
         searchText.putClientProperty("JComponent.arc", 15);
         searchText.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
                 BorderFactory.createEmptyBorder(0, 10, 0, 10)
         ));
-
-
-
-
 
         noResults.setFont(new Font("Segoe UI", Font.BOLD, 18));
         noResults.setForeground(Color.black);
@@ -44,28 +53,32 @@ public class ProductsView extends JPanel{
         noResults.setVerticalTextPosition(JLabel.BOTTOM);
         noResults.setHorizontalTextPosition(JLabel.CENTER);
 
-
-         searchButton = new JButton();
+        searchButton = new JButton();
         ImageIcon iconn = new ImageIcon("./assets/searchh.png");
         Image scaledImgg = iconn.getImage().getScaledInstance(24, 24, Image.SCALE_SMOOTH);
         searchButton.setIcon(new ImageIcon(scaledImgg));
         searchButton.setBackground(Color.white);
         searchButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-
         JPanel searchBar = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 10));
         searchBar.setOpaque(false);
         searchBar.add(searchText);
         searchBar.add(searchButton);
 
-        this.add(searchBar,BorderLayout.NORTH);
+        // --- Top bar with combo boxes and search bar ---
+        JPanel topBar = new JPanel(new BorderLayout());
+        topBar.setOpaque(false);
+        topBar.add(plPanel, BorderLayout.WEST);
+        topBar.add(availablePanel, BorderLayout.EAST);
+        topBar.add(searchBar, BorderLayout.CENTER);
 
-        container=new JPanel(new GridLayout(0, 3, 100, 100));
+        this.add(topBar, BorderLayout.NORTH);
+
+        container = new JPanel(new GridLayout(0, 3, 100, 100));
         container.setBorder(new EmptyBorder(40, 150, 40, 150));
         container.setOpaque(false);
 
-        renderProducts(list , onSelect , onDelete ,onEdit);
-
+        renderProducts(list, onSelect, onDelete, onEdit);
 
         JPanel mainContentPanel = new JPanel();
         mainContentPanel.setLayout(new BoxLayout(mainContentPanel, BoxLayout.Y_AXIS));
@@ -80,14 +93,10 @@ public class ProductsView extends JPanel{
 
         mainContentPanel.add(container);
 
-
-
         JPanel wrapperPanel = new JPanel(new BorderLayout());
         wrapperPanel.setOpaque(false);
-
         wrapperPanel.add(container, BorderLayout.NORTH);
 
-        
         JPanel rightContainer = new JPanel(new BorderLayout());
         rightContainer.setOpaque(false);
         rightContainer.add(container, BorderLayout.NORTH);
@@ -95,6 +104,7 @@ public class ProductsView extends JPanel{
         this.add(rightContainer, BorderLayout.CENTER);
         this.setVisible(true);
     }
+
 
 
 
@@ -156,5 +166,17 @@ public class ProductsView extends JPanel{
 
     public JButton getSearchButton() {
         return searchButton;
+    }
+
+    public AddBtn getAddCard() {
+        return addCard;
+    }
+
+    public JComboBox getFilters() {
+        return filters;
+    }
+
+    public JComboBox<String> getProductLines() {
+        return productLines;
     }
 }

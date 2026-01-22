@@ -54,7 +54,7 @@ public class PickItemsFrame extends JFrame {
         this.add(done);
 
 
-        this.setVisible(true);
+        this.setVisible(false);
     }
 
     public JComboBox<String> getItemsBox() {

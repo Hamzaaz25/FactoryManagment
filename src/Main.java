@@ -2,22 +2,21 @@
 
 
 import Controller.MainController;
-
 import Model.Item;
+import Model.Task;
 import Repository.ItemRepository;
-import View.AddProduct;
-import View.BaseFrame;
-import View.PickItemsFrame;
+import Repository.TaskRepository;
+import View.*;
 import com.formdev.flatlaf.FlatLightLaf;
-
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
+
 
 
 public class Main {
+    public static void print(Task t){
+        System.out.println(t.getTaskNumber());
+    }
     public static void main(String[] args)  {
 
         FlatLightLaf.setup();
@@ -29,10 +28,23 @@ public class Main {
         UIManager.put("Component.focusWidth", 1);
         UIManager.put("Component.innerFocusWidth", 0);
        new MainController();
+//        String[]a = new String[0] ;
+//new PickItemsFrame(new AddProduct() ,a ).setVisible(true);
+//        BaseFrame baseFrame = new BaseFrame("","");
+//        baseFrame.switchContent(new ManagerLineView() , "Manager");
+//        TaskRepository taskRepository = new TaskRepository();
+//        taskRepository.load();
+//        baseFrame.switchContent(new ProductLineDisplayViewTasks(taskRepository.getListOfTasks() , Main::print) , "");
 
-//        BaseFrame frame = new BaseFrame("Hello" , "<");
-//        frame.switchContent(new AddProduct() , "");
 
+//        PickItemsFrame pickItemsFrame = new PickItemsFrame(new AddProduct() , a);
+//        pickItemsFrame.getDone().addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                System.out.println(pickItemsFrame.getItemsBox().getSelectedItem());
+//                System.out.println(pickItemsFrame.getSlider().getValue());
+//            }
+//        });
 //        AddItem add = new AddItem();
 //        add.getSave().addActionListener(new ActionListener() {
 //            @Override

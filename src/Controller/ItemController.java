@@ -175,9 +175,11 @@ public class ItemController {
                 if(!addItemPanel.isAnyFieldBlank()){
                     if(validateEdit(addItemPanel.getPrice(), addItemPanel.getAmount()) && validateEdit(addItemPanel.getPrice(), addItemPanel.getMinimum())){
                         if(imagePath[0] != null){
+                          if(isPositive(addItemPanel.getPrice() , addItemPanel.getAmount() , addItemPanel.getMinimum()))  {
                           inventoryService.addItem(addItemPanel.getName().trim() , addItemPanel.getCategory() , Integer.parseInt(addItemPanel.getAmount()) , Double.parseDouble(addItemPanel.getPrice()) , imagePath[0]);
                           applyFilters();
                           baseFrame.switchContent(view , "Items");
+                          }else{baseFrame.showError("You cannot enter negative values");}
                         }
                         else{
                             baseFrame.showError("You should add an image");
@@ -192,7 +194,16 @@ public class ItemController {
             });
             addItemPanel.getImageBtn().addActionListener(_ -> {
                 ImageFileChooser imageFileChooser= new ImageFileChooser(baseFrame);
+                JButton btn = addItemPanel.getImageBtn();
+                int w = btn.getWidth() > 0 ? btn.getWidth() : btn.getPreferredSize().width;
+                int h = btn.getHeight() > 0 ? btn.getHeight() : btn.getPreferredSize().height;
                 imagePath[0] =imageFileChooser.getPath();
+                ImageIcon imageIcon = new ImageIcon(imagePath[0]);
+                Image scaledImg = imageIcon.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
+                btn.setIcon(new ImageIcon(scaledImg) );
+                btn.setText("");
+                if(imagePath[0] == null)
+                    btn.setText("+");
 
             });
 
@@ -200,4 +211,8 @@ public class ItemController {
         });
     }
 
+
+    private boolean isPositive(String doubleValue, String intValue , String intValue1){
+        return Double.parseDouble(doubleValue)>0 && Integer.parseInt(intValue) > 0 && Integer.parseInt(intValue1)>0;
+    }
 }

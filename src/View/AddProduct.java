@@ -119,11 +119,11 @@ public class AddProduct extends JPanel {
     }
 
 
-    public String getNameField() {
+    public String getName() {
         return nameField.getText();
     }
 
-    public String getPriceField() {
+    public String getPrice() {
         return priceField.getText();
     }
 
@@ -137,5 +137,13 @@ public class AddProduct extends JPanel {
 
     public JButton getImageBtn() {
         return imageBtn;
+    }
+
+    public JTextField getItemsField() {
+        return itemsField;
+    }
+
+    public boolean isAnyFieldBlank(){
+        return (getName().isBlank() || getPrice().isBlank() );
     }
 }
