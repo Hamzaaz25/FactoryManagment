@@ -41,15 +41,47 @@ public class ProductLineView extends JPanel {
     }
 
     private JPanel createProductCard(ProductLine pl , Consumer<ProductLine> onLineClicked) {
-        JPanel card = new JPanel();
+        JPanel wrapper = new JPanel(new FlowLayout(FlowLayout.CENTER,0,0));
+        wrapper.setOpaque(false);
+
+        JPanel card = new JPanel(new BorderLayout(0,15));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
+
         card.setBackground(new Color(94, 142, 180));
         card.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
+        card.setPreferredSize(new Dimension(380, 400));
         card.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(200, 200, 200), 1),
-                BorderFactory.createEmptyBorder(25, 30, 25, 30)
+                BorderFactory.createEmptyBorder(0, 0, 20, 0)
         ));
+
+        //Image
+        String imagePath;
+        switch (pl.getStatus()) {
+            case Active -> imagePath = "./assets/productlinee.png";
+            case Maintenance -> imagePath = "./assets/stopedline.png";
+            default -> imagePath = "./assets/brokenline.png";
+        }
+
+        JLabel lblImage = new JLabel();
+        ImageIcon icon = new ImageIcon(imagePath);
+
+        if (icon.getIconWidth() != -1) {
+            Image scaledImg = icon.getImage().getScaledInstance(380, 220, Image.SCALE_SMOOTH);
+            lblImage.setIcon(new ImageIcon(scaledImg));
+        } else {
+            lblImage.setText("Image Not Found");
+            lblImage.setForeground(Color.RED);
+        }
+
+        lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+        card.add(lblImage, BorderLayout.NORTH);
+
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.Y_AXIS));
+        infoPanel.setOpaque(false);
+        infoPanel.setBorder(new EmptyBorder(0, 25, 10, 25));
 
         // Name
         JLabel lblName = new JLabel(pl.getName());
@@ -74,11 +106,13 @@ public class ProductLineView extends JPanel {
             case Maintenance -> lblStatus.setForeground(new Color(220, 53, 69));
         }
 
-        card.add(lblName);
-        card.add(Box.createVerticalStrut(8));
-        card.add(lblId);
-        card.add(Box.createVerticalStrut(20));
-        card.add(lblStatus);
+        infoPanel.add(lblName);
+        infoPanel.add(Box.createVerticalStrut(10));
+        infoPanel.add(lblId);
+        infoPanel.add(Box.createVerticalStrut(25));
+        infoPanel.add(lblStatus);
+
+        card.add(infoPanel, BorderLayout.CENTER);
 
         // Add click listener for the whole card
         card.addMouseListener(new MouseAdapter() {
@@ -88,7 +122,8 @@ public class ProductLineView extends JPanel {
             }
         });
 
-        return card;
+        wrapper.add(card);
+        return wrapper;
     }
 
 
