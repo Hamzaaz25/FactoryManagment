@@ -1,12 +1,11 @@
 package Controller;
 
 import Enums.Role;
-import Model.InventoryService;
+import Model.*;
 import Repository.ItemRepository;
 import Repository.ProductLineRepository;
 import Repository.ProductRepository;
 import Repository.TaskRepository;
-import Model.User;
 import View.BaseFrame;
 import View.ProfileView;
 
@@ -21,6 +20,8 @@ public class MainController {
     LoginController loginController ;
     InventoryService inventoryService = new InventoryService(itemRepository  ,productRepository);
     ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
+    TaskService taskService = new TaskService(itemRepository,productRepository,taskRepository,productLineRepository);
+    ProductLineManager productLineManager = new ProductLineManager(productLineRepository,taskService);
 
     public MainController(){
     loginController= new LoginController();
@@ -39,6 +40,13 @@ public void onLoginSuccess(User user){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     new ItemController(itemRepository,inventoryService,frame );
+                }
+            });
+
+            frame.getProductLinesButton().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new ProductLineController(productLineRepository , taskRepository ,taskService,productLineManager,productRepository,frame );
                 }
             });
 
@@ -76,10 +84,15 @@ public void onLoginSuccess(User user){
 
 
 public void loadAll(){
+
         this.itemRepository.load();
         this.taskRepository.load();
         this.productRepository.load();
         this.productLineRepository.load();
+
+        for(ProductLine pl : productLineRepository.getList()){
+            productLineManager.register(pl);
+        }
 
 }
 

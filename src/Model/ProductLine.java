@@ -15,7 +15,7 @@ public class ProductLine  {
     private int Id;
     private String name;
     private Status status ;
-    List<Task> taskLine = Collections.synchronizedList(new ArrayList<>());
+    ArrayList<Task> taskLine = new ArrayList<>();
     private ArrayList<Integer> listOfTaskNumbers = new ArrayList<>();
     private static int count =0;
 
@@ -62,8 +62,12 @@ public class ProductLine  {
         this.status = status;
     }
 
-    public List<Task> getTaskLine() {
+    public ArrayList<Task> getTaskLine() {
         return taskLine;
+    }
+
+    public void addToTaskLine(Task t){
+        taskLine.add(t);
     }
 
 //    public void setTaskLine(ArrayList<Model.Task> taskLine) {

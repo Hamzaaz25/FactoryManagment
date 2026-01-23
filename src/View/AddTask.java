@@ -5,98 +5,127 @@ import java.awt.*;
 
 public class AddTask extends JPanel {
 
-        public AddTask() {
+    private final JTextField clientField;
+    private final JComboBox<String> productBox;
+    private final JTextField quantityField;
+    private final JButton saveButton;
 
-            setLayout(null);
-            setBackground(new Color(38, 55, 85));
+    /**
+     * @param products array of product names for the combo box
+     */
+    public AddTask(String[] products) {
+        setBackground(new Color(38, 55, 85));
+        setLayout(new GridBagLayout()); // center everything
 
-            //The center
-            int centerX = 450;
-            int startY  = 260;
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(15, 10, 15, 10);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.anchor = GridBagConstraints.CENTER;
 
-            int labelW = 140;
-            int fieldW = 300;
-            int comboW = 320;
-            int rowH   = 44;
-            int gapY   = 28;
-            int gapX   = 40;
+        // ===== HEADER =====
+        JLabel headerLabel = new JLabel("Add Task Info");
+        headerLabel.setForeground(Color.WHITE);
+        headerLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridwidth = 2; // span both columns
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(headerLabel, gbc);
 
-            //Client
-            JLabel clientLabel = createLabel("Client");
-            clientLabel.setBounds(centerX, startY, labelW, rowH);
-            add(clientLabel);
+        gbc.gridwidth = 1; // reset for fields
 
-            JTextField clientField = createField();
-            clientField.setBounds(centerX + labelW + 10, startY, fieldW, rowH);
-            add(clientField);
+        // Copy dimensions from AddItem
+        int fieldW = 260;
+        int fieldH = 40;
 
-            //Quantity
-            JLabel quantityLabel = createLabel("Quantity");
-            quantityLabel.setBounds(centerX,
-                    startY + rowH + gapY, labelW, rowH);
-            add(quantityLabel);
+        // ===== CLIENT FIELD =====
+        JLabel clientLabel = createLabel("Client");
+        gbc.gridx = 0;
+        gbc.gridy = 1; // row 1 because header is row 0
+        add(clientLabel, gbc);
 
-            JTextField quantityField = createField();
-            quantityField.setBounds(centerX + labelW + 10,
-                    startY + rowH + gapY, fieldW, rowH);
-            add(quantityField);
+        clientField = createField(fieldW, fieldH);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        add(clientField, gbc);
 
-            //Product
-            JLabel productLabel = createLabel("Product");
-            productLabel.setBounds(centerX + labelW + fieldW + gapX,
-                    startY, labelW, rowH);
-            add(productLabel);
+        // ===== PRODUCT COMBO BOX =====
+        JLabel productLabel = createLabel("Product");
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        add(productLabel, gbc);
 
-            String[] products = {
-                    "Product 1", "Product 2", "Product 3",
-                    "Product 4", "Product 5", "Product 6", "Product 7"
-            };
+        productBox = new JComboBox<>(products);
+        productBox.setFont(new Font("Arial", Font.PLAIN, 16));
+        productBox.setBackground(new Color(20, 33, 61));
+        productBox.setForeground(Color.WHITE);
+        productBox.setBorder(BorderFactory.createLineBorder(new Color(120, 165, 200), 2));
+        productBox.setPreferredSize(new Dimension(fieldW, fieldH));
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        add(productBox, gbc);
 
-            JComboBox<String> productBox = new JComboBox<>(products);
-            productBox.setBounds(centerX + labelW + fieldW + gapX + labelW + 10,
-                    startY, comboW, rowH);
-            productBox.setFont(new Font("Arial", Font.PLAIN, 18));
-            productBox.setBackground(new Color(20, 33, 61));
-            productBox.setForeground(Color.WHITE);
-            productBox.setBorder(BorderFactory.createLineBorder(
-                    new Color(120, 165, 200), 2));
-            add(productBox);
+        // ===== QUANTITY FIELD =====
+        JLabel quantityLabel = createLabel("Quantity");
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        add(quantityLabel, gbc);
 
-            //Progress Bar
-            int progressY = startY + 2 * (rowH + gapY) + 10;
-            int progressW = labelW + fieldW + gapX + labelW + comboW + 10;
+        quantityField = createField(fieldW, fieldH);
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        add(quantityField, gbc);
 
-            JProgressBar progressBar = new JProgressBar(0, 100);
-            progressBar.setValue(0);
-            progressBar.setStringPainted(true);
-            progressBar.setFont(new Font("Arial", Font.BOLD, 16));
-            progressBar.setForeground(new Color(120, 165, 200));
-            progressBar.setBackground(new Color(20, 33, 61));
-            progressBar.setBorder(BorderFactory.createLineBorder(
-                    new Color(120, 165, 200), 2));
+        // ===== SAVE BUTTON =====
+        saveButton = new JButton("SAVE");
+        saveButton.setFocusPainted(false);
+        saveButton.putClientProperty(
+                "FlatLaf.style",
+                "background: #4caf50; foreground: #fff; arc:10; font: bold 16"
+        );
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.anchor = GridBagConstraints.CENTER;
+        add(saveButton, gbc);
+    }
 
-            progressBar.setBounds(centerX, progressY, progressW, 34);
-            add(progressBar);
-        }
 
-        //Labels styling
-        private JLabel createLabel(String text) {
-            JLabel lbl = new JLabel(text);
-            lbl.setForeground(Color.WHITE);
-            lbl.setFont(new Font("Arial", Font.BOLD, 20));
-            return lbl;
-        }
+    // ===== Label styling =====
+    private JLabel createLabel(String text) {
+        JLabel lbl = new JLabel(text);
+        lbl.setForeground(Color.WHITE);
+        lbl.setFont(new Font("Arial", Font.BOLD, 18)); // same as AddItem labels
+        return lbl;
+    }
 
-        //TextField styling
-        private JTextField createField() {
-            JTextField field = new JTextField();
-            field.setFont(new Font("Arial", Font.PLAIN, 18));
-            field.setBackground(new Color(20, 33, 61));
-            field.setForeground(Color.WHITE);
-            field.setCaretColor(Color.WHITE);
-            field.setBorder(BorderFactory.createLineBorder(
-                    new Color(120, 165, 200), 2));
-            return field;
-        }
+    // ===== Text field styling =====
+    private JTextField createField(int width, int height) {
+        JTextField field = new JTextField();
+        field.setFont(new Font("Arial", Font.PLAIN, 16)); // same as AddItem
+        field.setBackground(new Color(20, 33, 61));
+        field.setForeground(Color.WHITE);
+        field.setCaretColor(Color.WHITE);
+        field.setBorder(BorderFactory.createLineBorder(new Color(120, 165, 200), 2));
+        field.setPreferredSize(new Dimension(width, height));
+        return field;
+    }
 
+    /* ===== GETTERS ===== */
+    public JTextField getClientField() {
+        return clientField;
+    }
+
+    public JComboBox<String> getProductBox() {
+        return productBox;
+    }
+
+    public JTextField getQuantityField() {
+        return quantityField;
+    }
+
+    public JButton getSaveButton() {
+        return saveButton;
+    }
 }

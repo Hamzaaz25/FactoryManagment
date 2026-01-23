@@ -346,6 +346,10 @@ public JButton getProductsLineButton(){
         return this.profileButton;
     }
 
+    public JButton getProductLinesButton(){
+        return this.productsLineButton;
+    }
+
 
     public void showError(String message) {
         // Create a custom panel for the popup

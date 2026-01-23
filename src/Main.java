@@ -3,8 +3,10 @@
 
 import Controller.MainController;
 import Model.Item;
+import Model.ProductLine;
 import Model.Task;
 import Repository.ItemRepository;
+import Repository.ProductLineRepository;
 import Repository.TaskRepository;
 import View.*;
 import com.formdev.flatlaf.FlatLightLaf;
@@ -14,8 +16,8 @@ import java.awt.*;
 
 
 public class Main {
-    public static void print(Task t){
-        System.out.println(t.getTaskNumber());
+    public static void print(ProductLine pl){
+        System.out.println(pl.getName());
     }
     public static void main(String[] args)  {
 
@@ -28,10 +30,17 @@ public class Main {
         UIManager.put("Component.focusWidth", 1);
         UIManager.put("Component.innerFocusWidth", 0);
        new MainController();
-//        String[]a = new String[0] ;
+
+//        String[]a = new String[0] ;ama
 //new PickItemsFrame(new AddProduct() ,a ).setVisible(true);
 //        BaseFrame baseFrame = new BaseFrame("","");
-//        baseFrame.switchContent(new ManagerLineView() , "Manager");
+//        baseFrame.switchContent(new ManagerLineView() , "");/
+//        TaskRepository taskRepository = new TaskRepository();
+//        taskRepository.load();
+//        ProductLineRepository productLineRepository =  new ProductLineRepository(taskRepository);
+//        productLineRepository.load();
+
+//        baseFrame.switchContent(new ProductLineView(productLineRepository.getList() , Main::print) , "Manager");
 //        TaskRepository taskRepository = new TaskRepository();
 //        taskRepository.load();
 //        baseFrame.switchContent(new ProductLineDisplayViewTasks(taskRepository.getListOfTasks() , Main::print) , "");

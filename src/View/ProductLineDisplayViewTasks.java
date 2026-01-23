@@ -5,6 +5,7 @@ import Model.Task;
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicProgressBarUI;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -15,8 +16,9 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
     private JPanel tasksContainer;
     private final Consumer<Task> onCancelTask;
+    private final JButton addTaskButton;
 
-    public ProductLineDisplayViewTasks(List<Task> tasks,
+    public ProductLineDisplayViewTasks(ArrayList<Task> tasks,
                                        Consumer<Task> onCancelTask) {
 
         this.onCancelTask = onCancelTask;
@@ -25,10 +27,25 @@ public class ProductLineDisplayViewTasks extends JPanel {
         setBackground(BG);
         setOpaque(true);
 
+        // ---- Add Task Button ----
+        addTaskButton = new JButton("ADD TASK");
+        addTaskButton.setFocusPainted(false);
+        addTaskButton.putClientProperty(
+                "FlatLaf.style",
+                "background: #4caf50; foreground: #fff; arc:10; font: bold 14"
+        );
+        JPanel topBar = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        topBar.setOpaque(false);
+        topBar.setBorder(BorderFactory.createEmptyBorder(20, 20, 0, 20));
+        topBar.add(addTaskButton);
+
+        add(topBar, BorderLayout.NORTH);
+
+        // ---- Tasks container ----
         tasksContainer = new JPanel();
         tasksContainer.setLayout(new BoxLayout(tasksContainer, BoxLayout.Y_AXIS));
         tasksContainer.setBackground(BG);
-        tasksContainer.setBorder(BorderFactory.createEmptyBorder(80, 170, 80, 170));
+        tasksContainer.setBorder(BorderFactory.createEmptyBorder(20, 50, 20, 50));
         tasksContainer.setOpaque(true);
 
         setTasks(tasks);
@@ -54,6 +71,11 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
         revalidate();
         repaint();
+    }
+
+    /* ===== Getter for Add Task button ===== */
+    public JButton getAddTaskButton() {
+        return addTaskButton;
     }
 
     /* ===== Single task card ===== */
