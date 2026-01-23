@@ -74,6 +74,28 @@ public class ProductLine  {
 //        this.taskLine = taskLine;
 //    }
 
+    public int getProgress() {
+        int sum = 0;
+        int count = this.getTaskLine().size();
+
+        if (count == 0) return 0;
+
+        for (Task task : this.getTaskLine()) {
+            sum += task.getProgressPercentage();
+        }
+
+        double avg =  sum / count;
+
+        // guarantee 0–100
+        return (int) Math.max(0, Math.min(100, avg));
+    }
+
+    public String getNotes(){
+        return "Notes";
+    }
+
+
+
 
     public ArrayList<Integer> getListOfTaskNumbers() {
         return listOfTaskNumbers;

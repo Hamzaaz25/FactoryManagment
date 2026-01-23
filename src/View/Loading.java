@@ -30,7 +30,7 @@ public class Loading extends JFrame {
 
     Timer timer = new Timer(6000, e -> {
         this.dispose();
-        new LoginController();
+//        new LoginController();
     });
         timer.setRepeats(false);
         timer.start();

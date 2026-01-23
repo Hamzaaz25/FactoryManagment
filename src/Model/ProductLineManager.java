@@ -32,6 +32,7 @@ public class ProductLineManager {
         ProductLine pl = new ProductLine(name);
         this.productLineRepository.insert(pl);
         register(pl);
+        productLineRepository.save();
     }
 
 }

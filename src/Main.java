@@ -30,6 +30,24 @@ public class Main {
         UIManager.put("Component.focusWidth", 1);
         UIManager.put("Component.innerFocusWidth", 0);
        new MainController();
+//        System.out.println("Hello");
+
+//
+//        ManagerBaseFrame baseFrame = new ManagerBaseFrame("","");
+//        TaskRepository taskRepository = new TaskRepository();
+//        taskRepository.load();
+//        ProductLineRepository productLineRepository= new ProductLineRepository(taskRepository);
+//        productLineRepository.load();
+//        Runnable runnable = new Runnable() {
+//            @Override
+//            public void run() {
+//                System.out.println("Hello");
+//            }
+//        };
+//        System.out.println(productLineRepository.getList().isEmpty());
+//        baseFrame.switchContent(new ManagerLineView(productLineRepository.getList() ,Main::print) , "");
+
+
 
 //        String[]a = new String[0] ;ama
 //new PickItemsFrame(new AddProduct() ,a ).setVisible(true);

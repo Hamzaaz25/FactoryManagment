@@ -226,7 +226,7 @@ public class ManagerBaseFrame extends JFrame {
         this.add(sideBar,BorderLayout.WEST);
 
 
-        this.setVisible(true);
+        this.setVisible(false);
     }
     public void styleSidebarButton(JButton button) {
         button.setContentAreaFilled(false);

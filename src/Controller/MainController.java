@@ -7,6 +7,7 @@ import Repository.ProductLineRepository;
 import Repository.ProductRepository;
 import Repository.TaskRepository;
 import View.BaseFrame;
+import View.ManagerBaseFrame;
 import View.ProfileView;
 
 import java.awt.event.ActionEvent;
@@ -22,20 +23,40 @@ public class MainController {
     ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
     TaskService taskService = new TaskService(itemRepository,productRepository,taskRepository,productLineRepository);
     ProductLineManager productLineManager = new ProductLineManager(productLineRepository,taskService);
-
+    private static boolean loaded = false;
     public MainController(){
+
     loginController= new LoginController();
     }
 public void onLoginSuccess(User user){
-        this.loadAll();
+    this.loadAll();
         if(user.getRole()== Role.Manager){
-          frame = new BaseFrame(user.getUsername() , user.getRole().toString());
-          new ItemController(itemRepository,inventoryService , frame );
+            ManagerBaseFrame baseFrame = new ManagerBaseFrame(user.getUsername() , "Product Lines");
+            new ManagerController(productLineRepository,productLineManager,baseFrame);
+
+            baseFrame.getProfileButton().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ProfileView profileView = new ProfileView(user);
+                    baseFrame.switchContent(profileView , "Profile");
+                    profileView.getLogoutButton().addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            baseFrame.setVisible(false);
+                            loginController.view.setVisible(true);
+                        }
+                    });
+                }
+            });
         }
 
         if(user.getRole()== Role.Supervisor){
             frame = new BaseFrame(user.getUsername() , user.getRole().toString());
             new ProductController(productRepository , inventoryService,frame ,itemRepository,taskRepository ,productLineRepository);
+
+
+
+
             frame.getItemsButton().addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -63,27 +84,29 @@ public void onLoginSuccess(User user){
                     new TaskController(taskRepository , frame);
                 }
             });
+            frame.getProfileButton().addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    ProfileView profileView = new ProfileView(user);
+                    frame.switchContent(profileView , "Profile");
+                    profileView.getLogoutButton().addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            frame.setVisible(false);
+                            loginController.view.setVisible(true);
+                        }
+                    });
+                }
+            });
 
         }
 
-        frame.getProfileButton().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ProfileView profileView = new ProfileView(user);
-                frame.switchContent(profileView , "Profile");
-                profileView.getLogoutButton().addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        frame.setVisible(false);
-                        loginController.view.setVisible(true);
-                    }
-                });
-            }
-        });
+
 }
 
 
 public void loadAll(){
+        if(loaded) return;
 
         this.itemRepository.load();
         this.taskRepository.load();
@@ -93,7 +116,7 @@ public void loadAll(){
         for(ProductLine pl : productLineRepository.getList()){
             productLineManager.register(pl);
         }
-
+loaded = true;
 }
 
 }

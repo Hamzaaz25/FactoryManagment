@@ -199,7 +199,7 @@ public static ArrayList<Product> readProducts(String path){
             DataWriter.writeErrors(e);
             return listOfProductLines;
         }catch (IllegalArgumentException il){
-            DataWriter.writeErrors(il);
+            DataWriter.writeErrors(il +"Product Lines");
             return new ArrayList<>();
         }
     }

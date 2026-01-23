@@ -15,7 +15,6 @@ import View.ProductLineView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductLineController {
     private final ProductLineRepository productLineRepository;
@@ -43,26 +42,7 @@ public class ProductLineController {
         this.productLineManager = productLineManager;
     }
 
-    // Called from the View to add a new product line
-    public void addProductLine(String name) {
-        productLineManager.addProductLine(name);
-    }
 
-    // Called from the View to add a task to a line
-    public void addTaskToLine(int id, Task task) {
-        ProductLineService service = productLineManager.getService(productLineRepository.getProductLineByNumber(id));
-        if (service != null) {
-            service.addTask(task);
-        }
-    }
-
-    // Called from the View to update a line's status
-    public void editProductLineStatus(ProductLine pl , Status status) {
-        ProductLineService service = productLineManager.getService(pl);
-        if (service != null) {
-            service.editProductLineStatus(status);
-        }
-    }
 
     private void onSelect(ProductLine pl){
         ProductLineDisplayViewTasks displayViewTasks = new ProductLineDisplayViewTasks(pl.getTaskLine() , this::onTaskCancel);
@@ -135,5 +115,8 @@ public class ProductLineController {
             taskService.cancelTask(task);
         }
     }
+
+
+
 
 }
