@@ -117,8 +117,8 @@ public class AddTask extends JPanel {
         return clientField;
     }
 
-    public JComboBox<String> getProductBox() {
-        return productBox;
+    public String getProductBox() {
+        return productBox.getSelectedItem().toString();
     }
 
     public JTextField getQuantityField() {

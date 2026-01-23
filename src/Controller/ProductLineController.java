@@ -2,6 +2,7 @@ package Controller;
 
 import Enums.Status;
 import Enums.TaskStatus;
+import Enums.TaskValidation;
 import Model.*;
 import Repository.ProductLineRepository;
 import Repository.ProductRepository;
@@ -59,7 +60,7 @@ public class ProductLineController {
     public void editProductLineStatus(ProductLine pl , Status status) {
         ProductLineService service = productLineManager.getService(pl);
         if (service != null) {
-            service.editProductLineStatus(pl.getId(),status);
+            service.editProductLineStatus(status);
         }
     }
 
@@ -70,7 +71,27 @@ public class ProductLineController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 AddTask addTask = new AddTask(getProductsOptions());
-                baseFrame.switchContent(addTask , "Add Tasks");
+                baseFrame.switchContent(addTask , "Add Task");
+                addTask.getSaveButton().addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        if(!addTask.getClientField().getText().isBlank() && !addTask.getQuantityField().getText().isBlank()){
+                            if(validateQuantity(addTask.getQuantityField().getText())){
+                                Task task = new Task(addTask.getProductBox().trim() ,Integer.parseInt(addTask.getQuantityField().getText().trim()), addTask.getClientField().getText() ,pl.getId() ,TaskStatus.Pending );
+                                TaskValidation validation =productLineManager.getService(pl).addTask(task);
+                                if(validation != TaskValidation.Valid ){
+                                    baseFrame.showError("Sorry , " + validation);
+                                }
+                                displayViewTasks.setTasks(pl.getTaskLine());
+                                baseFrame.switchContent(displayViewTasks ,"Tasks");
+                            }else baseFrame.showError("QUANTITY MUST NOT CONTAIN CHAR");
+                        }else baseFrame.showError("FIELDS MUST NOT BE EMPTY");
+
+
+
+
+                    }
+                });
 
             }
         });
@@ -94,6 +115,15 @@ public class ProductLineController {
         return options;
     }
 
+    private boolean validateQuantity(String quantity){
+        try{
+            Integer.parseInt(quantity);
+            return true;
+        }catch (NumberFormatException e){
+            return false;
+        }
+    }
+
     public void onTaskCancel(Task task){
         if(task.getStatus() == TaskStatus.Cancelled){
             baseFrame.showError("The task is already cancelled");
@@ -101,6 +131,7 @@ public class ProductLineController {
             baseFrame.showError("The task is already completed");
 
         }else{
+
             taskService.cancelTask(task);
         }
     }

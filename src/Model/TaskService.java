@@ -80,6 +80,7 @@ public class TaskService {
         ProductLine productLine = this.productLineRepository.getProductLineByNumber(t.getProductLine()) ;
 
             if (t.getStatus() != TaskStatus.Cancelled) {
+                t.setStatus(TaskStatus.InProgress);
                 t.setWorking(true);
                 for (int i = 1; i <= t.getRequestedQuantity(); i++) {
                     if (t.getStatus() == TaskStatus.Cancelled || productLine.getStatus() == Status.Maintenance) {

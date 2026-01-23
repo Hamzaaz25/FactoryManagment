@@ -99,7 +99,7 @@ public class TaskView extends JPanel {
         JTextField productSearchBox = new JTextField(16);
         productSearchBox.putClientProperty(FlatClientProperties.PLACEHOLDER_TEXT, "Product Name");
 
-        JComboBox<String> status = new JComboBox<>(new String[]{"All", TaskStatus.Completed.toString(), TaskStatus.InProgress.toString(), TaskStatus.Cancelled.toString()});
+        JComboBox<String> status = new JComboBox<>(new String[]{"All", TaskStatus.Completed.toString(), TaskStatus.InProgress.toString(), TaskStatus.Cancelled.toString() , TaskStatus.Pending.toString()});
 
         JButton clearBtn = new JButton("Clear");
 
@@ -182,7 +182,8 @@ public class TaskView extends JPanel {
     // ------------------------------
     private void startProgressUpdater() {
         Timer timer = new Timer(1000, e -> {
-            for (int i = 0; i < this.tasks.size(); i++) {
+            int rows = Math.min(tasks.size(), model.getRowCount());
+            for (int i = 0; i < rows; i++) {
                 Task t = this.tasks.get(i);
                 if(t.getProgressPercentage() >=100 ) {
                     t.setProgressPercentage(100);

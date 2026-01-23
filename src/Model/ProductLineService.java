@@ -1,6 +1,7 @@
 package Model;
 
 import Enums.Status;
+import Enums.TaskStatus;
 import Enums.TaskValidation;
 import Repository.ProductLineRepository;
 
@@ -21,14 +22,15 @@ public class ProductLineService {
         this.executor = Executors.newSingleThreadExecutor();
     }
 
-    public void addTask(Task t) {
+    public TaskValidation addTask(Task t) {
         TaskValidation validation = taskService.validateAndReserve(t);
         System.out.println(validation);
         if (validation == TaskValidation.Valid) {
+                t.setStatus(TaskStatus.Pending);
                 productLine.taskLine.add(t);
                 executor.submit(() -> taskService.runTask(t));
-
             }
+        return validation;
         }
 
 
@@ -38,8 +40,8 @@ public class ProductLineService {
 
     }
 
-    public void editProductLineStatus(int id , Status s){
-       productLineRepository.getProductLineByNumber(id).setStatus(s);
+    public void editProductLineStatus(Status s){
+       productLine.setStatus(s);
        productLineRepository.save();
         }
 

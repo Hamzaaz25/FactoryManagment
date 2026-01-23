@@ -1,5 +1,6 @@
 package View;
 
+import Enums.TaskStatus;
 import Model.Task;
 
 import javax.swing.*;
@@ -17,6 +18,10 @@ public class ProductLineDisplayViewTasks extends JPanel {
     private JPanel tasksContainer;
     private final Consumer<Task> onCancelTask;
     private final JButton addTaskButton;
+    private final List<Task> tasks = new ArrayList<>();
+    private final List<JProgressBar> progressBars = new ArrayList<>();
+    private Timer progressTimer;
+
 
     public ProductLineDisplayViewTasks(ArrayList<Task> tasks,
                                        Consumer<Task> onCancelTask) {
@@ -62,16 +67,24 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
     /* ===== Controller updates tasks ===== */
     public void setTasks(List<Task> tasks) {
+        this.tasks.clear();
+        this.tasks.addAll(tasks);
+
         tasksContainer.removeAll();
+        progressBars.clear();
 
         for (Task task : tasks) {
-            tasksContainer.add(createTaskView(task));
+            JPanel card = createTaskView(task);
+            tasksContainer.add(card);
             tasksContainer.add(Box.createVerticalStrut(20));
         }
 
         revalidate();
         repaint();
+
+        startProgressUpdater(); // 🔥 start / restart timer
     }
+
 
     /* ===== Getter for Add Task button ===== */
     public JButton getAddTaskButton() {
@@ -123,6 +136,14 @@ public class ProductLineDisplayViewTasks extends JPanel {
         progressBar.setBackground(new Color(30, 45, 70));
         progressBar.setForeground(new Color(100, 150, 200));
         progressBar.setUI(createGradientProgressUI(progressBar));
+// 🔥 keep reference
+        progressBars.add(progressBar);
+
+
+
+
+
+
 
         JPanel progressWrapper = new JPanel(new BorderLayout());
         progressWrapper.setOpaque(false);
@@ -163,4 +184,40 @@ public class ProductLineDisplayViewTasks extends JPanel {
             }
         };
     }
+
+
+    private void startProgressUpdater() {
+
+        if (progressTimer != null) {
+            progressTimer.stop();
+        }
+
+        progressTimer = new Timer(1000, e -> {
+
+            int count = Math.min(tasks.size(), progressBars.size());
+            boolean anyRunning = false;
+
+            for (int i = 0; i < count; i++) {
+                Task task = tasks.get(i);
+                JProgressBar bar = progressBars.get(i);
+
+                if (task.getProgressPercentage() >= 100) {
+                    task.setProgressPercentage(100);
+                    bar.setValue(100);
+                }
+                else if (task.getStatus() == TaskStatus.InProgress) {
+                    bar.setValue(task.getProgressPercentage());
+                    anyRunning = true;
+                }
+            }
+
+            // 🛑 stop timer when nothing is running
+            if (!anyRunning) {
+                progressTimer.stop();
+            }
+        });
+
+        progressTimer.start();
+    }
+
 }
