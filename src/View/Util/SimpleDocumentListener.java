@@ -1,10 +1,10 @@
-package View;
+package View.Util;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
 @FunctionalInterface
-interface SimpleDocumentListener extends DocumentListener {
+public interface SimpleDocumentListener extends DocumentListener {
     void update();
 
     @Override default void insertUpdate(DocumentEvent e) { update(); }

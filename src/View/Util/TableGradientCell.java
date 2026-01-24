@@ -1,4 +1,4 @@
-package View;
+package View.Util;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

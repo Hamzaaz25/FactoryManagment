@@ -7,6 +7,7 @@ import Repository.ProductLineRepository;
 import Repository.ProductRepository;
 import Repository.TaskRepository;
 import View.BaseFrame;
+import View.Loading;
 import View.ManagerBaseFrame;
 import View.ProfileView;
 
@@ -45,7 +46,14 @@ public class MainController {
 
     private MainController(){
         loadAll();
-       loginController= new LoginController();
+        new Loading().setVisible(true);
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        loginController= new LoginController();
+
     }
 
 

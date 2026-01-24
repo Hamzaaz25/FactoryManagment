@@ -119,6 +119,8 @@ public class AddProduct extends JPanel {
     }
 
 
+
+
     public String getName() {
         return nameField.getText();
     }

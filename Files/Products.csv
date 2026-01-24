@@ -4,3 +4,4 @@ Id ,Name , Amount,Price ,Path, Item , Items Quantity
 3 , sofa , 90 , 45.99 , ./assets/hhh.png , oak , 7 , cotton , 20 , 
 4 , chair , 0 , 20.99 , ./assets/MainBack.png , mamam , 8 , mustafa , 7 , 
 5 , weardrop , 19 , 10.99 , ./assets/wardrobee.png , Hinge , 3 , oak , 7 , 
+6 , Mattress , 0 , 20.01 , ./assets/apple.jpg , silk , 10 , cotton , 5 , mustafa , 2 , 

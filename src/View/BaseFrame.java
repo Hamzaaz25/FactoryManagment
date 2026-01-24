@@ -1,13 +1,12 @@
 package View;
 
-import com.formdev.flatlaf.FlatLightLaf;
+import View.Util.BackGround;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 
 public class BaseFrame extends JFrame {
 

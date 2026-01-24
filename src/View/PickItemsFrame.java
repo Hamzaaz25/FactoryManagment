@@ -2,6 +2,7 @@ package View;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 public class PickItemsFrame extends JFrame {
 
@@ -72,4 +73,23 @@ public class PickItemsFrame extends JFrame {
     public JButton getAddAnother() {
         return addAnother;
     }
+
+
+
+
+
+
+
+
+    public void showDialog(HashMap <String ,Integer> recipe){
+
+        JOptionPane.showMessageDialog(
+                this
+                ,recipe.toString(),
+                "Selected Items",
+                JOptionPane.INFORMATION_MESSAGE);
+
+}
+
+
 }

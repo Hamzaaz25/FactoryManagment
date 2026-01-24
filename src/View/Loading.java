@@ -28,7 +28,7 @@ public class Loading extends JFrame {
 
         background.add(progressBar, BorderLayout.SOUTH);
 
-    Timer timer = new Timer(6000, e -> {
+    Timer timer = new Timer(4000, e -> {
         this.dispose();
 //        new LoginController();
     });

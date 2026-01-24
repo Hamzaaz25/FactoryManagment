@@ -1,12 +1,10 @@
 package View;
-import Enums.ItemStatus;
-import Enums.MaterialType;
 import Model.Product;
+import View.Util.AddBtn;
+import View.Util.ProductBtn;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;

@@ -1,9 +1,7 @@
-package View;
+package View.Util;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 public class AddBtn extends JButton {
     public AddBtn() {

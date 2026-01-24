@@ -1,17 +1,13 @@
 package Controller;
 
 import Enums.Status;
-import Enums.TaskStatus;
-import Enums.TaskValidation;
 import Model.*;
 import Repository.ProductLineRepository;
-import Repository.ProductRepository;
-import Repository.TaskRepository;
 import View.*;
+import View.Util.SimpleInputFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 public class ManagerController {
 

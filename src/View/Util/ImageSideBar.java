@@ -1,9 +1,9 @@
-package View;
+package View.Util;
 
 import javax.swing.*;
 import java.awt.*;
 
-class ImageSideBar extends JPanel {
+public class ImageSideBar extends JPanel {
     private final Image image;
 
     public ImageSideBar() {

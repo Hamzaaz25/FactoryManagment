@@ -6,12 +6,13 @@ import Repository.ProductLineRepository;
 import Repository.ProductRepository;
 import Repository.TaskRepository;
 import View.*;
+import View.Util.DateRangePopup;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.stream.Collectors;
@@ -357,7 +358,9 @@ public class ProductController {
                             pickItemsFrame.getItemsBox().getSelectedItem().toString(),
                             pickItemsFrame.getSlider().getValue()
                     );
+                    addProduct.updateItemsField(recipe);
                     pickItemsFrame.setVisible(false);
+                    pickItemsFrame.showDialog(recipe);
                 }
             });
 
