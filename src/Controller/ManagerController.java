@@ -91,21 +91,6 @@ public class ManagerController {
 }
 
 
-    private double getLineProgress(ProductLine pl) {
-        int sum = 0;
-        int count = pl.getTaskLine().size();
-
-        if (count == 0) return 0;
-
-        for (Task task : pl.getTaskLine()) {
-            sum += task.getProgressPercentage();
-        }
-
-        double avg = (double) sum / count;
-
-        // guarantee 0–100
-        return Math.max(0, Math.min(100, avg));
-    }
 
 
 }

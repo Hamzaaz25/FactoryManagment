@@ -23,7 +23,7 @@ public class MainController {
     LoginController loginController ;
     InventoryService inventoryService = new InventoryService(itemRepository  ,productRepository);
     ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
-    TaskService taskService = new TaskService(itemRepository,productRepository,taskRepository,productLineRepository ,this::notifyIfBelowMinimum );
+    TaskService taskService = new TaskService(itemRepository,productRepository,taskRepository,productLineRepository ,this::notifyIfBelowMinimum);
     ProductLineManager productLineManager = new ProductLineManager(productLineRepository,taskService );
     private static boolean loaded = false;
 
