@@ -78,8 +78,8 @@ public class ProductLineView extends JPanel {
         String imagePath;
         switch (pl.getStatus()) {
             case Active -> imagePath = "./assets/productlinee.png";
-            case Maintenance -> imagePath = "./assets/stopedline.png";
-            default -> imagePath = "./assets/brokenline.png";
+            case Maintenance -> imagePath = "./assets/brokenline.png";
+            default -> imagePath = "./assets/stopedline.png";
         }
 
         JLabel lblImage = new JLabel();

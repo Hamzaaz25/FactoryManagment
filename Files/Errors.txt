@@ -59,3 +59,5 @@ java.lang.IllegalArgumentException: No enum constant Enums.Status.nullProduct Li
 java.lang.IllegalArgumentException: No enum constant Enums.Status.nullProduct Lines
 Sorry the task numbered 115 cannot be executed because the items stock is insufficient 2026-01-24
 java.lang.NumberFormatException: For input string: "Assigned Tasks :"Product Lines
+Sorry the task numbered 106 cannot be executed because the product line 1 is currently on maintenance2026-01-25
+Sorry the task numbered 107 cannot be executed because the product line 1 is currently on maintenance2026-01-25

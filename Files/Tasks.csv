@@ -4,3 +4,6 @@ Task Number , Requested Products , Quantity , Client , Start Date , End Date , S
 103 , sofa , 10,Mariam,24/1/2026,3/2/2026, Completed,2,100
 104 , table , 10,amin,25/1/2026,4/2/2026, Completed,3,100
 105 , table , 3,amin,25/1/2026,28/1/2026, Completed,3,100
+106 , table , 6,gg,25/1/2026,27/1/2026, Cancelled,2,33
+107 , table , 7,amin,25/1/2026,27/1/2026, Cancelled,3,28
+108 , table , 4,hhh,25/1/2026,28/1/2026, Cancelled,2,75
