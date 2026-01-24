@@ -24,7 +24,8 @@ public class LoginView extends JFrame {
 
 
         //background image
-        LogInBackground bg = new LogInBackground("./assets/log in background.jpeg");
+       // LogInBackground bg = new LogInBackground("./assets/log in background.jpeg");
+        LogInBackground bg = new LogInBackground("./assets/walll.jpg");
         bg.setLayout(new GridBagLayout());
         this.setContentPane(bg);
 
@@ -32,7 +33,8 @@ public class LoginView extends JFrame {
         card = new JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
-                Image img = new ImageIcon("./assets/login card.jpeg").getImage();
+              //  Image img = new ImageIcon("./assets/login card.jpeg").getImage();
+                Image img = new ImageIcon("./assets/cardd.png").getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
         };
