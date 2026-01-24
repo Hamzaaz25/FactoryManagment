@@ -112,6 +112,20 @@ public class ProductLineDisplayViewTasks extends JPanel {
         title.setForeground(new Color(220, 230, 245));
         title.setFont(new Font("Arial", Font.BOLD, 16));
 
+        JLabel lblStatus = new JLabel(task.getStatus().toString());
+        lblStatus.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        lblStatus.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
+
+        switch (task.getStatus()) {
+            case InProgress -> lblStatus.setForeground(new Color(100, 200, 255));
+            case Completed  -> lblStatus.setForeground(new Color(46, 204, 113));
+            case Pending    -> lblStatus.setForeground(new Color(241, 196, 15));
+            case Cancelled  -> lblStatus.setForeground(new Color(231, 76, 60));
+        }
+
+        JPanel eastActions = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        eastActions.setOpaque(false);
+
         JButton cancelBtn = new JButton("Cancel");
         cancelBtn.setFocusPainted(false);
         cancelBtn.putClientProperty(
@@ -122,8 +136,11 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
         cancelBtn.addActionListener(e -> onCancelTask.accept(task));
 
+        eastActions.add(lblStatus);
+        eastActions.add(cancelBtn);
+
         top.add(title, BorderLayout.WEST);
-        top.add(cancelBtn, BorderLayout.EAST);
+        top.add(eastActions, BorderLayout.EAST);
 
         taskPanel.add(top, BorderLayout.NORTH);
 
