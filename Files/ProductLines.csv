@@ -1,3 +1,3 @@
 ProductLineNumber , Name ,Enums.Status , Tasks  
-1 , Sofas , Maintenance ,          The Sofas is really nice, Assigned Tasks : ,101,102,
-2 , Chairs , Active ,          what a chair, Assigned Tasks : ,103,108,
+1 , Sofas , Idle ,             The Sofas is really nice, Assigned Tasks : ,101,102,103,
+2 , Chairs , Active ,             what a chair, Assigned Tasks : ,

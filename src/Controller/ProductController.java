@@ -354,21 +354,24 @@ public class ProductController {
 
             pickItemsFrame.getDone().addActionListener(_ -> {
                 if (pickItemsFrame.getSlider().getValue() > 0) {
-                    recipe.put(
+                    recipe.merge(
                             pickItemsFrame.getItemsBox().getSelectedItem().toString(),
-                            pickItemsFrame.getSlider().getValue()
+                            pickItemsFrame.getSlider().getValue() ,
+                            Integer::sum
                     );
+                }
                     addProduct.updateItemsField(recipe);
                     pickItemsFrame.setVisible(false);
                     pickItemsFrame.showDialog(recipe);
-                }
+
             });
 
             pickItemsFrame.getAddAnother().addActionListener(_ -> {
                 if (pickItemsFrame.getSlider().getValue() > 0) {
-                    recipe.put(
+                    recipe.merge(
                             pickItemsFrame.getItemsBox().getSelectedItem().toString(),
-                            pickItemsFrame.getSlider().getValue()
+                            pickItemsFrame.getSlider().getValue() ,
+                            Integer::sum
                     );
                 }
                 pickItemsFrame.getItemsBox().setSelectedIndex(0);

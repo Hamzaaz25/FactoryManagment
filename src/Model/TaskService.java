@@ -72,15 +72,21 @@ public class TaskService {
         }
 
 
-
-        this.taskRepository.insert(t);
+        if(!taskRepository.getListOfTasks().contains(taskRepository.getTaskByNumber(t.getTaskNumber())))
+          this.taskRepository.insert(t);
         return TaskValidation.Valid;
     }
 
     public void runTask(Task t){
 
         Product product = this.productRepository.getByName(t.getRequestedProduct().trim());
-        int req = t.getRequestedQuantity();
+        int req;
+        if(t.getProgressPercentage() == 0){
+            req = t.getRequestedQuantity();
+        }else{
+            req = t.getRequestedQuantity() - (int) Math.ceil(t.getProgressPercentage() / 100.0 * t.getRequestedQuantity());
+        }
+        System.out.println(req);
 
         ProductLine productLine = this.productLineRepository.getProductLineByNumber(t.getProductLine()) ;
 
@@ -88,7 +94,7 @@ public class TaskService {
                 productLine.setStatus(Status.Active);
                 t.setStatus(TaskStatus.InProgress);
                 t.setWorking(true);
-                for (int i = 1; i <= t.getRequestedQuantity(); i++) {
+                for (int i = 1; i <= req && t.getProgressPercentage() < 100; i++) {
                     if (t.getStatus() == TaskStatus.Cancelled || productLine.getStatus() == Status.Maintenance) {
                         break;
                     }
@@ -99,7 +105,7 @@ public class TaskService {
                         DataWriter.writeErrors(e);
                     }
                     t.setEndDate(t.getStartDate().plusDays(i));
-                    t.setProgressPercentage(i * 100 / t.getRequestedQuantity());
+                    t.setProgressPercentage(i * 100 / req);
 
                 }
 
@@ -113,17 +119,17 @@ public class TaskService {
                 productLine.setStatus(Status.Idle);
             }else {
                 t.setStatus(TaskStatus.Cancelled);
-                this.returnUnusedResources(t, percent);
+                this.returnUnusedResources(t, percent , req);
             }
 
 
 }
 
 
-    private void returnUnusedResources(Task t, float percent) {
+    private void returnUnusedResources(Task t, float percent , int req) {
         Product product = productRepository.getByName(t.getRequestedProduct());
-        int produced = (int) (percent * t.getRequestedQuantity());
-        int notProduced = t.getRequestedQuantity() - produced;
+        int produced = (int) (percent * req);
+        int notProduced = req - produced;
 
         for (String name : product.getRecipe().keySet()) {
             Item item = itemRepository.getByName(name);

@@ -1,6 +1,7 @@
 package Controller;
 
 import Enums.Role;
+import Enums.TaskStatus;
 import Model.*;
 import Repository.ItemRepository;
 import Repository.ProductLineRepository;
@@ -172,6 +173,25 @@ public void loadAll(){
             productLineManager.register(pl);
         }
 
+        for(Task task :taskRepository.getListOfTasks()) {
+            if(task.getStatus() == TaskStatus.InProgress ){
+            productLineManager.getService(
+                    productLineRepository.
+                            getProductLineByNumber(task.getProductLine())).
+                                                runExisting(task);
+            }
+        }
+
+    for(Task task :taskRepository.getListOfTasks()) {
+        if(task.getStatus()==TaskStatus.Pending){
+            productLineManager.getService(
+                            productLineRepository.
+                                    getProductLineByNumber(task.getProductLine())).
+                    runExisting(task);
+        }
+    }
+
+
 }
 
 private void notifyIfBelowMinimum(String message){
@@ -183,6 +203,7 @@ public synchronized void saveAll(){
         taskRepository.save();
         productRepository.save();
         productLineRepository.save();
+
 }
 
 }

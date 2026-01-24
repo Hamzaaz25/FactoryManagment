@@ -1,6 +1,7 @@
 package Model;
 
 import Enums.Status;
+import Enums.TaskStatus;
 import Enums.TaskValidation;
 
 import java.util.ArrayList;
@@ -86,6 +87,7 @@ public class ProductLine  {
         if (count == 0) return 0;
 
         for (Task task : this.getTaskLine()) {
+            if(task.getStatus() == TaskStatus.Cancelled){ count--; continue;}
             sum += task.getProgressPercentage();
         }
 

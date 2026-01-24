@@ -22,7 +22,7 @@ public class PickItemsFrame extends JFrame {
         this.getContentPane().setBackground(new Color(38, 55, 85));
         this.setResizable(false);
 
-        slider = new JSlider(0, 10, 0);
+        slider = new JSlider(0, 20, 0);
         slider.setBounds(30, 20, 280, 50);
         slider.setBackground(new Color(38, 55, 85));
         slider.setForeground(new Color(160, 180, 210));

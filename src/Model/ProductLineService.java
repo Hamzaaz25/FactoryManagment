@@ -35,6 +35,10 @@ public class ProductLineService {
         return validation;
         }
 
+    public void runExisting(Task t){
+        executor.submit(() -> taskService.runTask(t));
+    }
+
 
     public void addProductLine(String name ){
        ProductLine pl = new ProductLine(name);

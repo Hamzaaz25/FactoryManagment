@@ -41,6 +41,7 @@ public class Task {
         this.status = s;
         this.startDate = LocalDate.now();
         this.endDate = LocalDate.now();
+        this.progressPercentage =0;
     }
 
     public Task(int taskNumber) {
