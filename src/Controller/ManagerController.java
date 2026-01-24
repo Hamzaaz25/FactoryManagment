@@ -16,37 +16,43 @@ public class ManagerController {
     private final ManagerBaseFrame baseFrame;
     private final ProductLineRepository productLineRepository;
 
-    public ManagerController(ProductLineRepository productLineRepository ,
-                                 ProductLineManager productLineManager ,
-                                 ManagerBaseFrame baseFrame) {
+    public ManagerController(ProductLineRepository productLineRepository,
+                             ProductLineManager productLineManager,
+                             ManagerBaseFrame baseFrame) {
+
         this.baseFrame = baseFrame;
-        view = new ManagerLineView(productLineRepository.getList() , this::onEdit);
-        baseFrame.switchContent(view , "Product Lines");
-        baseFrame.setVisible(true);
         this.productLineRepository = productLineRepository;
         this.productLineManager = productLineManager;
-        SimpleInputFrame addframe = new SimpleInputFrame();
-        view.getAdd().addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("Pressed");
-             addframe.getTextField().setText("");
-             addframe.setVisible(true);
-             addframe.getAddButton().addActionListener(new ActionListener() {
-                 @Override
-                 public void actionPerformed(ActionEvent e) {
-                     if(!addframe.getTextField().getText().isBlank()) {
-                        addProductLine(addframe.getTextField().getText());
-                        update();
-                        addframe.setVisible(false);
-                        addframe.dispose();
-                     }else baseFrame.showError("ENTER A NAME");
-                 }
-             });
 
+        view = new ManagerLineView(productLineRepository.getList(), this::onEdit);
+        baseFrame.switchContent(view, "Product Lines");
+        baseFrame.setVisible(true);
+
+        SimpleInputFrame addFrame = new SimpleInputFrame();
+
+        // ✅ REGISTER ONCE
+        addFrame.getAddButton().addActionListener(e -> {
+            String name = addFrame.getTextField().getText().trim();
+
+            if (name.isBlank()) {
+                baseFrame.showError("ENTER A NAME");
+                return;
             }
+
+            addProductLine(name);
+            update();
+
+            addFrame.setVisible(false);
+            addFrame.getTextField().setText("");
+        });
+
+        // ✅ OPEN FRAME ONLY
+        view.getAdd().addActionListener(e -> {
+            addFrame.setLocationRelativeTo(baseFrame);
+            addFrame.setVisible(true);
         });
     }
+
 
     // Called from the View to add a new product line
     public void addProductLine(String name) {
@@ -90,3 +96,5 @@ public class ManagerController {
 
 
 }
+
+

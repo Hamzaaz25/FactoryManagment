@@ -23,7 +23,6 @@ public class ProductLineView extends JPanel {
 
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 100, 20));
         topPanel.setOpaque(false);
-
         filterCombo = new JComboBox<>(filterOptions);
 
         filterCombo.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -145,5 +144,8 @@ public class ProductLineView extends JPanel {
         return wrapper;
     }
 
+    public JComboBox<String> getFilterCombo() {
+        return filterCombo;
+    }
 
 }

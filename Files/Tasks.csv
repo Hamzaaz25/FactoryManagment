@@ -1,5 +1,4 @@
 Task Number , Requested Products , Quantity , Client , Start Date , End Date , Status ,PL number ,Progress  
 101 , sofa , 10,Ahmad,1/2/2022,3/4/2022, Completed,1,100
 102 , chair , 100,Samer,24/1/2022,3/4/2022, Completed,1,100
-103 , carpet , 10,Mustafa,24/1/2026,3/2/2026, Completed,2,100
-104 , carpet , 10,Mustafa,24/1/2026,3/2/2026, Completed,2,100
+103 , sofa , 10,Mariam,24/1/2026,3/2/2026, Completed,2,100

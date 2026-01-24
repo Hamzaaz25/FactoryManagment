@@ -2,7 +2,9 @@ package Model;
 
 
 import Repository.ProductLineRepository;
+import Repository.TaskRepository;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ProductLineManager {
@@ -33,6 +35,15 @@ public class ProductLineManager {
         productLineRepository.insert(pl);
         register(pl);
 
+    }
+
+    public ArrayList<ProductLine> filterByProduct(TaskRepository taskRepository , String product){
+        ArrayList<ProductLine> productLineArrayList = new ArrayList<>();
+        for(Task t  : taskRepository.getListOfTasks() ){
+            if(t.getRequestedProduct().equalsIgnoreCase(product))
+                productLineArrayList.add(productLineRepository.getProductLineByNumber(t.getProductLine()));
+        }
+        return productLineArrayList;
     }
 
 }

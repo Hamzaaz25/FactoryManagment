@@ -34,7 +34,7 @@ public class MainController {
     public static MainController getInstance(){
         MainController result = instance;
         if(result == null){
-            synchronized(DataManager.class) {
+            synchronized(MainController.class) {
                 result = instance;
                 if(result == null)
                     instance = new MainController();
@@ -46,14 +46,13 @@ public class MainController {
 
     private MainController(){
         loadAll();
-        new Loading().setVisible(true);
-        try {
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+//        new Loading().setVisible(true);
+//        try {
+//            Thread.sleep(4000);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
         loginController= new LoginController();
-
     }
 
 

@@ -14,7 +14,6 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
     private static final Color BG = new Color(28, 42, 66);
     private static final Color CARD = new Color(38, 55, 85);
-
     private JPanel tasksContainer;
     private final Consumer<Task> onCancelTask;
     private final JButton addTaskButton;
@@ -82,7 +81,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
         revalidate();
         repaint();
 
-        startProgressUpdater(); // 🔥 start / restart timer
+        startProgressUpdater();
     }
 
 
@@ -102,7 +101,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
         ));
         taskPanel.setOpaque(true);
 
-        // ---- TOP: title + cancel ----
+        // ---- TOP: title + cancel
         JPanel top = new JPanel(new BorderLayout());
         top.setOpaque(false);
         top.setBorder(BorderFactory.createEmptyBorder(15, 20, 5, 20));
@@ -120,7 +119,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
                 "background: #f5f5f5; foreground: #555; arc:10"
         );
 
-        // 🔥 Consumer hook
+
         cancelBtn.addActionListener(e -> onCancelTask.accept(task));
 
         top.add(title, BorderLayout.WEST);
@@ -128,7 +127,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
         taskPanel.add(top, BorderLayout.NORTH);
 
-        // ---- CENTER: progress ----
+        // ---- CENTER: progress
         JProgressBar progressBar = new JProgressBar(0, 100);
         progressBar.setValue(task.getProgressPercentage());
         progressBar.setStringPainted(true);
@@ -136,7 +135,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
         progressBar.setBackground(new Color(30, 45, 70));
         progressBar.setForeground(new Color(100, 150, 200));
         progressBar.setUI(createGradientProgressUI(progressBar));
-// 🔥 keep reference
+
         progressBars.add(progressBar);
 
 
@@ -157,7 +156,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
         return taskPanel;
     }
 
-    /* ===== Gradient progress bar (unchanged) ===== */
+
     private BasicProgressBarUI createGradientProgressUI(JProgressBar bar) {
         return new BasicProgressBarUI() {
             @Override
@@ -211,7 +210,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
                 }
             }
 
-            // 🛑 stop timer when nothing is running
+
             if (!anyRunning) {
                 progressTimer.stop();
             }

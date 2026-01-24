@@ -82,12 +82,17 @@ public class ManagerLineView extends JPanel {
         return btn;
     }
 
-    private JPanel wrapAddButton() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(BG);
-        panel.add(addButton, BorderLayout.CENTER);
-        return panel;
-    }
+
+        private JPanel wrapAddButton() {
+            JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+            panel.setBackground(BG);
+
+            addButton.setPreferredSize(new Dimension(260, 60));
+            panel.add(addButton);
+
+            return panel;
+        }
+
 
     public JButton getAdd() {
         return addButton;

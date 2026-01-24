@@ -11,10 +11,10 @@ import View.AddTask;
 import View.BaseFrame;
 import View.ProductLineDisplayViewTasks;
 import View.ProductLineView;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import javax.swing.Timer;
 
 public class ProductLineController {
     private final ProductLineRepository productLineRepository;
@@ -24,6 +24,9 @@ public class ProductLineController {
     private final ProductLineView view;
     private final ProductRepository productRepository;
     private final BaseFrame baseFrame;
+    private Timer refreshTimer;
+    private String currentFilter = "ALL";
+
 
     public ProductLineController(ProductLineRepository productLineRepository,
                                  TaskRepository taskRepository,
@@ -33,13 +36,16 @@ public class ProductLineController {
                                  BaseFrame baseFrame) {
         this.productRepository=productRepository;
         this.baseFrame = baseFrame;
-        view = new ProductLineView(productLineRepository.getList(),getProductsOptions() );
+
+        view = new ProductLineView(productLineRepository.getList(),getProductsNames() );
         view.renderProductLines(productLineRepository.getList(),this::onSelect);
         baseFrame.switchContent(view , "Product Lines");
         this.productLineRepository = productLineRepository;
         this.taskRepository = taskRepository;
         this.taskService = taskService;
         this.productLineManager = productLineManager;
+        applyFilters();
+        startAutoRefresh();
     }
 
 
@@ -95,6 +101,23 @@ public class ProductLineController {
         return options;
     }
 
+    public String[] getProductsNames() {
+        ArrayList<Product> products = productRepository.getList();
+
+
+        String[] options = new String[products.size()+1 ];
+
+
+        options[0]="ALL";
+        int i = 1;
+        for (Product product : products) {
+            options[i++] = String.valueOf(product.getName());
+        }
+
+        return options;
+    }
+
+
     private boolean validateQuantity(String quantity){
         try{
             Integer.parseInt(quantity);
@@ -113,6 +136,42 @@ public class ProductLineController {
         }else{
 
             taskService.cancelTask(task);
+        }
+    }
+
+
+
+    public void applyFilters() {
+        view.getFilterCombo().addActionListener(e -> {
+            currentFilter = view.getFilterCombo()
+                    .getSelectedItem()
+                    .toString()
+                    .trim();
+            refreshView();
+        });
+    }
+
+
+
+    private void startAutoRefresh() {
+       refreshTimer= new Timer(2000, e -> refreshView());
+        refreshTimer.start();
+    }
+
+    private void refreshView() {
+        ArrayList<ProductLine> lines;
+
+        if ("ALL".equalsIgnoreCase(currentFilter)) {
+            lines = productLineRepository.getList();
+        } else {
+            lines = productLineManager.filterByProduct(taskRepository, currentFilter);
+        }
+        view.renderProductLines(lines, this::onSelect);
+    }
+
+    public void stopAutoRefresh() {
+        if (refreshTimer != null) {
+            refreshTimer.stop();
         }
     }
 
