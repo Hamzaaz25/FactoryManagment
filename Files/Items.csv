@@ -1,6 +1,6 @@
 id , name ,material , price , available , minimum , status ,Image
 1 , oak , Wood , 3.5 , 4058,20,Available , ./assets/wood.png
-2 , silk , Fabric , 15.0 , 200,20,Available , ./assets/silk.png
+2 , silk , Fabric , 15.0 , 10,20,BelowMinimum , ./assets/silk.png
 3 , cotton , Fabric , 6.99 , 840,30,Available , ./assets/wool.png
 4 , zan , Wood , 5.0 , 400,10,Available , ./assets/wood.png
 5 , Hinge , Metal , 10.4 , 143,0,Available , ./assets/hinge.png

@@ -10,14 +10,17 @@ import Repository.ProductLineRepository;
 import Repository.ProductRepository;
 import Repository.TaskRepository;
 import java.time.LocalDate;
+import java.util.function.Consumer;
 
 public class TaskService {
    private final ItemRepository itemRepository ;
    private final ProductRepository productRepository;
    private final TaskRepository taskRepository;
    private final ProductLineRepository productLineRepository;
+   private Consumer<String> notification;
 
-    public TaskService(ItemRepository itemRepository, ProductRepository productRepository, TaskRepository taskRepository , ProductLineRepository productLineRepository) {
+    public TaskService(ItemRepository itemRepository, ProductRepository productRepository, TaskRepository taskRepository , ProductLineRepository productLineRepository , Consumer<String> notification) {
+        this.notification=notification;
         this.itemRepository = itemRepository;
         this.productRepository = productRepository;
         this.taskRepository = taskRepository;
@@ -134,7 +137,9 @@ public class TaskService {
     }
 
     public void notifyIfBelowMinimum(String message){
+        notification.accept(message);
         System.out.println( message + " is below minimum ");
+
     }
 
     public void cancelTask(Task t){

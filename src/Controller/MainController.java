@@ -23,7 +23,7 @@ public class MainController {
     LoginController loginController ;
     InventoryService inventoryService = new InventoryService(itemRepository  ,productRepository);
     ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
-    TaskService taskService = new TaskService(itemRepository,productRepository,taskRepository,productLineRepository);
+    TaskService taskService = new TaskService(itemRepository,productRepository,taskRepository,productLineRepository ,this::notifyIfBelowMinimum );
     ProductLineManager productLineManager = new ProductLineManager(productLineRepository,taskService );
     private static boolean loaded = false;
 
@@ -165,6 +165,10 @@ public void loadAll(){
             productLineManager.register(pl);
         }
 
+}
+
+private void notifyIfBelowMinimum(String message){
+        this.frame.showError(message + " is below minimum ,You should get some");
 }
 
 public synchronized void saveAll(){

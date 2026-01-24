@@ -1,4 +1,4 @@
 ProductLineNumber , Name ,Enums.Status , Tasks  
-1 , Sofas , Maintenance ,         Sofa, Assigned Tasks : ,101,102,
-2 , Chairs , Active ,       Chair, Assigned Tasks : ,
-3 , Bed , Active ,       Strong, Assigned Tasks : ,
+1 , Sofas , Maintenance ,      Sofa, Assigned Tasks : ,101,102,
+2 , Chairs , Idle ,    Chair, Assigned Tasks : ,103,104,
+3 , Bed , Active ,    Strong, Assigned Tasks : ,
