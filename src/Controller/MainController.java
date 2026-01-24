@@ -10,10 +10,12 @@ import View.BaseFrame;
 import View.ManagerBaseFrame;
 import View.ProfileView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainController {
+    static private volatile MainController instance;
     BaseFrame frame  ;
     ProductRepository productRepository = new ProductRepository();
     ItemRepository itemRepository = new ItemRepository();
@@ -22,14 +24,32 @@ public class MainController {
     InventoryService inventoryService = new InventoryService(itemRepository  ,productRepository);
     ProductLineRepository productLineRepository = new ProductLineRepository(taskRepository);
     TaskService taskService = new TaskService(itemRepository,productRepository,taskRepository,productLineRepository);
-    ProductLineManager productLineManager = new ProductLineManager(productLineRepository,taskService);
+    ProductLineManager productLineManager = new ProductLineManager(productLineRepository,taskService );
     private static boolean loaded = false;
-    public MainController(){
 
-    loginController= new LoginController();
+
+
+
+    public static MainController getInstance(){
+        MainController result = instance;
+        if(result == null){
+            synchronized(DataManager.class) {
+                result = instance;
+                if(result == null)
+                    instance = new MainController();
+
+            }
+        }
+        return result;
     }
+
+    private MainController(){
+        loadAll();
+       loginController= new LoginController();
+    }
+
+
 public void onLoginSuccess(User user){
-    this.loadAll();
         if(user.getRole()== Role.Manager){
             ManagerBaseFrame baseFrame = new ManagerBaseFrame(user.getUsername() , "Product Lines");
             new ManagerController(productLineRepository,productLineManager,baseFrame);
@@ -42,10 +62,26 @@ public void onLoginSuccess(User user){
                     profileView.getLogoutButton().addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            loginController.reset();
                             baseFrame.setVisible(false);
                             loginController.view.setVisible(true);
                         }
                     });
+                }
+            });
+
+
+            baseFrame.getCloseBtn()  .addActionListener(e -> {
+                int confirm = JOptionPane.showConfirmDialog(baseFrame,
+                        "Do you want to save ?", "Exit",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    saveAll();
+                    System.exit(0);
+                }
+                else{
+                    System.exit(0);
                 }
             });
         }
@@ -92,22 +128,34 @@ public void onLoginSuccess(User user){
                     profileView.getLogoutButton().addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
+                            loginController.reset();
                             frame.setVisible(false);
                             loginController.view.setVisible(true);
                         }
                     });
                 }
+
+            });
+            frame.getCloseBtn()  .addActionListener(e -> {
+                int confirm = JOptionPane.showConfirmDialog(frame,
+                        "Do you want to save ?", "Exit",
+                        JOptionPane.YES_NO_OPTION);
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    saveAll();
+                    System.exit(0);
+                }
+                else{
+                    System.exit(0);
+                }
             });
 
         }
-
 
 }
 
 
 public void loadAll(){
-        if(loaded) return;
-
         this.itemRepository.load();
         this.taskRepository.load();
         this.productRepository.load();
@@ -116,7 +164,14 @@ public void loadAll(){
         for(ProductLine pl : productLineRepository.getList()){
             productLineManager.register(pl);
         }
-loaded = true;
+
+}
+
+public synchronized void saveAll(){
+        itemRepository.save();
+        taskRepository.save();
+        productRepository.save();
+        productLineRepository.save();
 }
 
 }

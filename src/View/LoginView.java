@@ -125,5 +125,11 @@ public class LoginView extends JFrame {
     public String getPass() { return new String(password.getPassword()); }
     public void addLoginListener(ActionListener listener) { loginbutton.addActionListener(listener);}
 
+    public JPasswordField getPassword() {
+        return password;
+    }
 
+    public JTextField getUserField(){
+        return user;
+    }
 }

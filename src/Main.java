@@ -29,7 +29,9 @@ public class Main {
         UIManager.put("Button.pressedBackground", new Color(210, 210, 210));
         UIManager.put("Component.focusWidth", 1);
         UIManager.put("Component.innerFocusWidth", 0);
-       new MainController();
+
+        MainController.getInstance();
+//        new Loading().setVisible(true);
 //        System.out.println("Hello");
 
 //

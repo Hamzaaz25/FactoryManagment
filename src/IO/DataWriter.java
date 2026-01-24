@@ -75,7 +75,7 @@ public class DataWriter {
             bw.write("ProductLineNumber , Name ,Enums.Status , Tasks  ");
             bw.newLine();
             for(ProductLine pl : list){
-                bw.write( pl.getId()+ " , " + pl.getName() +" , " +pl.getStatus() +", Assigned Tasks : ," );
+                bw.write( pl.getId()+ " , " + pl.getName() +" , " +pl.getStatus()+" , " +pl.getNotes()+", Assigned Tasks : ," );
                 for(Task t : pl.getTaskLine())
                     bw.write(t.getTaskNumber() + ",");
                 bw.newLine();

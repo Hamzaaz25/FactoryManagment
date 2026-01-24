@@ -25,6 +25,7 @@ public class BaseFrame extends JFrame {
     JButton itemsButton;
     JButton tasksButton;
     JButton logo;
+    JButton closeBtn;
     private JButton SelectedButton = null;
 
 
@@ -244,7 +245,7 @@ public class BaseFrame extends JFrame {
         topBar.setBackground(new Color(20, 33, 61));
         topBar.setPreferredSize(new Dimension(this.getWidth(), 35));
 
-        JButton closeBtn = new JButton();
+        closeBtn = new JButton();
         ImageIcon originalIcon = new ImageIcon("./assets/cross.png");
         Image scaledImgg = originalIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         closeBtn.setIcon(new ImageIcon(scaledImgg));
@@ -255,15 +256,7 @@ public class BaseFrame extends JFrame {
         closeBtn.setForeground(Color.RED);
         closeBtn.setFont(new Font("Arial", Font.BOLD, 18));
 
-        closeBtn.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this,
-                    "Are you sure you want to exit?", "Exit",
-                    JOptionPane.YES_NO_OPTION);
 
-            if (confirm == JOptionPane.YES_OPTION) {
-                System.exit(0);
-            }
-        });
 
         topBar.add(closeBtn);
 
@@ -374,5 +367,9 @@ public JButton getProductsLineButton(){
 
 
 
+    }
+
+    public JButton getCloseBtn() {
+        return closeBtn;
     }
 }

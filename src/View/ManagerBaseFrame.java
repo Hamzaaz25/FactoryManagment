@@ -18,6 +18,7 @@ public class ManagerBaseFrame extends JFrame {
     String title;
     JButton logo;
     private JButton SelectedButton = null;
+    private JButton closeBtn;
 
 
 
@@ -196,7 +197,7 @@ public class ManagerBaseFrame extends JFrame {
         topBar.setBackground(new Color(112, 128, 144));
         topBar.setPreferredSize(new Dimension(this.getWidth(), 35));
 
-        JButton closeBtn = new JButton();
+        closeBtn = new JButton();
         ImageIcon originalIcon = new ImageIcon("./assets/cross.png");
         Image scaledImgg = originalIcon.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH);
         closeBtn.setIcon(new ImageIcon(scaledImgg));
@@ -207,15 +208,7 @@ public class ManagerBaseFrame extends JFrame {
         closeBtn.setForeground(Color.RED);
         closeBtn.setFont(new Font("Arial", Font.BOLD, 18));
 
-        closeBtn.addActionListener(e -> {
-            int confirm = JOptionPane.showConfirmDialog(this,
-                    "Are you sure you want to exit?", "Exit",
-                    JOptionPane.YES_NO_OPTION);
 
-            if (confirm == JOptionPane.YES_OPTION) {
-                System.exit(0);
-            }
-        });
 
         topBar.add(closeBtn);
 
@@ -304,4 +297,7 @@ public class ManagerBaseFrame extends JFrame {
         );
     }
 
+    public JButton getCloseBtn() {
+        return closeBtn;
+    }
 }

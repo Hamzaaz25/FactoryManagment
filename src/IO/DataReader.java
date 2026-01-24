@@ -182,12 +182,13 @@ public static ArrayList<Product> readProducts(String path){
 
                 String name = row[1].trim();
                 Status s = Status.valueOf(row[2].trim());
+                String notes = row[3];
                 ArrayList<Integer> tasksNumbers = new ArrayList<>();
-                for(int i=4 ; i< row.length ;i++){
+                for(int i=5 ; i< row.length ;i++){
                     tasksNumbers.add(Integer.parseInt(row[i].trim()));
 
                 }
-                ProductLine pl = new ProductLine(name,s,tasksNumbers);
+                ProductLine pl = new ProductLine(name,s,tasksNumbers ,notes);
                 listOfProductLines.add(pl);
 
 

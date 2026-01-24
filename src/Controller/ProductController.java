@@ -242,8 +242,7 @@ public class ProductController {
         int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this item?", "Delete Confirmation", JOptionPane.YES_NO_OPTION);
 
         if (response == JOptionPane.YES_OPTION) {
-
-            productRepository.deleteByName(product.getName());
+            inventoryService.removeProduct(product.getName());
             view.renderProducts(productRepository.getList() , this::onProductSelect , this::onProductDelete , this::onProductEdit);
 
             JOptionPane.showMessageDialog(null, "Item deleted successfully!");

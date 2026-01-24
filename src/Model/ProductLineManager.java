@@ -11,7 +11,7 @@ public class ProductLineManager {
     private final ProductLineRepository productLineRepository;
     private final TaskService taskService;
 
-    public ProductLineManager(ProductLineRepository repo, TaskService taskService) {
+    public ProductLineManager(ProductLineRepository repo, TaskService taskService ) {
         this.productLineRepository = repo;
         this.taskService = taskService;
     }
@@ -30,9 +30,9 @@ public class ProductLineManager {
 
     public void addProductLine(String name ){
         ProductLine pl = new ProductLine(name);
-        this.productLineRepository.insert(pl);
+        productLineRepository.insert(pl);
         register(pl);
-        productLineRepository.save();
+
     }
 
 }

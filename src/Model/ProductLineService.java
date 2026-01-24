@@ -42,7 +42,7 @@ public class ProductLineService {
 
     public void editProductLineStatus(Status s){
        productLine.setStatus(s);
-       productLineRepository.save();
+
         }
 
     }

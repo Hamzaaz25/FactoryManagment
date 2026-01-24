@@ -5,6 +5,8 @@ import Model.ProductLine;   // adjust package if needed
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
@@ -12,12 +14,12 @@ import static Enums.Status.Active;
 
 public class ManagerLineView extends JPanel {
 
-    // ===== THEME =====
     private static final Color BG = new Color(38, 55, 85);
     private static final Color CARD = new Color(20, 33, 61);
     private static final Color ACCENT = new Color(120, 165, 200);
-    private JButton add;
-    private JPanel list;
+
+    private final JButton addButton;
+    private final JPanel list;
 
     public ManagerLineView(
             ArrayList<ProductLine> productLines,
@@ -31,14 +33,9 @@ public class ManagerLineView extends JPanel {
         list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
         list.setBackground(BG);
 
-        // BUILD CARDS DYNAMICALLY
-        for (ProductLine line : productLines) {
-            list.add(new ProductLineCard(line, onEdit));
-            list.add(Box.createVerticalStrut(25));
-        }
+        addButton = createAddButton();
 
-        list.add(Box.createVerticalStrut(10));
-        list.add(createAddCard());
+        rebuild(productLines, onEdit);
 
         JScrollPane scroll = new JScrollPane(list);
         scroll.setBorder(null);
@@ -48,54 +45,59 @@ public class ManagerLineView extends JPanel {
         add(scroll, BorderLayout.CENTER);
     }
 
-    // ===== ADD BUTTON CARD =====
-    private JPanel createAddCard() {
-        JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(BG);
-
-        add = new JButton("＋ Add Product Line");
-        add.setFont(add.getFont().deriveFont(Font.BOLD, 22f));
-        add.setPreferredSize(new Dimension(0, 120));
-        add.setBackground(CARD);
-        add.setForeground(ACCENT);
-        add.setFocusPainted(false);
-        add.putClientProperty("JButton.buttonType", "roundRect");
-
-        panel.add(add, BorderLayout.CENTER);
-        return panel;
+    /* ===== PUBLIC UPDATE ===== */
+    public void updateAllCards(ArrayList<ProductLine> productLines,
+                               Consumer<ProductLine> onEdit) {
+        rebuild(productLines, onEdit);
     }
 
-    public JPanel buildCard(ProductLine line, Consumer<ProductLine> onEdit) {
-        return new ProductLineCard(line, onEdit);
-    }
+    /* ===== INTERNAL REBUILD ===== */
+    private void rebuild(ArrayList<ProductLine> productLines,
+                         Consumer<ProductLine> onEdit) {
 
-    public void updateAllCards(ArrayList<ProductLine> productLines, Consumer<ProductLine> onEdit) {
-        // Clear the current list panel
         list.removeAll();
 
-        // Rebuild cards dynamically
         for (ProductLine line : productLines) {
-            list.add(buildCard(line, onEdit));
+            if (line == null) continue; // 💥 SAFETY
+            list.add(new ProductLineCard(line, onEdit));
             list.add(Box.createVerticalStrut(25));
         }
 
-        // Add spacing and the "Add" button at the bottom
         list.add(Box.createVerticalStrut(10));
-        list.add(createAddCard());
+        list.add(wrapAddButton());
 
-        // Refresh the panel
         list.revalidate();
         list.repaint();
     }
 
+    /* ===== ADD BUTTON ===== */
+    private JButton createAddButton() {
+        JButton btn = new JButton("＋ Add Product Line");
+        btn.setFont(btn.getFont().deriveFont(Font.BOLD, 22f));
+        btn.setPreferredSize(new Dimension(0, 60));
+        btn.setBackground(CARD);
+        btn.setForeground(ACCENT);
+        btn.setFocusPainted(false);
+        btn.putClientProperty("JButton.buttonType", "roundRect");
+        return btn;
+    }
 
-        // ===== REUSABLE CARD (VIEW ONLY) =====
+    private JPanel wrapAddButton() {
+        JPanel panel = new JPanel(new BorderLayout());
+        panel.setBackground(BG);
+        panel.add(addButton, BorderLayout.CENTER);
+        return panel;
+    }
+
+    public JButton getAdd() {
+        return addButton;
+    }
+
+    /* ===== CARD ===== */
+     // ===== REUSABLE CARD (VIEW ONLY) =====
     private static class ProductLineCard extends JPanel {
 
-        public ProductLineCard(
-                ProductLine productLine,
-                Consumer<ProductLine> onEdit
-        ) {
+        public ProductLineCard(ProductLine productLine, Consumer<ProductLine> onEdit) {
 
             setLayout(new GridBagLayout());
             setBackground(BG);
@@ -123,12 +125,12 @@ public class ManagerLineView extends JPanel {
 
             // ===== ICON (LEFT) =====
             JButton iconBtn = new JButton();
-            iconBtn.setIcon(loadIcon("./assets/factory.png", 64, 64));
             iconBtn.setPreferredSize(new Dimension(140, 140));
+
             iconBtn.setBackground(CARD);
             iconBtn.setFocusPainted(false);
+            iconBtn.setIcon(loadIcon("./assets/factory.png", 64, 64));
             iconBtn.putClientProperty("JButton.buttonType", "roundRect");
-
             c.gridx = 0;
             c.gridy = 1;
             c.gridheight = 3;
@@ -142,8 +144,8 @@ public class ManagerLineView extends JPanel {
 
             c.gridx = 1;
             c.gridy = 1;
-            c.gridheight = 1;
             c.gridwidth = 2;
+            c.gridheight = 1;
             c.weightx = 1;
             add(nameLabel, c);
 
@@ -173,11 +175,32 @@ public class ManagerLineView extends JPanel {
             add(notesLabel, c);
 
             JTextField notesField = new JTextField(productLine.getNotes());
-            notesField.setEditable(false);
+            notesField.setEditable(true);
             notesField.setBackground(CARD);
             notesField.setForeground(Color.WHITE);
             notesField.setCaretColor(Color.WHITE);
             notesField.putClientProperty("JComponent.roundRect", true);
+            notesField.getDocument().addDocumentListener(new javax.swing.event.DocumentListener() {
+                @Override
+                public void insertUpdate(javax.swing.event.DocumentEvent e) {
+                    updateNotes();
+                }
+
+                @Override
+                public void removeUpdate(javax.swing.event.DocumentEvent e) {
+                    updateNotes();
+                }
+
+                @Override
+                public void changedUpdate(javax.swing.event.DocumentEvent e) {
+                    updateNotes();
+                }
+
+                private void updateNotes() {
+                    productLine.setNotes(notesField.getText());
+                }
+            });
+
 
             c.gridx = 2;
             c.gridy = 2;
@@ -199,9 +222,21 @@ public class ManagerLineView extends JPanel {
             c.gridwidth = 3;
             c.weightx = 1;
             add(bar, c);
+
+            // ===== TIMER FOR REAL-TIME PROGRESS =====
+            Timer timer = new Timer(2000, e -> { // update every 0.5 sec
+                int progress = productLine.getProgress();
+                if (progress >= 100) {
+                    bar.setValue(100);
+                    ((Timer) e.getSource()).stop();
+                } else {
+                    bar.setValue(progress);
+                }
+            });
+            timer.start();
         }
 
-        // Optional: color by status
+        // ===== STATUS COLOR =====
         private static Color getStatusColor(Status status) {
             return switch (status) {
                 case Active -> new Color(0, 200, 0);
@@ -213,13 +248,8 @@ public class ManagerLineView extends JPanel {
         private static Icon loadIcon(String path, int w, int h) {
             ImageIcon icon = new ImageIcon(path);
             Image img = icon.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH);
-            return new ImageIcon(img);
-        }
-    }
-
-
-    public JButton getAdd() {
-        return add;
+            return new ImageIcon(img); }
     }
 
 }
+

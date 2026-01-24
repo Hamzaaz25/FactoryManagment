@@ -26,7 +26,7 @@ public class InventoryService {
             itemRepository.insert(item);
 
         }
-        itemRepository.save();
+
 
     }
 
@@ -47,7 +47,7 @@ public class InventoryService {
             item.setAvailableQuantity(quantity);
             item.setPrice(price);
 //            item.setMinimumAllowedQuantity(minimum);
-            this.itemRepository.save();
+
         }
 
     }
@@ -61,7 +61,7 @@ public class InventoryService {
             Product product = new Product(name , amount,price ,recipe ,imagePath );
             this.productRepository.insert(product);
         }
-        this.productRepository.save();
+
     }
 
 
@@ -69,7 +69,7 @@ public class InventoryService {
         if(this.productRepository.containsName(name)){
             this.productRepository.deleteByName(name);
         }
-        this.productRepository.save();
+
     }
 
     public void editProduct(String name , int quantity , double price  ){
@@ -78,7 +78,7 @@ public class InventoryService {
             Product product = this.productRepository.getByName(name);
             product.setAmount(quantity);
             product.setPrice(price);
-            this.productRepository.save();
+
         }
 
     }

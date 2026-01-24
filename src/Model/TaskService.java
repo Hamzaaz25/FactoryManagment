@@ -25,12 +25,7 @@ public class TaskService {
 
     }
 
-    public synchronized void saveAll(){
-        this.itemRepository.save();
-        this.taskRepository.save();
-        this.productLineRepository.save();
-        this.productRepository.save();
-    }
+
 
     public void logTaskErrors(String message){
         DataWriter.writeErrors(message);
@@ -59,7 +54,7 @@ public class TaskService {
             return TaskValidation.ProductLineMaintenance;
         }
 }
-        // 2. Reserve (CRITICAL PART)
+        // 2. Reserve
         for (String name : p.getRecipe().keySet()) {
 
             Item item = itemRepository.getByName(name);
@@ -67,7 +62,14 @@ public class TaskService {
             int needed = p.getRecipe().get(name) * req;
             item.setAvailableQuantity(item.getAvailableQuantity() - needed);
             }
+            if (!item.isStockSufficient()) {
+                item.setStatus(ItemStatus.BelowMinimum);
+                notifyIfBelowMinimum(item.getName());
+            }
         }
+
+
+
         this.taskRepository.insert(t);
         return TaskValidation.Valid;
     }
@@ -80,6 +82,7 @@ public class TaskService {
         ProductLine productLine = this.productLineRepository.getProductLineByNumber(t.getProductLine()) ;
 
             if (t.getStatus() != TaskStatus.Cancelled) {
+                productLine.setStatus(Status.Active);
                 t.setStatus(TaskStatus.InProgress);
                 t.setWorking(true);
                 for (int i = 1; i <= t.getRequestedQuantity(); i++) {
@@ -104,12 +107,13 @@ public class TaskService {
             product.setAmount((int) (product.getAmount() + (req * percent)));
             if(t.getProgressPercentage() == 100 ){
                 t.setStatus(TaskStatus.Completed);
+                productLine.setStatus(Status.Idle);
             }else {
                 t.setStatus(TaskStatus.Cancelled);
                 this.returnUnusedResources(t, percent);
             }
 
-        this.saveAll();
+
 }
 
 
@@ -125,10 +129,7 @@ public class TaskService {
                     item.getAvailableQuantity() + usage * notProduced
             );
 
-            if (!item.isStockSufficient()) {
-                item.setStatus(ItemStatus.BelowMinimum);
-                notifyIfBelowMinimum(item.getName());
-            }
+
         }
     }
 

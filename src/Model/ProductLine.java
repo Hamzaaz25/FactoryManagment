@@ -17,11 +17,16 @@ public class ProductLine  {
     private Status status ;
     ArrayList<Task> taskLine = new ArrayList<>();
     private ArrayList<Integer> listOfTaskNumbers = new ArrayList<>();
+    private String notes;
     private static int count =0;
 
 
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
 
-    public ProductLine( String name, Status status, ArrayList<Integer> list) {
+    public ProductLine(String name, Status status, ArrayList<Integer> list , String notes) {
+        this.notes =notes;
         this.Id = ++count;
         this.name = name;
         this.status = status;
@@ -91,7 +96,7 @@ public class ProductLine  {
     }
 
     public String getNotes(){
-        return "Notes";
+        return this.notes;
     }
 
 

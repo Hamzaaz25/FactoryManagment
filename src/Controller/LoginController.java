@@ -20,7 +20,7 @@ public class LoginController {
                     System.out.println("Success");
                     view.setVisible(false);
                     view.dispose();
-                    new MainController().onLoginSuccess(model.getLoggedUser());
+                    MainController.getInstance().onLoginSuccess(model.getLoggedUser());
                 }
                 else if (p == Enums.LoginResult.UserNotFound)
                     view.showError("User not found");
@@ -41,5 +41,8 @@ public LoginController() {
     this.view.setVisible(true);
     view.addLoginListener(actionListener);
 }
-
+public void reset(){
+    view.getPassword().setText("");
+    view.getUserField().setText("");
+}
 }

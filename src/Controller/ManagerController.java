@@ -34,7 +34,7 @@ public class ManagerController {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Pressed");
-
+             addframe.getTextField().setText("");
              addframe.setVisible(true);
              addframe.getAddButton().addActionListener(new ActionListener() {
                  @Override
@@ -67,36 +67,26 @@ public class ManagerController {
         }
     }
 
-    private void onEdit(ProductLine pl){
-     StatusChooserFrame statusChooserFrame= new StatusChooserFrame();
-     statusChooserFrame.setVisible(true);
-//     statusChooserFrame.setSelectedStatus(pl.getStatus());
+    private void onEdit(ProductLine pl) {
 
+        StatusChooserFrame frame = new StatusChooserFrame();
+        frame.setSelectedStatus(pl.getStatus());
 
-        statusChooserFrame.getOkButton().addActionListener(e -> {
-            Status selectedStatus =null;
-            if(statusChooserFrame.getActiveBtn().isSelected()) selectedStatus = Status.Active;
-            else if(statusChooserFrame.getIdleBtn().isSelected()) selectedStatus = Status.Idle;
-            else if(statusChooserFrame.getMaintenanceBtn().isSelected()) selectedStatus = Status.Maintenance;
-            statusChooserFrame.setVisible(false); // close frame
-            if(selectedStatus != null){
-                editProductLineStatus(pl , selectedStatus);
-                update();
-
+        frame.setOnConfirm(status -> {
+            if (status == null) {
+                baseFrame.showError("Please select a status");
+                return;
             }
-            else baseFrame.showError("");
+            editProductLineStatus(pl, status);
+            update();
         });
 
-
-
-
-
-
-
+        frame.setVisible(true);
     }
 
 
-public void update(){
+
+    public void update(){
         view.updateAllCards(productLineRepository.getList() , this::onEdit);
 }
 

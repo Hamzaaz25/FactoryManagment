@@ -30,8 +30,12 @@ public class EditThingDetails extends JPanel {
         lblEditTitle.setForeground(new Color(173, 216, 230));
         lblEditTitle.setFont(new Font("Segoe UI", Font.ITALIC, 14));
 
-        txtName = new JTextField(name);
-        formatEditField(txtName, 35, true);
+
+        JLabel txtName = new JLabel(name);
+        txtName.setFont(new Font("Segoe UI", Font.BOLD, 45));
+        txtName.setForeground(Color.WHITE);
+        txtName.setAlignmentX(Component.LEFT_ALIGNMENT);
+
 
         txtPrice = new JTextField(price);
         formatEditField(txtPrice, 25, false);
