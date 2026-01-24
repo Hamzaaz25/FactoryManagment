@@ -41,7 +41,7 @@ public class BaseFrame extends JFrame {
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(new BorderLayout());
-        BackGround bg = new BackGround("./assets/sof.jpg");
+        BackGround bg = new BackGround("./assets/walll.jpg");
         bg.setLayout(new BorderLayout());
         this.setContentPane(bg);
 

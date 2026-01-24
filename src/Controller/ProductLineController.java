@@ -33,7 +33,7 @@ public class ProductLineController {
                                  BaseFrame baseFrame) {
         this.productRepository=productRepository;
         this.baseFrame = baseFrame;
-        view = new ProductLineView(productLineRepository.getList() );
+        view = new ProductLineView(productLineRepository.getList(),getProductsOptions() );
         view.renderProductLines(productLineRepository.getList(),this::onSelect);
         baseFrame.switchContent(view , "Product Lines");
         this.productLineRepository = productLineRepository;

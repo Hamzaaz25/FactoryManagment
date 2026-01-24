@@ -13,12 +13,31 @@ import java.util.function.Consumer;
 public class ProductLineView extends JPanel {
 
     private final JPanel container = new JPanel(new GridLayout(0, 2, 60, 60));
+    private JComboBox<String> filterCombo;
 
-    public ProductLineView(ArrayList<ProductLine> productLines) {
+    public ProductLineView(ArrayList<ProductLine> productLines,String[] filterOptions) {
 
 
         setOpaque(false);
         setLayout(new BorderLayout());
+
+        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 100, 20));
+        topPanel.setOpaque(false);
+
+        filterCombo = new JComboBox<>(filterOptions);
+
+        filterCombo.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        filterCombo.setBackground(new Color(147, 177, 181));
+        filterCombo.setForeground(new Color(11, 46, 51));
+        filterCombo.setPreferredSize(new Dimension(220, 35));
+
+        filterCombo.setBorder(BorderFactory.createLineBorder(new Color(11, 46, 51), 1));
+
+        topPanel.add(filterCombo);
+        add(topPanel, BorderLayout.NORTH);
+
+        container.setOpaque(false);
+        container.setBorder(new EmptyBorder(20, 100, 40, 100));
 
         container.setOpaque(false);
         container.setBorder(new EmptyBorder(20, 100, 40, 100));
