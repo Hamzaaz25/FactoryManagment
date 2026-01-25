@@ -133,4 +133,8 @@ public class LoginView extends JFrame {
     public JTextField getUserField(){
         return user;
     }
+
+    public JButton getLoginbutton() {
+        return loginbutton;
+    }
 }

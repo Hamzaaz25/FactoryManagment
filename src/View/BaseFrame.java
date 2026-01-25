@@ -371,4 +371,8 @@ public JButton getProductsLineButton(){
     public JButton getCloseBtn() {
         return closeBtn;
     }
+
+    public void setSelectedButton() {
+        SelectedButton = productsButton;
+    }
 }

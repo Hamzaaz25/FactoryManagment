@@ -66,6 +66,12 @@ public void onLoginSuccess(User user){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     ProfileView profileView = new ProfileView(user);
+                    profileView.getBackButton().addActionListener(new ActionListener() {
+                        @Override
+                        public void actionPerformed(ActionEvent e) {
+                            new ManagerController(productLineRepository,productLineManager,baseFrame);
+                        }
+                    });
                     baseFrame.switchContent(profileView , "Profile");
                     profileView.getLogoutButton().addActionListener(new ActionListener() {
                         @Override
@@ -132,6 +138,8 @@ public void onLoginSuccess(User user){
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     ProfileView profileView = new ProfileView(user);
+
+                    profileView.getBackButton().setVisible(false);
                     frame.switchContent(profileView , "Profile");
                     profileView.getLogoutButton().addActionListener(new ActionListener() {
                         @Override

@@ -44,5 +44,7 @@ public LoginController() {
 public void reset(){
     view.getPassword().setText("");
     view.getUserField().setText("");
+    view.getRootPane().setDefaultButton(view.getLoginbutton());
+
 }
 }

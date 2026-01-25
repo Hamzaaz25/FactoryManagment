@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 public class ProfileView extends JPanel {
     private final JButton logoutButton;
+    JButton backButton;
     public ProfileView(User user) {
 
         setLayout(new BorderLayout());
@@ -33,6 +34,19 @@ public class ProfileView extends JPanel {
 
         infoPanel.add(Box.createVerticalStrut(200));
 
+        backButton=new JButton("Back");
+        backButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
+        backButton.setBackground(new Color(40, 50, 65));
+        backButton.setFocusPainted(false);
+        backButton.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
+        backButton.setAlignmentX(Component.LEFT_ALIGNMENT);
+        ImageIcon backIcon = resizeIcon(new ImageIcon("./assets/return.png"), 20, 20);
+        backButton.setIcon(backIcon);
+        backButton.setHorizontalTextPosition(SwingConstants.LEFT);
+        backButton.setIconTextGap(10);
+
+
+
         logoutButton = new JButton("Log Out");
         logoutButton.setFont(new Font("Segoe UI", Font.BOLD, 16));
         logoutButton.setForeground(new Color(255, 102, 102));
@@ -48,6 +62,7 @@ public class ProfileView extends JPanel {
 
 
         infoPanel.add(logoutButton);
+        infoPanel.add(backButton);
 
         JPanel imagePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         imagePanel.setOpaque(false);
@@ -90,5 +105,9 @@ public class ProfileView extends JPanel {
 
     public JButton getLogoutButton() {
         return logoutButton;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
     }
 }
