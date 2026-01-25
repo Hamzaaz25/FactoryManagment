@@ -10,9 +10,7 @@ public class AddTask extends JPanel {
     private final JTextField quantityField;
     private final JButton saveButton;
 
-    /**
-     * @param products array of product names for the combo box
-     */
+
     public AddTask(String[] products) {
         setBackground(new Color(38, 55, 85));
         setLayout(new GridBagLayout()); // center everything
@@ -22,26 +20,25 @@ public class AddTask extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.anchor = GridBagConstraints.CENTER;
 
-        // ===== HEADER =====
+
         JLabel headerLabel = new JLabel("Add Task Info");
         headerLabel.setForeground(Color.WHITE);
         headerLabel.setFont(new Font("Arial", Font.BOLD, 24));
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2; // span both columns
+        gbc.gridwidth = 2;
         gbc.anchor = GridBagConstraints.CENTER;
         add(headerLabel, gbc);
 
-        gbc.gridwidth = 1; // reset for fields
+        gbc.gridwidth = 1;
 
-        // Copy dimensions from AddItem
         int fieldW = 260;
         int fieldH = 40;
 
-        // ===== CLIENT FIELD =====
+
         JLabel clientLabel = createLabel("Client");
         gbc.gridx = 0;
-        gbc.gridy = 1; // row 1 because header is row 0
+        gbc.gridy = 1;
         add(clientLabel, gbc);
 
         clientField = createField(fieldW, fieldH);
@@ -49,7 +46,7 @@ public class AddTask extends JPanel {
         gbc.gridy = 1;
         add(clientField, gbc);
 
-        // ===== PRODUCT COMBO BOX =====
+
         JLabel productLabel = createLabel("Product");
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -65,7 +62,7 @@ public class AddTask extends JPanel {
         gbc.gridy = 2;
         add(productBox, gbc);
 
-        // ===== QUANTITY FIELD =====
+
         JLabel quantityLabel = createLabel("Quantity");
         gbc.gridx = 0;
         gbc.gridy = 3;
@@ -76,7 +73,6 @@ public class AddTask extends JPanel {
         gbc.gridy = 3;
         add(quantityField, gbc);
 
-        // ===== SAVE BUTTON =====
         saveButton = new JButton("SAVE");
         saveButton.setFocusPainted(false);
         saveButton.putClientProperty(
@@ -91,19 +87,16 @@ public class AddTask extends JPanel {
         add(saveButton, gbc);
     }
 
-
-    // ===== Label styling =====
     private JLabel createLabel(String text) {
         JLabel lbl = new JLabel(text);
         lbl.setForeground(Color.WHITE);
-        lbl.setFont(new Font("Arial", Font.BOLD, 18)); // same as AddItem labels
+        lbl.setFont(new Font("Arial", Font.BOLD, 18));
         return lbl;
     }
 
-    // ===== Text field styling =====
     private JTextField createField(int width, int height) {
         JTextField field = new JTextField();
-        field.setFont(new Font("Arial", Font.PLAIN, 16)); // same as AddItem
+        field.setFont(new Font("Arial", Font.PLAIN, 16));
         field.setBackground(new Color(20, 33, 61));
         field.setForeground(Color.WHITE);
         field.setCaretColor(Color.WHITE);
@@ -112,7 +105,7 @@ public class AddTask extends JPanel {
         return field;
     }
 
-    /* ===== GETTERS ===== */
+
     public JTextField getClientField() {
         return clientField;
     }

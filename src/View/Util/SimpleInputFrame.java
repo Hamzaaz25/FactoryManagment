@@ -10,14 +10,14 @@ public class SimpleInputFrame extends JFrame {
 
     public SimpleInputFrame() {
         setTitle("ADD PRODUCT LINE");
-        setSize(450, 280);               // same size as StatusChooserFrame
-        setResizable(false);             // not resizable
+        setSize(450, 280);
+        setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLayout(new BorderLayout());
-        getContentPane().setBackground(new Color(38, 55, 85)); // same blue
+        getContentPane().setBackground(new Color(38, 55, 85));
 
-        // ===== TEXT FIELD =====
+
         textField = new JTextField();
         textField.setFont(textField.getFont().deriveFont(Font.PLAIN, 20f));
         textField.setBackground(new Color(20, 33, 61));
@@ -27,7 +27,7 @@ public class SimpleInputFrame extends JFrame {
 
         add(textField, BorderLayout.CENTER);
 
-        // ===== ADD BUTTON =====
+
         addButton = new JButton("Add");
         addButton.setFont(addButton.getFont().deriveFont(Font.BOLD, 18f));
         addButton.setBackground(new Color(20, 33, 61));
@@ -43,7 +43,6 @@ public class SimpleInputFrame extends JFrame {
         setVisible(false);
     }
 
-    // ===== GETTERS =====
     public JTextField getTextField() {
         return textField;
     }

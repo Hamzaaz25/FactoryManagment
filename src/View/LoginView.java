@@ -23,7 +23,7 @@ public class LoginView extends JFrame {
 
 
         //background image
-       // LogInBackground bg = new LogInBackground("./assets/log in background.jpeg");
+
         LogInBackground bg = new LogInBackground("./assets/walll.jpg");
         bg.setLayout(new GridBagLayout());
         this.setContentPane(bg);
@@ -32,7 +32,7 @@ public class LoginView extends JFrame {
         card = new JPanel(){
             @Override
             protected void paintComponent(Graphics g) {
-              //  Image img = new ImageIcon("./assets/login card.jpeg").getImage();
+
                 Image img = new ImageIcon("./assets/cardd.png").getImage();
                 g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
             }
@@ -95,7 +95,7 @@ public class LoginView extends JFrame {
 
 
     public void showError(String message) {
-        // Create a custom panel for the popup
+
         JPanel panel = new JPanel();
         panel.setBackground(UIManager.getColor("OptionPane.background"));
         panel.setLayout(new BorderLayout(10, 10));
@@ -106,7 +106,7 @@ public class LoginView extends JFrame {
 
         panel.add(msgLabel, BorderLayout.CENTER);
 
-        // Show the popup
+
         JOptionPane.showMessageDialog(
                 this,
                 panel,
@@ -114,7 +114,7 @@ public class LoginView extends JFrame {
                 JOptionPane.ERROR_MESSAGE
         );
 
-        // Reset GUI
+
         user.setText("");
         password.setText("");
         user.requestFocusInWindow();

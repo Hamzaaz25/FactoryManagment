@@ -30,7 +30,6 @@ public class ManagerController {
 
         SimpleInputFrame addFrame = new SimpleInputFrame();
 
-        // ✅ REGISTER ONCE
         addFrame.getAddButton().addActionListener(e -> {
             String name = addFrame.getTextField().getText().trim();
 
@@ -46,7 +45,7 @@ public class ManagerController {
             addFrame.getTextField().setText("");
         });
 
-        // ✅ OPEN FRAME ONLY
+
         view.getAdd().addActionListener(e -> {
             addFrame.setLocationRelativeTo(baseFrame);
             addFrame.setVisible(true);
@@ -54,7 +53,7 @@ public class ManagerController {
     }
 
 
-    // Called from the View to add a new product line
+
     public void addProductLine(String name) {
         productLineManager.addProductLine(name);
     }

@@ -16,17 +16,12 @@ import java.util.List;
 import Model.Task;
 
 public class TaskView extends JPanel {
-    // ==============================
-    // MODEL
-    // ==============================
+
     private DefaultTableModel model;
     private TableRowSorter<DefaultTableModel> sorter;
     private  List<Task> tasks = new ArrayList<>();
     private final String[] COLUMNS = { "Task number ","Product Line #", "Product", "Status", "Progress" };
 
-    // ==============================
-    // VIEW COMPONENTS
-    // ==============================
     private JPanel jPanel1;
     private JScrollPane scroll;
     private JTable table;
@@ -41,9 +36,7 @@ public class TaskView extends JPanel {
         startProgressUpdater(); // dynamic progress
     }
 
-    // ------------------------------
-    // 1️⃣ Initialize table
-    // ------------------------------
+
     private void initTable() {
         model = new DefaultTableModel(COLUMNS, 0) {
             boolean[] canEdit = { false, false, false, false, false };
@@ -59,9 +52,7 @@ public class TaskView extends JPanel {
         table.getColumnModel().getColumn(4).setCellRenderer(new ProgressBarRenderer()); // progress bar
     }
 
-    // ------------------------------
-    // 2️⃣ Load sample tasks
-    // ------------------------------
+
     private void loadTasks( ) {
 
 
@@ -81,15 +72,13 @@ public class TaskView extends JPanel {
         }
     }
 
-    // ------------------------------
-    // 3️⃣ Sorter / Filter
-    // ------------------------------
+
     private void initSorter() {
         sorter = new TableRowSorter<>(model);
         table.setRowSorter(sorter);
     }
 
-    // Filter panel creation
+
     public JPanel createFilterPanel() {
         JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 20, 16));
         panel.putClientProperty(
@@ -149,9 +138,6 @@ public class TaskView extends JPanel {
         sorter.setRowFilter(filters.isEmpty() ? null : RowFilter.andFilter(filters));
     }
 
-    // ------------------------------
-    // 4️⃣ Components / Layout
-    // ------------------------------
     private void initComponents() {
         jPanel1 = new JPanel();
         scroll = new JScrollPane();
@@ -169,7 +155,7 @@ public class TaskView extends JPanel {
 
     }
 
-    // FlatLaf styling
+
     private void styleComponents() {
         jPanel1.putClientProperty(FlatClientProperties.STYLE,
                 "border:1,1,1,1,$TableHeader.bottomSeparatorColor,,10");
@@ -181,9 +167,7 @@ public class TaskView extends JPanel {
                 "hoverTrackColor:null");
     }
 
-    // ------------------------------
-    // 5️⃣ DYNAMIC PROGRESS UPDATER
-    // ------------------------------
+
     private void startProgressUpdater() {
         Timer timer = new Timer(1000, e -> {
             int rows = Math.min(tasks.size(), model.getRowCount());
@@ -191,11 +175,11 @@ public class TaskView extends JPanel {
                 Task t = this.tasks.get(i);
                 if(t.getProgressPercentage() >=100 ) {
                     t.setProgressPercentage(100);
-                    model.setValueAt(t.getProgressPercentage(), i, 4); // update table
+                    model.setValueAt(t.getProgressPercentage(), i, 4);
                     model.setValueAt(t.getStatus().toString() ,i, 3 );
                 }
                 if ( t.getStatus() == TaskStatus.InProgress && t.getProgressPercentage() < 100) {
-                    model.setValueAt(t.getProgressPercentage(), i, 4); // update table
+                    model.setValueAt(t.getProgressPercentage(), i, 4);
                 }
             }
         });
@@ -205,7 +189,7 @@ public class TaskView extends JPanel {
     }
 
     private JPanel createSidebar() {
-        ImageSideBar sidebar = new ImageSideBar(); // ✅ USE IT
+        ImageSideBar sidebar = new ImageSideBar();
         sidebar.setPreferredSize(new Dimension(460, 0));
 
         sidebar.putClientProperty(

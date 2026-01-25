@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class DateRangePopup extends JFrame {
 
-    private static Color POPUP_COLOR = new Color(200, 230, 255); // Change background color here
+    private static Color POPUP_COLOR = new Color(200, 230, 255);
 
     private  JSpinner startDateSpinner;
     private JSpinner endDateSpinner;
@@ -22,7 +22,7 @@ public class DateRangePopup extends JFrame {
         setResizable(false);
 
 
-        // --- Main panel ---
+
         JPanel panel = new JPanel();
         panel.setBackground(POPUP_COLOR);
         panel.setLayout(new GridBagLayout());
@@ -30,7 +30,7 @@ public class DateRangePopup extends JFrame {
         gbc.insets = new Insets(5, 10, 5, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // --- Start date spinner ---
+
         startDateSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor startEditor = new JSpinner.DateEditor(startDateSpinner, "yyyy-MM-dd");
         startDateSpinner.setEditor(startEditor);
@@ -41,7 +41,6 @@ public class DateRangePopup extends JFrame {
         gbc.gridx = 1;
         panel.add(startDateSpinner, gbc);
 
-        // --- End date spinner ---
         endDateSpinner = new JSpinner(new SpinnerDateModel());
         JSpinner.DateEditor endEditor = new JSpinner.DateEditor(endDateSpinner, "yyyy-MM-dd");
         endDateSpinner.setEditor(endEditor);
@@ -52,7 +51,7 @@ public class DateRangePopup extends JFrame {
         gbc.gridx = 1;
         panel.add(endDateSpinner, gbc);
 
-        // --- Submit button ---
+
         submitButton = new JButton("Submit");
         gbc.gridx = 0;
         gbc.gridy = 2;
@@ -61,21 +60,10 @@ public class DateRangePopup extends JFrame {
 
         add(panel);
 
-        // --- Validation ---
-//        submitButton.addActionListener(e -> {
-//            if (getEndDate().isBefore(getStartDate())) {
-//                JOptionPane.showMessageDialog(this, "End date cannot be before start date!", "Error", JOptionPane.ERROR_MESSAGE);
-//                return;
-//            }
-//
-//            JOptionPane.showMessageDialog(this, "Date range selected:\n" + getStartDate() + " → " + getEndDate());
-//            dispose(); // Close the popup
-//        });
 
-//        setVisible(true);
     }
 
-    // --- Getters returning LocalDate ---
+
     public LocalDate getStartDate() {
         Date date = (Date) startDateSpinner.getValue();
         return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();

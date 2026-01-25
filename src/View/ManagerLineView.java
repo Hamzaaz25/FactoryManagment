@@ -45,13 +45,13 @@ public class ManagerLineView extends JPanel {
         add(scroll, BorderLayout.CENTER);
     }
 
-    /* ===== PUBLIC UPDATE ===== */
+
     public void updateAllCards(ArrayList<ProductLine> productLines,
                                Consumer<ProductLine> onEdit) {
         rebuild(productLines, onEdit);
     }
 
-    /* ===== INTERNAL REBUILD ===== */
+
     private void rebuild(ArrayList<ProductLine> productLines,
                          Consumer<ProductLine> onEdit) {
 
@@ -70,7 +70,7 @@ public class ManagerLineView extends JPanel {
         list.repaint();
     }
 
-    /* ===== ADD BUTTON ===== */
+
     private JButton createAddButton() {
         JButton btn = new JButton("＋ Add Product Line");
         btn.setFont(btn.getFont().deriveFont(Font.BOLD, 22f));
@@ -98,8 +98,7 @@ public class ManagerLineView extends JPanel {
         return addButton;
     }
 
-    /* ===== CARD ===== */
-     // ===== REUSABLE CARD (VIEW ONLY) =====
+
     private static class ProductLineCard extends JPanel {
 
         public ProductLineCard(ProductLine productLine, Consumer<ProductLine> onEdit) {
@@ -112,7 +111,7 @@ public class ManagerLineView extends JPanel {
             c.insets = new Insets(8, 10, 8, 10);
             c.fill = GridBagConstraints.HORIZONTAL;
 
-            // ===== STATUS LABEL (TOP LEFT) =====
+
             JLabel statusLabel = new JLabel(productLine.getStatus().name());
             statusLabel.setOpaque(true);
             statusLabel.setBackground(getStatusColor(productLine.getStatus()));
@@ -128,7 +127,7 @@ public class ManagerLineView extends JPanel {
             c.anchor = GridBagConstraints.FIRST_LINE_START;
             add(statusLabel, c);
 
-            // ===== ICON (LEFT) =====
+
             JButton iconBtn = new JButton();
             iconBtn.setPreferredSize(new Dimension(140, 140));
 
@@ -142,7 +141,7 @@ public class ManagerLineView extends JPanel {
             c.anchor = GridBagConstraints.NORTH;
             add(iconBtn, c);
 
-            // ===== NAME =====
+
             JLabel nameLabel = new JLabel(productLine.getName());
             nameLabel.setForeground(Color.WHITE);
             nameLabel.setFont(nameLabel.getFont().deriveFont(Font.BOLD, 20f));
@@ -154,7 +153,7 @@ public class ManagerLineView extends JPanel {
             c.weightx = 1;
             add(nameLabel, c);
 
-            // ===== EDIT BUTTON (RIGHT) =====
+
             JButton editBtn = new JButton("Edit");
             editBtn.setBackground(CARD);
             editBtn.setForeground(ACCENT);
@@ -169,7 +168,7 @@ public class ManagerLineView extends JPanel {
             c.anchor = GridBagConstraints.LINE_END;
             add(editBtn, c);
 
-            // ===== NOTES =====
+
             JLabel notesLabel = new JLabel("Notes");
             notesLabel.setForeground(Color.WHITE);
             notesLabel.setFont(notesLabel.getFont().deriveFont(Font.BOLD, 15f));
@@ -213,7 +212,6 @@ public class ManagerLineView extends JPanel {
             c.weightx = 1;
             add(notesField, c);
 
-            // ===== PROGRESS BAR (SMALL) =====
             JProgressBar bar = new JProgressBar();
             bar.setValue(productLine.getProgress());
             bar.setForeground(ACCENT);
@@ -228,8 +226,8 @@ public class ManagerLineView extends JPanel {
             c.weightx = 1;
             add(bar, c);
 
-            // ===== TIMER FOR REAL-TIME PROGRESS =====
-            Timer timer = new Timer(2000, e -> { // update every 0.5 sec
+
+            Timer timer = new Timer(2000, e -> {
                 int progress = productLine.getProgress();
                 if (progress >= 100) {
                     bar.setValue(100);
@@ -241,7 +239,7 @@ public class ManagerLineView extends JPanel {
             timer.start();
         }
 
-        // ===== STATUS COLOR =====
+
         private static Color getStatusColor(Status status) {
             return switch (status) {
                 case Active -> new Color(0, 200, 0);

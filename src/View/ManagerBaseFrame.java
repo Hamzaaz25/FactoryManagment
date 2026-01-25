@@ -279,7 +279,7 @@ public class ManagerBaseFrame extends JFrame {
 
 
     public void showError(String message) {
-        // Create a custom panel for the popup
+
         JPanel panel = new JPanel();
         panel.setBackground(UIManager.getColor("OptionPane.background"));
         panel.setLayout(new BorderLayout(10, 10));
@@ -290,7 +290,7 @@ public class ManagerBaseFrame extends JFrame {
 
         panel.add(msgLabel, BorderLayout.CENTER);
 
-        // Show the popup
+
         JOptionPane.showMessageDialog(
                 this,
                 panel,

@@ -23,7 +23,7 @@ public class ProductsView extends JPanel{
         this.setOpaque(false);
         this.setLayout(new BorderLayout());
 
-        // --- Combo boxes ---
+
         productLines = new JComboBox<>(options);
         JPanel plPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
         plPanel.setOpaque(false);
@@ -34,7 +34,7 @@ public class ProductsView extends JPanel{
         availablePanel.setOpaque(false);
         availablePanel.add(filters);
 
-        // --- Search setup ---
+
         searchText.setPreferredSize(new Dimension(250, 35));
         searchText.setForeground(Color.GRAY);
         searchText.setFont(new Font("Segoe UI", Font.ITALIC, 13));
@@ -63,7 +63,7 @@ public class ProductsView extends JPanel{
         searchBar.add(searchText);
         searchBar.add(searchButton);
 
-        // --- Top bar with combo boxes and search bar ---
+
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setOpaque(false);
         topBar.add(plPanel, BorderLayout.WEST);
@@ -122,11 +122,6 @@ public class ProductsView extends JPanel{
             getNoResults().setVisible(false);
             addCard.setVisible(true);
             container.add(addCard);}
-
-
-
-
-
         container.revalidate();
         container.repaint();
 

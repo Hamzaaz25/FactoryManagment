@@ -18,11 +18,6 @@ public class AddBtn extends JButton {
         JLabel Textlbl = new JLabel("Add New ", SwingConstants.CENTER);
         add(Textlbl, BorderLayout.SOUTH);
 
-//        addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mousePressed(MouseEvent e) {
-//                onAddAction.run();
-//            }
-//        });
+
     }
 }

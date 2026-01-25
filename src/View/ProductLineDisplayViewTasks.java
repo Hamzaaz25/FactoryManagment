@@ -32,7 +32,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
         setBackground(BG);
         setOpaque(true);
 
-        // ---- Add Task Button ----
+
         addTaskButton = new JButton("ADD TASK");
         addTaskButton.setFocusPainted(false);
         addTaskButton.putClientProperty(
@@ -46,7 +46,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
         add(topBar, BorderLayout.NORTH);
 
-        // ---- Tasks container ----
+
         tasksContainer = new JPanel();
         tasksContainer.setLayout(new BoxLayout(tasksContainer, BoxLayout.Y_AXIS));
         tasksContainer.setBackground(BG);
@@ -65,7 +65,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
     }
 
-    /* ===== Controller updates tasks ===== */
+
     public void setTasks(List<Task> tasks) {
         this.tasks.clear();
         this.tasks.addAll(tasks);
@@ -87,12 +87,12 @@ public class ProductLineDisplayViewTasks extends JPanel {
     }
 
 
-    /* ===== Getter for Add Task button ===== */
+
     public JButton getAddTaskButton() {
         return addTaskButton;
     }
 
-    /* ===== Single task card ===== */
+
     private JPanel createTaskView(Task task) {
 
         JPanel taskPanel = new JPanel(new BorderLayout());
@@ -103,7 +103,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
         ));
         taskPanel.setOpaque(true);
 
-        // ---- TOP: title + cancel
+
         JPanel top = new JPanel(new BorderLayout());
         top.setOpaque(false);
         top.setBorder(BorderFactory.createEmptyBorder(15, 20, 5, 20));
@@ -144,7 +144,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
         taskPanel.add(top, BorderLayout.NORTH);
 
-        // ---- CENTER: progress
+
         JProgressBar progressBar = new JProgressBar(0, 100);
         progressBar.setValue(task.getProgressPercentage());
         progressBar.setStringPainted(true);
@@ -228,14 +228,6 @@ public class ProductLineDisplayViewTasks extends JPanel {
                     anyRunning = true;
                 }
            }
-//                if (task.getProgressPercentage() >= 100) {
-//                    task.setProgressPercentage(100);
-//                    bar.setValue(100);
-//                }
-//                else if (task.getStatus() == TaskStatus.InProgress) {
-//                    bar.setValue(task.getProgressPercentage());
-//                    anyRunning = true;
-//                }
 
 
 

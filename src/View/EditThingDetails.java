@@ -122,7 +122,7 @@ public class EditThingDetails extends JPanel {
 
         panel.add(msgLabel, BorderLayout.CENTER);
 
-        // Show the popup
+
         JOptionPane.showMessageDialog(
                 this,
                 panel,
