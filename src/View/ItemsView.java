@@ -36,7 +36,7 @@ public class ItemsView extends JPanel {
        topBar.setOpaque(false);
 
 
-       category = new JComboBox<>(new String[]{"All", MaterialType.Wood.toString(), MaterialType.Fabric.toString(), MaterialType.Metal.toString()});
+       category = new JComboBox<>(new String[]{"All", MaterialType.Wood.toString(), MaterialType.Fabric.toString(), MaterialType.Metal.toString() , MaterialType.Stone.toString()});
        JPanel categoryPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 20, 10));
        categoryPanel.setOpaque(false);
        categoryPanel.add(category);

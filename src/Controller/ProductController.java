@@ -224,7 +224,7 @@ public class ProductController {
         ThingDetails details = new ThingDetails(
                 product.getName(),
                 String.valueOf(product.getPrice()),
-                "Description...",
+                product.getRecipe().toString(),
                 new ImageIcon(product.getImage()),
                 product.getAmount()
         );

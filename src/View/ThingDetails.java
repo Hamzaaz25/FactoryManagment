@@ -14,7 +14,7 @@ public class ThingDetails extends JPanel {
     JButton btnAction;
 
 
-    public ThingDetails( String name, String price, String description, ImageIcon productIcon, int Amount) {
+    public ThingDetails( String name, String price, String description, ImageIcon productIcon, int Amount ) {
         this.name=name;
         this.price=price;
         this.description=description;

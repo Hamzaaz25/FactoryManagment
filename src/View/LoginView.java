@@ -52,7 +52,7 @@ public class LoginView extends JFrame {
 
         user = new JTextField();
         user.putClientProperty("JComponent.arc", 15);
-        user.putClientProperty("JTextField.placeholderText", "Username");
+        user.putClientProperty("JTextField.placeholderText", "Email");
         user.setAlignmentX(Component.CENTER_ALIGNMENT);
         user.setMaximumSize(fieldSize);
         user.setPreferredSize(fieldSize);

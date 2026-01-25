@@ -6,6 +6,8 @@ import Repository.TaskRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.stream.Collectors;
 
 public class ProductLineManager {
 
@@ -37,13 +39,20 @@ public class ProductLineManager {
 
     }
 
-    public ArrayList<ProductLine> filterByProduct(TaskRepository taskRepository , String product){
-        ArrayList<ProductLine> productLineArrayList = new ArrayList<>();
-        for(Task t  : taskRepository.getListOfTasks() ){
-            if(t.getRequestedProduct().equalsIgnoreCase(product))
-                productLineArrayList.add(productLineRepository.getProductLineByNumber(t.getProductLine()));
+    public ArrayList<ProductLine> filterByProduct(TaskRepository taskRepository, String product) {
+
+        HashSet<ProductLine> setOfProductLines = new HashSet<>();
+
+        for (Task t : taskRepository.getListOfTasks()) {
+            if (t.getRequestedProduct().equalsIgnoreCase(product)) {
+                setOfProductLines.add(
+                        productLineRepository.getProductLineByNumber(t.getProductLine())
+                );
+            }
         }
-        return productLineArrayList;
+
+        return new ArrayList<>(setOfProductLines);
     }
+
 
 }

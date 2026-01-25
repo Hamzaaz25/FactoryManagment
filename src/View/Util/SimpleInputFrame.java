@@ -9,7 +9,7 @@ public class SimpleInputFrame extends JFrame {
     private JButton addButton;
 
     public SimpleInputFrame() {
-        setTitle("Add Item");
+        setTitle("ADD PRODUCT LINE");
         setSize(450, 280);               // same size as StatusChooserFrame
         setResizable(false);             // not resizable
         setLocationRelativeTo(null);

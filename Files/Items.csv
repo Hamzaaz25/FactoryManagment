@@ -1,9 +1,7 @@
 id , name ,material , price , available , minimum , status ,Image
-1 , oak , Wood , 3.5 , 3082,20,Available , ./assets/wood.png
-2 , silk , Fabric , 15.0 , 100,20,Available , ./assets/silk.png
-3 , cotton , Fabric , 6.99 , 0,30,BelowMinimum , ./assets/wool.png
+1 , oak , Wood , 3.5 , 3281,20,Available , ./assets/wood.png
+2 , silk , Fabric , 15.0 , 10,20,BelowMinimum , ./assets/silk.png
+3 , cotton , Fabric , 6.99 , 4720,30,Available , ./assets/wool.png
 4 , zan , Wood , 5.0 , 400,10,Available , ./assets/wood.png
-5 , Hinge , Metal , 10.4 , 71,0,Available , ./assets/hinge.png
-6 , mustafa , Wood , 1000.99 , 909,0,Available , ./assets/photo_2026-01-12_12-05-59.jpg
-7 , mamam , Stone , 0.99 , 896,0,Available , ./assets/photo_2026-01-12_12-05-59.jpg
-8 , amin , Wood , 100000.0 , 60,0,Available , ./assets/Screenshot 2026-01-24 234457.png
+5 , Hinge , Metal , 10.4 , 1,0,Available , ./assets/hinge.png
+6 , mustafa , Wood , 1000.99 , 1000,0,Available , ./assets/photo_2026-01-12_12-05-59.jpg

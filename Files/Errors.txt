@@ -80,3 +80,9 @@ Sorry the task numbered 119 cannot be executed because the items stock is insuff
 Sorry the task numbered 121 cannot be executed because the items stock is insufficient 2026-01-25
 Sorry the task numbered 115 cannot be executed because the items stock is insufficient 2026-01-25
 Sorry the task numbered 115 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 105 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-25

@@ -66,6 +66,7 @@ public class ProductLineController {
                                 Task task = new Task(addTask.getProductBox().trim() ,Integer.parseInt(addTask.getQuantityField().getText().trim()), addTask.getClientField().getText() ,pl.getId() ,TaskStatus.Pending );
                                 TaskValidation validation =productLineManager.getService(pl).addTask(task);
                                 if(validation != TaskValidation.Valid ){
+                                    Task.decrementCount();
                                     baseFrame.showError("Sorry , " + validation);
                                 }
                                 displayViewTasks.setTasks(pl.getTaskLine());

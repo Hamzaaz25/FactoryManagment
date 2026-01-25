@@ -118,6 +118,7 @@ public class ItemController {
         editThingDetails.addActionListener(_ -> {
             if(validateEdit(editThingDetails.getPrice(), editThingDetails.getAmount())){
             inventoryService.editItem(item.getName() , Integer.parseInt(editThingDetails.getAmount().trim()) , Double.parseDouble(editThingDetails.getPrice() .trim()) , 20);
+            view.renderItems(itemRepository.getList() , this::onItemSelect ,this::onItemDelete , this::onItemEdit);
             applyFilters();
             baseFrame.switchContent(view , "Items");}
             else {
@@ -134,7 +135,7 @@ public class ItemController {
         ThingDetails details = new ThingDetails(
                 item.getName(),
                 String.valueOf(item.getPrice()),
-                "Description...",
+                item.getStatus().toString(),
                 new ImageIcon(item.getImage()),
                 item.getAvailableQuantity()
         );
@@ -177,7 +178,8 @@ public class ItemController {
                         if(imagePath[0] != null){
                           if(isPositive(addItemPanel.getPrice() , addItemPanel.getAmount() , addItemPanel.getMinimum()))  {
                           inventoryService.addItem(addItemPanel.getName().trim() , addItemPanel.getCategory() , Integer.parseInt(addItemPanel.getAmount()) , Double.parseDouble(addItemPanel.getPrice()) , imagePath[0]);
-                          applyFilters();
+                              view.renderItems(itemRepository.getList() , this::onItemSelect ,this::onItemDelete , this::onItemEdit);
+                              applyFilters();
                           baseFrame.switchContent(view , "Items");
                           }else{baseFrame.showError("You cannot enter negative values");}
                         }

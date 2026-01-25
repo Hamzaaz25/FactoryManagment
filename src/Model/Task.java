@@ -136,4 +136,8 @@ public class Task {
 
         this.working.set(working);
     }
+
+    public static void decrementCount(){
+        count--;
+    }
 }
