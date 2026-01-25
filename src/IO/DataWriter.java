@@ -55,7 +55,7 @@ public class DataWriter {
     public static void writeUsers(String path,ArrayList<User> list ){
 
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path ))) {
-            bw.write("Model.User , Password , Enums.Role");
+            bw.write("Username , Password , Role");
             bw.newLine();
             for(User b : list){
                 bw.write(b.getUsername() + " , " + b.getPassword() +" , " +b.getRole());
@@ -72,7 +72,7 @@ public class DataWriter {
     public static void writeProductLines(String path,ArrayList<ProductLine> list ){
 
         try(BufferedWriter bw = new BufferedWriter(new FileWriter(path ))) {
-            bw.write("ProductLineNumber , Name ,Enums.Status , Tasks  ");
+            bw.write("ProductLineNumber , Name ,Status ,Notes ,Tasks  ");
             bw.newLine();
             for(ProductLine pl : list){
                 bw.write( pl.getId()+ " , " + pl.getName() +" , " +pl.getStatus()+" , " +pl.getNotes()+", Assigned Tasks : ," );

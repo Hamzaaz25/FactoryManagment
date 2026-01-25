@@ -87,3 +87,4 @@ Sorry the task numbered 104 cannot be executed because the items stock is insuff
 Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-25
 Sorry the task numbered 104 cannot be executed because the items stock is insufficient 2026-01-25
 Exception : Exceptions.WrongPasswordException: WRONG Password in 2026-01-25
+Exception : Exceptions.WrongPasswordException: WRONG Password in 2026-01-25

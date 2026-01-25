@@ -1,4 +1,4 @@
-ProductLineNumber , Name ,Enums.Status , Tasks  
-1 , Sofas , Idle ,                   The Sofas is really nice, Assigned Tasks : ,101,102,103,104,
-2 , Chairs , Active ,                   what a chair, Assigned Tasks : ,
-3 , Beds , Idle , null, Assigned Tasks : ,105,
+ProductLineNumber , Name ,Status ,Notes ,Tasks  
+1 , Sofas , Idle ,                     The Sofas is really nice, Assigned Tasks : ,101,102,103,104,
+2 , Chairs , Idle ,                     what a chair, Assigned Tasks : ,
+3 , Beds , Idle ,  Bed is really comfortable, Assigned Tasks : ,105,
