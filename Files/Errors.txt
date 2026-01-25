@@ -61,3 +61,21 @@ Sorry the task numbered 115 cannot be executed because the items stock is insuff
 java.lang.NumberFormatException: For input string: "Assigned Tasks :"Product Lines
 Sorry the task numbered 106 cannot be executed because the product line 1 is currently on maintenance2026-01-25
 Sorry the task numbered 107 cannot be executed because the product line 1 is currently on maintenance2026-01-25
+Sorry the task numbered 106 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 108 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 110 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 111 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 112 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 114 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 115 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 116 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 111 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 112 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 113 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 114 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 115 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 116 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 117 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 119 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 121 cannot be executed because the items stock is insufficient 2026-01-25
+Sorry the task numbered 115 cannot be executed because the items stock is insufficient 2026-01-25

@@ -1,7 +1,7 @@
 Id ,Name , Amount,Price ,Path, Item , Items Quantity 
-1 , table , 141 , 15.0 , ./assets/dinner.png , oak , 5 , cotton , 10 , 
-2 , carpet , 520 , 34.99 , ./assets/carpet.png , silk , 30 , 
-3 , sofa , 156 , 45.99 , ./assets/hhh.png , oak , 7 , cotton , 20 , 
-4 , chair , 8 , 20.99 , ./assets/MainBack.png , mamam , 8 , mustafa , 7 , 
-5 , weardrop , 19 , 10.99 , ./assets/wardrobee.png , Hinge , 3 , oak , 7 , 
+1 , table , 154 , 15.0 , ./assets/dinner.png , oak , 5 , cotton , 10 , 
+2 , carpet , 525 , 34.99 , ./assets/carpet.png , silk , 30 , 
+3 , sofa , 163 , 45.99 , ./assets/hhh.png , oak , 7 , cotton , 20 , 
+4 , chair , 21 , 20.99 , ./assets/MainBack.png , mamam , 8 , mustafa , 7 , 
+5 , weardrop , 39 , 10.99 , ./assets/wardrobee.png , Hinge , 3 , oak , 7 , 
 6 , Mattress , 0 , 20.01 , ./assets/apple.jpg , silk , 10 , cotton , 5 , mustafa , 2 , 

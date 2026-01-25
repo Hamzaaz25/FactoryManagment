@@ -19,6 +19,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
     private final JButton addTaskButton;
     private final List<Task> tasks = new ArrayList<>();
     private final List<JProgressBar> progressBars = new ArrayList<>();
+    private final List<JLabel> statusLabels = new ArrayList<>();
     private Timer progressTimer;
 
 
@@ -71,6 +72,7 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
         tasksContainer.removeAll();
         progressBars.clear();
+        statusLabels.clear();
 
         for (Task task : tasks) {
             JPanel card = createTaskView(task);
@@ -116,12 +118,10 @@ public class ProductLineDisplayViewTasks extends JPanel {
         lblStatus.setFont(new Font("Segoe UI", Font.BOLD, 14));
         lblStatus.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
 
-        switch (task.getStatus()) {
-            case InProgress -> lblStatus.setForeground(new Color(100, 200, 255));
-            case Completed  -> lblStatus.setForeground(new Color(46, 204, 113));
-            case Pending    -> lblStatus.setForeground(new Color(241, 196, 15));
-            case Cancelled  -> lblStatus.setForeground(new Color(231, 76, 60));
-        }
+        updateStatusLabelStyle(lblStatus, task.getStatus());
+
+        statusLabels.add(lblStatus);
+
 
         JPanel eastActions = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
         eastActions.setOpaque(false);
@@ -210,22 +210,33 @@ public class ProductLineDisplayViewTasks extends JPanel {
 
         progressTimer = new Timer(1000, e -> {
 
-            int count = Math.min(tasks.size(), progressBars.size());
+            int count = Math.min(tasks.size(), Math.min(progressBars.size(), statusLabels.size()));
             boolean anyRunning = false;
 
             for (int i = 0; i < count; i++) {
                 Task task = tasks.get(i);
                 JProgressBar bar = progressBars.get(i);
+                JLabel label = statusLabels.get(i);
 
-                if (task.getProgressPercentage() >= 100) {
-                    task.setProgressPercentage(100);
-                    bar.setValue(100);
+                bar.setValue(task.getProgressPercentage());
+
+                if (!label.getText().equals(task.getStatus().toString())) {
+                    updateStatusLabelStyle(label, task.getStatus());
                 }
-                else if (task.getStatus() == TaskStatus.InProgress) {
-                    bar.setValue(task.getProgressPercentage());
+
+                if (task.getStatus() == TaskStatus.InProgress) {
                     anyRunning = true;
                 }
-            }
+           }
+//                if (task.getProgressPercentage() >= 100) {
+//                    task.setProgressPercentage(100);
+//                    bar.setValue(100);
+//                }
+//                else if (task.getStatus() == TaskStatus.InProgress) {
+//                    bar.setValue(task.getProgressPercentage());
+//                    anyRunning = true;
+//                }
+
 
 
             if (!anyRunning) {
@@ -234,6 +245,15 @@ public class ProductLineDisplayViewTasks extends JPanel {
         });
 
         progressTimer.start();
+    }
+    private void updateStatusLabelStyle(JLabel label, TaskStatus status) {
+        label.setText(status.toString());
+        switch (status) {
+            case InProgress -> label.setForeground(new Color(100, 200, 255));
+            case Completed  -> label.setForeground(new Color(46, 204, 113));
+            case Pending    -> label.setForeground(new Color(241, 196, 15));
+            case Cancelled  -> label.setForeground(new Color(231, 76, 60));
+        }
     }
 
 }
