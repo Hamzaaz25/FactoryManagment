@@ -4,6 +4,10 @@ package Controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import Exceptions.WrongPasswordException;
+import IO.DataReader;
+import IO.DataWriter;
 import View.*;
 import Model.LoginModel;
 
@@ -14,23 +18,28 @@ public class LoginController {
     ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(model != null){
-                Enums.LoginResult p =  model.authenticate(view.getUser(), view.getPass());
-                if (p == Enums.LoginResult.Success){
-                    System.out.println("Success");
-                    view.setVisible(false);
-                    view.dispose();
-                    MainController.getInstance().onLoginSuccess(model.getLoggedUser());
-                }
-                else if (p == Enums.LoginResult.UserNotFound)
-                    view.showError("User not found");
-                else if (p == Enums.LoginResult.IncorrectPassword)
-                    view.showError("Incorrect Password");
-                else if (p == Enums.LoginResult.Empty)
-                    view.showError("Email Or Password cannot be empty");
-                else if(p==Enums.LoginResult.InvalidEmail)
-                    view.showError("Email is Invalid");
+            if(model != null) {
+                try {
+                    Enums.LoginResult p = model.authenticate(view.getUser(), view.getPass());
+                    if (p == Enums.LoginResult.Success) {
+                        System.out.println("Success");
+                        view.setVisible(false);
+                        view.dispose();
+                        MainController.getInstance().onLoginSuccess(model.getLoggedUser());
+                    } else if (p == Enums.LoginResult.UserNotFound)
+                        view.showError("User not found");
+                    else if (p == Enums.LoginResult.IncorrectPassword)
+                        throw new WrongPasswordException("Wrong Password");
 
+                    else if (p == Enums.LoginResult.Empty)
+                        view.showError("Email Or Password cannot be empty");
+                    else if (p == Enums.LoginResult.InvalidEmail)
+                        view.showError("Email is Invalid");
+
+                }catch (WrongPasswordException a){
+                    view.showError("Incorrect Password");
+                    DataWriter.writeErrors(a);
+                }
             }
         }
     };
